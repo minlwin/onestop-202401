@@ -7,3 +7,11 @@
   object-fit: cover;
   object-position: top;
 }
+
+#home-cover {
+  height: 360px;
+  background-image: url('/images/cover.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}

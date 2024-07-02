@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 
 @Component({
   selector: 'app-top-page',
@@ -8,5 +8,14 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class TopPageComponent {
+
+  showCover = input<boolean | undefined>()
+
+  constructor() {
+
+    effect(() => {
+      console.log("Show Cover From Top Page", this.showCover())
+    })
+  }
 
 }

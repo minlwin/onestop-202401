@@ -15,7 +15,12 @@
   </div>
 </nav>
 
+@if (showCover()) {
+  <div id="home-cover">
+  </div>
+}
+
 <!-- Content -->
-<div class="container mt-4">
+<div class="container pt-4">
   <router-outlet></router-outlet>
 </div>

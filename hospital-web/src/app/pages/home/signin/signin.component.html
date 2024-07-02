@@ -1,23 +1,22 @@
-<div class="row">
-  <div class="col-8">
-    <img id="signin-image" src="images/cover1.jpg" alt="Cover">
-  </div>
+<app-sign-view icon="bi-unlock" title="Sign In">
+  <form [formGroup]="form">
 
-  <div class="col">
-    <h4><i class="bi-unlock"></i> Sign In</h4>
-    <p>Welcome to The Hospital.</p>
+    <app-form-group label="Login ID" [valid]="form.get('username')?.valid" [vertical]="true">
+      <input formControlName="username" type="text" class="form-control" placeholder="Enter Login ID">
+    </app-form-group>
 
-    <form [formGroup]="form">
+    <app-form-group label="Password" [valid]="form.get('password')?.valid" [vertical]="true" >
+      <input formControlName="password" type="password" class="form-control" placeholder="Enter Password">
+    </app-form-group>
 
-      <div class="mb-3">
-        <label class="form-label">Login Id</label>
-        <div class="input-group">
-          <input formControlName="username" type="text" class="form-control" placeholder="Enter Login Id">
-          <span class="input-group-text"><i class="bi-x"></i></span>
-        </div>
-      </div>
+    <div>
+      <button type="button" class="btn btn-primary me-2">
+        <i class="bi-unlock"></i> Sign In
+      </button>
 
-    </form>
-    <pre>{{form.value | json}}</pre>
-  </div>
-</div>
+      <a [routerLink]="['/home', 'signup']" class="btn btn-outline-primary">
+        <i class="bi-person-add"></i> Sign Up
+      </a>
+    </div>
+  </form>
+</app-sign-view>
