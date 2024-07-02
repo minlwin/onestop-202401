@@ -2,4 +2,22 @@
   <div class="col-8">
     <img id="signin-image" src="images/cover1.jpg" alt="Cover">
   </div>
+
+  <div class="col">
+    <h4><i class="bi-unlock"></i> Sign In</h4>
+    <p>Welcome to The Hospital.</p>
+
+    <form [formGroup]="form">
+
+      <div class="mb-3">
+        <label class="form-label">Login Id</label>
+        <div class="input-group">
+          <input formControlName="username" type="text" class="form-control" placeholder="Enter Login Id">
+          <span class="input-group-text"><i class="bi-x"></i></span>
+        </div>
+      </div>
+
+    </form>
+    <pre>{{form.value | json}}</pre>
+  </div>
 </div>
