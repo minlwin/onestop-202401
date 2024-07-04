@@ -1,0 +1,13 @@
+<!-- Title -->
+<app-page-title [title]="title()" [icon]="icon()"></app-page-title>
+
+<!-- Search Form -->
+<ng-content select="[search]"></ng-content>
+
+<!-- Table View -->
+<section class="py-3">
+  <ng-content select="[list]"></ng-content>
+</section>
+
+<!-- Pagination -->
+<app-pagination></app-pagination>

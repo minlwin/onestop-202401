@@ -5,6 +5,8 @@ import { SignViewComponent } from './sign-view/sign-view.component';
 import { DoctorGridItemComponent } from './doctor-grid-item/doctor-grid-item.component';
 import { PageTitleComponent } from './page-title/page-title.component';
 import { StarsComponent } from './stars/stars.component';
+import { ListViewComponent } from './list-view/list-view.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 
@@ -14,7 +16,9 @@ import { StarsComponent } from './stars/stars.component';
     SignViewComponent,
     DoctorGridItemComponent,
     PageTitleComponent,
-    StarsComponent
+    StarsComponent,
+    ListViewComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule
@@ -24,7 +28,9 @@ import { StarsComponent } from './stars/stars.component';
     SignViewComponent,
     DoctorGridItemComponent,
     PageTitleComponent,
-    StarsComponent
+    StarsComponent,
+    ListViewComponent,
+    PaginationComponent
   ]
 })
 export class WidgetsModule { }

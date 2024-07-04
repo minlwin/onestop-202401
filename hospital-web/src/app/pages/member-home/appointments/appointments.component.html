@@ -1,0 +1,60 @@
+<app-list-view title="Appointment Management" icon="bi-calendar-check">
+
+  <form [formGroup]="form" class="row" search>
+    <!-- Status -->
+    <div class="col-auto">
+      <app-form-group label="Status">
+        <select formControlName="status" class="form-select">
+          <option value="">All Status</option>
+          @for (item of status(); track $index) {
+            <option [value]="item">{{item}}</option>
+          }
+        </select>
+      </app-form-group>
+    </div>
+
+    <!-- Keyword -->
+    <div class="col-auto">
+      <app-form-group label="Keyword">
+        <input formControlName="keyword" type="text" class="form-control" placeholder="Search Keyword">
+      </app-form-group>
+    </div>
+
+    <!-- Date From -->
+    <div class="col-auto">
+      <app-form-group label="From">
+        <input formControlName="from" type="date" class="form-control" >
+      </app-form-group>
+    </div>
+
+    <!-- Date To -->
+    <div class="col-auto">
+      <app-form-group label="To">
+        <input formControlName="to" type="date" class="form-control" >
+      </app-form-group>
+    </div>
+
+    <!-- Search Button -->
+    <div class="col btn-wrapper">
+      <button type="button" class="btn btn-primary">
+        <i class="bi-search"></i> Search
+      </button>
+    </div>
+  </form>
+
+  <table class="table table-striped table-hover" list>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Doctor</th>
+        <th>Status</th>
+        <th>Patient</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+  </table>
+
+</app-list-view>
+
+

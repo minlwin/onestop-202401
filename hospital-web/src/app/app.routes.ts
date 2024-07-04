@@ -12,6 +12,10 @@ export const routes: Routes = [
     {path: "signup", component: SignupComponent, title: 'Sign Up'},
     {path: "", redirectTo: "/home/top", pathMatch: 'full'}
   ]},
-  {path: "member", component: MemberHomeComponent},
+  {
+    path: "member",
+    component: MemberHomeComponent,
+    loadChildren: () => import('./member.routes').then(m => m.routes)
+  },
   {path: "", redirectTo: "/home", pathMatch: 'full'}
 ];
