@@ -24,3 +24,8 @@ hs_err_pid*
 replay_pid*
 
 .metadata/
+
+**/.classpath
+**/.project
+**/.settings
+**/target
