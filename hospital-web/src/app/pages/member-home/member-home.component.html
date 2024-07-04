@@ -7,32 +7,32 @@
     <ul class="navbar-nav">
 
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a [routerLink]="['/member', 'appointments']" routerLinkActive="active" class="nav-link">
           <i class="bi-calendar-check"></i> Appointments
         </a>
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a [routerLink]="['/member', 'departments']" routerLinkActive="active" class="nav-link">
           <i class="bi-diagram-3"></i> Departments
         </a>
       </li>
 
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
           <i class="bi-people"></i> Members
         </a>
 
         <ul class="dropdown-menu">
           <li>
-            <a href="#" class="dropdown-item">Office Staff</a>
+            <a [routerLink]="['/member', 'members', 'office-staffs']" routerLinkActive="active" class="dropdown-item">Office Staff</a>
           </li>
           <li>
-            <a href="#" class="dropdown-item">Doctors</a>
+            <a [routerLink]="['/member', 'members', 'doctors']" routerLinkActive="active" class="dropdown-item">Doctors</a>
           </li>
           <li class="dropdown-divider"></li>
           <li>
-            <a href="#" class="dropdown-item">Patients</a>
+            <a [routerLink]="['/member', 'members', 'patients']" routerLinkActive="active" class="dropdown-item">Patients</a>
           </li>
         </ul>
       </li>

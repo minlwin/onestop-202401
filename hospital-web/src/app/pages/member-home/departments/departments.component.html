@@ -1,1 +1,40 @@
-<p>departments works!</p>
+<app-list-view title="Department Management" icon="bi-diagram-3">
+
+  <form search class="row">
+
+    <div class="col-auto">
+      <app-form-group label="Code">
+        <input type="text" class="form-control" placeholder="Search Code">
+      </app-form-group>
+    </div>
+
+    <div class="col-auto">
+      <app-form-group label="Name">
+        <input type="text" class="form-control" placeholder="Search Name">
+      </app-form-group>
+    </div>
+
+    <div class="col btn-wrapper">
+      <button type="button" class="btn btn-primary me-2">
+        <i class="bi-search"></i> Search
+      </button>
+
+      <a href="#" class="btn btn-outline-primary">
+        <i class="bi-plus"></i> Add New
+      </a>
+    </div>
+
+  </form>
+
+  <table list class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Head</th>
+        <th>Phone</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+  </table>
+</app-list-view>
