@@ -7,9 +7,9 @@ import { TopPageComponent } from './pages/home/top-page/top-page.component';
 
 export const routes: Routes = [
   {path: "home", component: HomeComponent, children: [
-    {path: "top", component: TopPageComponent, title: 'Hospital | Home', data: {showCover: true}},
-    {path: "signin", component: SigninComponent, title: 'Hospital | Sign In'},
-    {path: "signup", component: SignupComponent, title: 'Hospital | Sign Up'},
+    {path: "top", component: TopPageComponent, data: {showCover: true}},
+    {path: "signin", component: SigninComponent, title: 'Sign In'},
+    {path: "signup", component: SignupComponent, title: 'Sign Up'},
     {path: "", redirectTo: "/home/top", pathMatch: 'full'}
   ]},
   {path: "member", component: MemberHomeComponent},

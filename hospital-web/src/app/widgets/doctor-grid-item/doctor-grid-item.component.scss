@@ -1,0 +1,9 @@
+img {
+  height: 240px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.card:hover {
+  box-shadow: var(--bs-box-shadow) !important;
+}
