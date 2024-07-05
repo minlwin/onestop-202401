@@ -6,6 +6,7 @@ import com.jdc.onestop.hospital.commons.dto.DoctorInfo;
 
 public record DoctorDetails(
 		DoctorInfo doctor,
-		List<DoctorSchedule> schedules) {
+		List<DoctorSchedule> schedules, 
+		List<DoctorReview> reviews) {
 
 }

@@ -13,10 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jdc.onestop.hospital.api.input.DoctorEditForm;
 import com.jdc.onestop.hospital.api.input.DoctorSearch;
-import com.jdc.onestop.hospital.api.input.StatusUpdateForm;
 import com.jdc.onestop.hospital.api.output.DoctorDetails;
 import com.jdc.onestop.hospital.api.output.DoctorListItem;
 import com.jdc.onestop.hospital.commons.dto.DoctorInfo;
+import com.jdc.onestop.hospital.commons.dto.StatusUpdateForm;
 import com.jdc.onestop.hospital.domain.PageInfo;
 
 @RestController

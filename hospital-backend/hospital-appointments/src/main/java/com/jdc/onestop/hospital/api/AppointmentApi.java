@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.onestop.hospital.api.input.AppointmentEditForm;
 import com.jdc.onestop.hospital.api.input.AppointmentSearch;
-import com.jdc.onestop.hospital.api.input.StatusUpdateForm;
 import com.jdc.onestop.hospital.api.output.AppointmentDetails;
 import com.jdc.onestop.hospital.api.output.AppointmentListItem;
+import com.jdc.onestop.hospital.commons.dto.StatusUpdateForm;
 import com.jdc.onestop.hospital.domain.PageInfo;
 
 @RestController

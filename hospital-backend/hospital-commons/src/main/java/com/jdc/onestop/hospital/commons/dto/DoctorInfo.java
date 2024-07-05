@@ -17,6 +17,7 @@ public record DoctorInfo(
 		String statusChangeReason,
 		String phone,
 		String email,
+		int stars,
 		AddressInfo address) {
 
 }

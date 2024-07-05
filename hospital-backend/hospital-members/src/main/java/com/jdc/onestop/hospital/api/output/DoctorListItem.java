@@ -14,7 +14,8 @@ public record DoctorListItem(
 		String departmentName,
 		String degree,
 		String phone,
-		LocalDateTime assignAt
+		LocalDateTime assignAt,
+		int stars
 		) {
 
 }
