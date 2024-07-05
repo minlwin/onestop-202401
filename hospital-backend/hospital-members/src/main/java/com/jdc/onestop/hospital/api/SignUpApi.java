@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jdc.onestop.hospital.api.input.PatientEditForm;
+import com.jdc.onestop.hospital.api.input.SignUpForm;
 import com.jdc.onestop.hospital.api.output.PatientDetails;
 
 @RestController
@@ -16,7 +16,7 @@ public class SignUpApi {
 
 	@PostMapping
 	PatientDetails signUp(
-			@Validated @RequestBody PatientEditForm form, 
+			@Validated @RequestBody SignUpForm form, 
 			BindingResult result) {
 		return null;
 	}
