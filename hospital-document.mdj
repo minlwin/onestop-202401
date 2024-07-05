@@ -9604,7 +9604,7 @@
 											"top": 109,
 											"width": 132.158203125,
 											"height": 13,
-											"text": "«service broker»"
+											"text": "«message broker»"
 										},
 										{
 											"_type": "LabelView",
@@ -11201,7 +11201,7 @@
 						"$ref": "AAAAAAGQfPFMZROFiQI="
 					},
 					"name": "rabbitMQ Broker",
-					"stereotype": "service broker"
+					"stereotype": "message broker"
 				},
 				{
 					"_type": "UMLComponent",

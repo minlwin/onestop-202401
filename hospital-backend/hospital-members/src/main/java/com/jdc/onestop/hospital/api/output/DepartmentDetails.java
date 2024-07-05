@@ -6,7 +6,6 @@ public record DepartmentDetails(
 		String name,
 		DepartmentHead head,
 		String phone,
-		String email,
-		String address) {
+		String email) {
 
 }

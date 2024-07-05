@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = false)
-@Table(name = "OFFICE_STAFF")
+@Table(name = "DOCTOR")
 public class Doctor extends Employee {
 
 	private String profile;
