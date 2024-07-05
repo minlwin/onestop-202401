@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.onestop.hospital.api.input.OfficeStaffEditForm;
 import com.jdc.onestop.hospital.api.input.OfficeStaffSearch;
+import com.jdc.onestop.hospital.api.input.StatusUpdateForm;
 import com.jdc.onestop.hospital.api.output.OfficeStaffDetails;
 import com.jdc.onestop.hospital.api.output.OfficeStaffListItem;
 import com.jdc.onestop.hospital.domain.PageInfo;
 
 @RestController
-@RequestMapping("staff")
+@RequestMapping("staffs")
 public class OfficeStaffApi {
 
 	@GetMapping
@@ -43,4 +44,12 @@ public class OfficeStaffApi {
 			BindingResult result) {
 		return null;
 	}
+	
+	@PutMapping("{id}/status")
+	OfficeStaffDetails updateStatus(@PathVariable int id, 
+			@Validated @RequestBody StatusUpdateForm form, 
+			BindingResult result) {
+		return null;
+	}
+	
 }

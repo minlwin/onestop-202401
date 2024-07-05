@@ -25,6 +25,10 @@
 			<artifactId>hospital-domain</artifactId>
 		</dependency>
 				
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>hospital-commons</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

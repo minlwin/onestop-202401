@@ -10,37 +10,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jdc.onestop.hospital.api.input.DepartmentEditForm;
-import com.jdc.onestop.hospital.api.input.DepartmentSearch;
-import com.jdc.onestop.hospital.api.output.DepartmentDetails;
-import com.jdc.onestop.hospital.commons.dto.DepartmentListItem;
+import com.jdc.onestop.hospital.api.input.AppointmentEditForm;
+import com.jdc.onestop.hospital.api.input.AppointmentSearch;
+import com.jdc.onestop.hospital.api.input.StatusUpdateForm;
+import com.jdc.onestop.hospital.api.output.AppointmentDetails;
+import com.jdc.onestop.hospital.api.output.AppointmentListItem;
 import com.jdc.onestop.hospital.domain.PageInfo;
 
 @RestController
-@RequestMapping("departments")
-public class DepartmentApi {
+@RequestMapping("appointments")
+public class AppointmentApi {
 
 	@GetMapping
-	PageInfo<DepartmentListItem> search(DepartmentSearch form) {
+	PageInfo<AppointmentListItem> search(AppointmentSearch form) {
 		return null;
 	}
 	
 	@GetMapping("{id}")
-	DepartmentDetails findById(@PathVariable int id) {
+	AppointmentDetails findById(@PathVariable String id) {
 		return null;
 	}
 	
 	@PostMapping
-	DepartmentDetails create(
-			@Validated @RequestBody DepartmentEditForm form, 
-			BindingResult result) {
+	AppointmentDetails create(
+			@Validated @RequestBody AppointmentEditForm form, BindingResult result) {
 		return null;
 	}
-
+	
 	@PutMapping("{id}")
-	DepartmentDetails edit(@PathVariable int id, 
-			@Validated @RequestBody DepartmentEditForm form, 
-			BindingResult result) {
+	AppointmentDetails updateStatus(
+			@PathVariable String id,
+			@Validated @RequestBody StatusUpdateForm form, BindingResult result) {
 		return null;
 	}
 }

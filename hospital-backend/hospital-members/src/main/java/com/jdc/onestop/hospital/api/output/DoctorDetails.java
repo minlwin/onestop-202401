@@ -1,5 +1,11 @@
 package com.jdc.onestop.hospital.api.output;
 
-public record DoctorDetails() {
+import java.util.List;
+
+import com.jdc.onestop.hospital.commons.dto.DoctorInfo;
+
+public record DoctorDetails(
+		DoctorInfo doctor,
+		List<DoctorSchedule> schedules) {
 
 }

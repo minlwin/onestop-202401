@@ -7,8 +7,8 @@
 		<artifactId>hospital-backend</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	<artifactId>hospital-members</artifactId>
-
+	<artifactId>hospital-review</artifactId>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -53,5 +53,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+		
 </project>

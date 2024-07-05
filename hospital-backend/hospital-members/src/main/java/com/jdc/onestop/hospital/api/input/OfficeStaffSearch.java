@@ -1,5 +1,9 @@
 package com.jdc.onestop.hospital.api.input;
 
-public record OfficeStaffSearch() {
+import com.jdc.onestop.hospital.domain.utils.consts.OfficeStaffStatus;
+
+public record OfficeStaffSearch(
+		OfficeStaffStatus status,
+		String keyword) {
 
 }

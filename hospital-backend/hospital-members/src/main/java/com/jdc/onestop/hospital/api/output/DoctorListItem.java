@@ -8,6 +8,7 @@ public record DoctorListItem(
 		int id,
 		String code,
 		String name,
+		String profile,
 		EmployeeStatus status,
 		int departmentId,
 		String departmentName,

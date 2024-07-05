@@ -1,4 +1,4 @@
-package com.jdc.onestop.hospital.api.output;
+package com.jdc.onestop.hospital.commons.dto;
 
 public record DepartmentListItem(
 		int id,
