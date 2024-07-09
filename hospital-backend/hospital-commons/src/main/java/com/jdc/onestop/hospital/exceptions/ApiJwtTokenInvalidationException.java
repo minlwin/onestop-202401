@@ -10,4 +10,8 @@ public class ApiJwtTokenInvalidationException extends AuthenticationException {
 		super(msg);
 	}
 
+	public ApiJwtTokenInvalidationException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
+
 }
