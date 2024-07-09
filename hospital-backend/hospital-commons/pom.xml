@@ -12,15 +12,51 @@
 	<dependencies>
 	
 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>hospital-domain</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.12.5</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
