@@ -11,10 +11,10 @@ import lombok.Data;
 
 @Data
 @Embeddable
-public class AppointmentPk implements Serializable{
+public class DoctorSchedulePk implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Column(name = "doctor_id")
 	private int doctorId;
 
@@ -22,7 +22,4 @@ public class AppointmentPk implements Serializable{
 	private LocalDate issueDate;
 	
 	private Section section;
-	
-	@Column(name = "patient_id")
-	private int patientId;
 }

@@ -25,7 +25,7 @@ public class DoctorSection {
 	@ManyToOne(optional = false)
 	private Doctor doctor;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, name = "day_of_week")
 	private DayOfWeek day;
 	
 	@Column(nullable = false)
