@@ -18,6 +18,6 @@ public class District {
 	@Column(nullable = false)
 	private String name;
 	
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = false)
 	private Division division;
 }

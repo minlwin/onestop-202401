@@ -19,5 +19,5 @@ public class Township {
 	private String name;
 	
 	@ManyToOne(optional = false)
-	private District tiDistrict;
+	private District district;
 }

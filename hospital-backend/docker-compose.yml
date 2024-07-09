@@ -1,0 +1,22 @@
+version: '3.8'
+
+networks:
+  hospital:
+volumes:
+  hospital-db:
+
+services:
+  db:
+    image: postgres:alpine
+    container_name: hospital-db
+    networks:
+      - hospital
+    ports:
+      - 5432:5432
+    environment:
+      - TZ="Asia/Yangon"
+      - POSTGRES_DB=hospital_db
+      - POSTGRES_USER=hospitalusr
+      - POSTGRES_PASSWORD=hospitalpwd
+    volumes:
+      - hospital-db:/var/lib/postgresql/data

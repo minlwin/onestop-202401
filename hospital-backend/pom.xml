@@ -41,5 +41,6 @@
 		<module>hospital-members</module>
 		<module>hospital-appointments</module>
 		<module>hospital-review</module>
+		<module>hospital-locations</module>
 	</modules>
 </project>
