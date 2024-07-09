@@ -51,5 +51,7 @@ public abstract class Employee extends AuditableEntity {
 	@Column(name = "change_reason")
 	private String changeReason;
 	
+	private boolean activated;
+	private LocalDateTime activatedAt;
 
 }

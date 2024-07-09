@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.jdc.onestop.hospital.security.JwtTokenFilter;
 import com.jdc.onestop.hospital.security.JwtTokenGenerator;
@@ -11,7 +13,7 @@ import com.jdc.onestop.hospital.security.JwtTokenParser;
 
 @Configuration
 @PropertySource(value = "classpath:/jwt-token.properties")
-public class JwtTokenConfig {
+public class CommonsConfig {
 
 	@Bean(initMethod = "initBean")
 	JwtTokenParser jwtTokenParser() {
@@ -36,6 +38,16 @@ public class JwtTokenConfig {
 		@Bean
 		JwtTokenGenerator jwtTokenGenerator() {
 			return new JwtTokenGenerator();
+		}
+	}
+	
+	@Configuration
+	@Profile("password-encoding")
+	static class PasswordEncodingConfig {
+		
+		@Bean
+		PasswordEncoder passwordEncoder() {
+			return new BCryptPasswordEncoder();
 		}
 	}
 }
