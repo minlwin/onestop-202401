@@ -35,7 +35,7 @@ public class CommonsConfig {
 	@Profile("auth-server")
 	static class AuthServerConfig {
 		
-		@Bean
+		@Bean(initMethod = "initBean")
 		JwtTokenGenerator jwtTokenGenerator() {
 			return new JwtTokenGenerator();
 		}

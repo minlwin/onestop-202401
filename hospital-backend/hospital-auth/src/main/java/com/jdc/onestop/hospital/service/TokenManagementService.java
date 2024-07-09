@@ -55,9 +55,10 @@ public class TokenManagementService {
 		var account = accountRepo.findOneByUsername(authentication.getName())
 				.orElseThrow(() -> new UsernameNotFoundException("Invalid login id."));
 		
+		var roles = authentication.getAuthorities().stream().map(a -> a.getAuthority()).toList();
 		var accesToken = jwtTokenGenerator.generate(TokenType.Access, authentication);
 		var refreshToken = jwtTokenGenerator.generate(TokenType.Refresh, authentication);
 		
-		return TokenResponse.from(account, accesToken, refreshToken);
+		return TokenResponse.from(account, roles, accesToken, refreshToken);
 	}
 }
