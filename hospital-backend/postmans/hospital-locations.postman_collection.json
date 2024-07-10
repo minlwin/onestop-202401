@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "695d79d9-d0c0-4749-b5a4-d195129b0a49",
+		"name": "hospital-locations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2989298",
+		"_collection_link": "https://lively-satellite-430517.postman.co/workspace/hospital-apis~f5def36c-8c1f-4a63-a9a2-afcfb6f9f8b5/collection/2989298-695d79d9-d0c0-4749-b5a4-d195129b0a49?action=share&source=collection_link&creator=2989298"
+	},
+	"item": [
+		{
+			"name": "search-division",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adminAccessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{location-url}}/division",
+					"host": [
+						"{{location-url}}"
+					],
+					"path": [
+						"division"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.request.headers.add({",
+					"    key: \"Authorization\",",
+					"    value: \"{{adminAccessToken}}\"",
+					"})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

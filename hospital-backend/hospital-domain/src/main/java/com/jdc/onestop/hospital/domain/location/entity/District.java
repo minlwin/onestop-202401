@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 @Table(name = "DISTRICT")
 public class District {
-
+	
 	@Id
 	private int id;
 

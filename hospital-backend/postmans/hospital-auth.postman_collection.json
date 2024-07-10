@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "7b731452-e045-44b6-9f3c-6b80de36627e",
+		"name": "hospital-auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2989298",
+		"_collection_link": "https://lively-satellite-430517.postman.co/workspace/hospital-apis~f5def36c-8c1f-4a63-a9a2-afcfb6f9f8b5/collection/2989298-7b731452-e045-44b6-9f3c-6b80de36627e?action=share&source=collection_link&creator=2989298"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "generate-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"pm.globals.set('adminAccessToken', resp.accessToken)",
+									"pm.globals.set('adminRefreshToken', resp.refreshToken)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{adminUsername}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{adminPass}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{auth-url}}/token/generate",
+							"host": [
+								"{{auth-url}}"
+							],
+							"path": [
+								"token",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"pm.globals.set('adminAccessToken', resp.accessToken)",
+									"pm.globals.set('adminRefreshToken', resp.refreshToken)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{adminUsername}}",
+									"type": "text"
+								},
+								{
+									"key": "refreshToken",
+									"value": "{{adminRefreshToken}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{auth-url}}/token/refresh",
+							"host": [
+								"{{auth-url}}"
+							],
+							"path": [
+								"token",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.request.addHeader({key: 'Content-Type', value: 'application/json'})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
