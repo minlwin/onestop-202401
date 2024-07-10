@@ -20,7 +20,7 @@ public class TokenManagementApi {
 	private TokenManagementService service;
 
 	@PostMapping("generate")
-	public TokenResponse generate(@Validated TokenRequestForm form, BindingResult result) {
+	public TokenResponse generate(@Validated TokenRequestForm form, BindingResult result) {		
 		return service.generate(form);
 	}
 

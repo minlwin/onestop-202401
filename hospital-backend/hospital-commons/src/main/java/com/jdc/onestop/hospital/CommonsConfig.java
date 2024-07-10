@@ -7,6 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.jdc.onestop.hospital.exceptions.handler.SecurityExceptionResolver;
 import com.jdc.onestop.hospital.security.JwtTokenFilter;
 import com.jdc.onestop.hospital.security.JwtTokenGenerator;
 import com.jdc.onestop.hospital.security.JwtTokenParser;
@@ -27,6 +28,11 @@ public class CommonsConfig {
 		@Bean
 		JwtTokenFilter jwtTokenFilter() {
 			return new JwtTokenFilter();
+		}
+		
+		@Bean
+		SecurityExceptionResolver securityExceptionResolver() {
+			return new SecurityExceptionResolver();
 		}
 		
 	}

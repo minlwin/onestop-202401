@@ -15,8 +15,10 @@ public class JwtTokenGenerator {
 
 	@Value("${app.token.secret}")
 	private String secretKeyValue;
+	
 	@Value("${app.token.issuer}")
 	private String issuer;
+	
 	@Value("${app.token.role.key}")
 	private String roleKey;
 	@Value("${app.token.type.key}")

@@ -39,7 +39,7 @@ public class JwtTokenParser {
 		if(StringUtils.hasLength(token)) {
 			try {
 				var jwt = Jwts.parser()
-						.requireIssuer(token)
+						.requireIssuer(issuer)
 						.verifyWith(secretKey)
 						.build()
 						.parseSignedClaims(token);
