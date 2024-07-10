@@ -14,6 +14,7 @@ insert into division (id, name) values (13, 'Shan State');
 insert into division (id, name) values (14, 'Tanintharyi Region');
 insert into division (id, name) values (15, 'Yangon Region');
 
+insert into district (id, division_id, name) values (1, 1, 'Hinthada');
 insert into district (id, division_id, name) values (2, 1, 'Kyonpyaw');
 insert into district (id, division_id, name) values (3, 1, 'Labutta');
 insert into district (id, division_id, name) values (4, 1, 'Ma-ubin');
