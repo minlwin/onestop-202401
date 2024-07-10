@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.jdc.onestop.hospital.api.output.dto.AppointmentSummary;
 import com.jdc.onestop.hospital.commons.dto.PatientInfo;
 import com.jdc.onestop.hospital.domain.member.entity.Doctor;
 import com.jdc.onestop.hospital.domain.member.entity.Patient;
 import com.jdc.onestop.hospital.domain.transaction.entity.Appointment;
+import com.jdc.onestop.hospital.utils.EmployeeCode;
 
 public record PatientDetails(		
 		PatientInfo patient,
@@ -50,7 +52,7 @@ public record PatientDetails(
 			}
 			
 			list.add(new AppointmentSummary(
-					doctor.getCode(), 
+					EmployeeCode.format.formatted(doctor.getId()), 
 					doctor.getAccount().getFullName(), 
 					doctor.getDegree(), 
 					applied, 

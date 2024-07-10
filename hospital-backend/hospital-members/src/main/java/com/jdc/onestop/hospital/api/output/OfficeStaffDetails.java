@@ -1,22 +1,42 @@
 package com.jdc.onestop.hospital.api.output;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.jdc.onestop.hospital.commons.dto.AddressInfo;
-import com.jdc.onestop.hospital.commons.dto.DepartmentListItem;
+import com.jdc.onestop.hospital.commons.dto.DepartmentInfo;
+import com.jdc.onestop.hospital.domain.member.entity.OfficeStaff;
 import com.jdc.onestop.hospital.domain.utils.consts.EmployeeStatus;
+import com.jdc.onestop.hospital.utils.EmployeeCode;
 
 public record OfficeStaffDetails(
 		int id,
-		String code,
 		String name,
 		String position,
-		DepartmentListItem department,
+		DepartmentInfo department,
 		EmployeeStatus status,
-		LocalDateTime assignAt,
+		LocalDate assignAt,
 		LocalDateTime statusChangeAt,
 		String statusChangeReason,
 		String phone,
 		AddressInfo address) {
+
+	public String getCode() {
+		return EmployeeCode.format.formatted(id);
+	}
+
+	public static OfficeStaffDetails from(OfficeStaff entity) {
+		return new OfficeStaffDetails(
+				entity.getId(), 
+				entity.getAccount().getFullName(), 
+				entity.getPosition(), 
+				DepartmentInfo.from(entity.getDepartment()), 
+				entity.getStatus(), 
+				entity.getAssignAt(), 
+				entity.getChangeAt(), 
+				entity.getChangeReason(), 
+				entity.getPhone(), 
+				AddressInfo.from(entity.getAddress()));
+	}
 
 }

@@ -2,6 +2,7 @@ package com.jdc.onestop.hospital.domain.member.entity;
 
 import java.util.List;
 
+import com.jdc.onestop.hospital.domain.transaction.entity.Review;
 import com.jdc.onestop.hospital.domain.utils.consts.DoctorStatus;
 
 import jakarta.persistence.Column;
@@ -27,4 +28,9 @@ public class Doctor extends Employee {
 	
 	@OneToMany(mappedBy = "doctor")
 	private List<DoctorSection> section;
+	
+	@OneToMany(mappedBy = "doctor")
+	private List<Review> review;
+	
+	private int star;
 }

@@ -1,5 +1,8 @@
 package com.jdc.onestop.hospital.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,46 +21,54 @@ import com.jdc.onestop.hospital.api.output.DoctorListItem;
 import com.jdc.onestop.hospital.commons.dto.DoctorInfo;
 import com.jdc.onestop.hospital.commons.dto.StatusUpdateForm;
 import com.jdc.onestop.hospital.domain.PageInfo;
+import com.jdc.onestop.hospital.service.DoctorService;
 
 @RestController
 @RequestMapping("doctors")
 public class DoctorApi {
+	
+	@Autowired
+	private DoctorService service;
 
 	@GetMapping
 	PageInfo<DoctorListItem> search(DoctorSearch form) {
-		return null;
+		return service.search(form);
 	}
 	
 	@GetMapping("{id}")
-	DoctorInfo findById(@PathVariable int id) {
-		return null;
+	@PostAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #returnObject.email eq authentication.name)")
+	DoctorDetails findById(@PathVariable int id) {
+		return service.findById(id);
 	}
 	
 	@PostMapping
-	DoctorDetails create(
+	@PreAuthorize("hasAnyAuthority('Admin', 'Office')")
+	DoctorInfo create(
 			@Validated @RequestBody DoctorEditForm form, 
 			BindingResult result) {
-		return null;
+		return service.create(form);
 	}
 
 	@PutMapping("{id}")
-	DoctorDetails edit(@PathVariable int id, 
+	@PreAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #form.email eq authentication.name)")
+	DoctorInfo edit(@PathVariable int id, 
 			@Validated @RequestBody DoctorEditForm form, 
 			BindingResult result) {
-		return null;
+		return service.update(id, form);
 	}
 	
 	@PutMapping("{id}/status")
-	DoctorDetails updateStatus(@PathVariable int id, 
+	@PreAuthorize("hasAnyAuthority('Admin', 'Office')")
+	DoctorInfo updateStatus(@PathVariable int id, 
 			@Validated @RequestBody StatusUpdateForm form, 
 			BindingResult result) {
-		return null;
+		return service.updateStatus(id, form);
 	}
 	
 	@PutMapping("{id}/profile")
-	DoctorDetails uploadProfileImage(@PathVariable int id, 
+	DoctorInfo uploadProfileImage(@PathVariable int id, 
 			MultipartFile file) {
-		return null;
+		return service.uploadImage(id, file);
 	}
 	
 }

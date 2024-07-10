@@ -4,7 +4,9 @@ import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
@@ -57,6 +59,8 @@ public class ExceptionHandlers {
 		return switch(e) {
 		case BadCredentialsException ex -> List.of("Please check password.");
 		case UsernameNotFoundException ex -> List.of("Please check login id.");
+		case DisabledException ex -> List.of("Your account is not enable at this time.");
+		case AccountExpiredException ex -> List.of("Your account is expired.");
 		default -> List.of("You need to login for this operation.");
 		};
 	}

@@ -13,6 +13,7 @@ public record DoctorEditForm(
 		Integer departmentId,
 		@NotBlank(message = "Please enter phone number.")
 		String phone,
+		@NotBlank(message = "Please enter email for login.")
 		String email,
 		String building,
 		String street,

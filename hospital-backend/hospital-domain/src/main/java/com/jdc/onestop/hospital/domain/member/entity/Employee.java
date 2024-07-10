@@ -34,10 +34,13 @@ public abstract class Employee extends AuditableEntity {
 	
 	@Column(nullable = false)
 	private LocalDate assignAt;
+	
+	private LocalDate resignAt;
 
 	@Column(nullable = false)
 	private String phone;
 	
+	@Column(nullable = false)
 	private String email;
 	
 	@ManyToOne(optional = false)
@@ -54,8 +57,4 @@ public abstract class Employee extends AuditableEntity {
 	private boolean activated;
 	private LocalDateTime activatedAt;
 	
-	public String getCode() {
-		return "EMP%04d".formatted(id);
-	}
-
 }

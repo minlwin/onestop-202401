@@ -1,23 +1,26 @@
 package com.jdc.onestop.hospital.commons.dto;
 
-import java.time.LocalDateTime;
-
-import com.jdc.onestop.hospital.domain.utils.consts.EmployeeStatus;
+import com.jdc.onestop.hospital.domain.member.entity.Doctor;
+import com.jdc.onestop.hospital.utils.EmployeeCode;
 
 public record DoctorInfo(
 		int id,
-		String code,
 		String name,
 		String profile,
 		String degree,
-		DepartmentListItem department,
-		EmployeeStatus status,
-		LocalDateTime assignAt,
-		LocalDateTime statusChangeAt,
-		String statusChangeReason,
-		String phone,
-		String email,
-		int stars,
-		AddressInfo address) {
+		DepartmentInfo department) {
+
+	public String getCode() {
+		return EmployeeCode.format.formatted(id);
+	}
+	
+	public static DoctorInfo from(Doctor entity) {
+		return new DoctorInfo(
+				entity.getId(), 
+				entity.getAccount().getFullName(), 
+				entity.getProfile(),
+				entity.getDegree(), 
+				DepartmentInfo.from(entity.getDepartment()));
+	}
 
 }

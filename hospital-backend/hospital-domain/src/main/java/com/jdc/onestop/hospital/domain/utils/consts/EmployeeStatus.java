@@ -4,4 +4,5 @@ public interface EmployeeStatus {
 
 	String getCode();
 	String getDisplayName();
+
 }

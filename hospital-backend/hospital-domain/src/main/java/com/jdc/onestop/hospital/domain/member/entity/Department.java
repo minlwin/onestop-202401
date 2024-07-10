@@ -1,5 +1,8 @@
 package com.jdc.onestop.hospital.domain.member.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jdc.onestop.hospital.domain.AuditableEntity;
 
 import jakarta.persistence.Column;
@@ -8,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,9 +32,12 @@ public class Department extends AuditableEntity{
 	@Column(nullable = false)
 	private String name;
 	
-	@ManyToOne(optional = false)
+	@ManyToOne
 	private Employee head;
 	
 	private String phone;
 	private String email;
+	
+	@OneToMany(mappedBy = "department")
+	private List<Employee> employee = new ArrayList<>(); 
 }
