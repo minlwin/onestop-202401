@@ -53,5 +53,9 @@ public abstract class Employee extends AuditableEntity {
 	
 	private boolean activated;
 	private LocalDateTime activatedAt;
+	
+	public String getCode() {
+		return "EMP%04d".formatted(id);
+	}
 
 }

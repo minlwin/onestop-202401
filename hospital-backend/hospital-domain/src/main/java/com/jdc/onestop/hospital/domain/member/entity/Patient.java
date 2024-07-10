@@ -2,8 +2,11 @@ package com.jdc.onestop.hospital.domain.member.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jdc.onestop.hospital.domain.AuditableEntity;
+import com.jdc.onestop.hospital.domain.transaction.entity.Appointment;
 import com.jdc.onestop.hospital.domain.utils.consts.Gender;
 import com.jdc.onestop.hospital.domain.utils.embeddables.Address;
 
@@ -12,6 +15,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -46,5 +50,8 @@ public class Patient extends AuditableEntity {
 	private String email;
 
 	private Address address;
+	
+	@OneToMany(mappedBy = "patient")
+	private List<Appointment> appointment = new ArrayList<>();
 
 }
