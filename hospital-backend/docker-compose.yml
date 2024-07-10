@@ -20,3 +20,15 @@ services:
       - POSTGRES_PASSWORD=hospitalpwd
     volumes:
       - hospital-db:/var/lib/postgresql/data
+
+  auth:
+    build: ./hospital-auth
+    container_name: hospital-auth
+    networks:
+      - hospital
+    ports:
+      - 8080:8080
+    environment:
+      - TZ="Asia/Yangon"
+    depends_on:
+      - db    

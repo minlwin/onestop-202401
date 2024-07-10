@@ -1,7 +1,5 @@
 package com.jdc.onestop.hospital.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,22 +26,22 @@ public class AppUserDetailsService implements UserDetailsService{
 		return accountRepo.findOneByUsername(username)
 				.map(a -> User.withUsername(username)
 						.password(a.getPassword())
-						.authorities(getAuthorities(a).toArray(size -> new String[size]))
+						.authorities(getAuthorities(a))
 						.build())
 				.orElseThrow(() -> new UsernameNotFoundException("Invalid login id."));
 	}
 	
-	private List<String> getAuthorities(Account account) {
+	private String[] getAuthorities(Account account) {
 		
 		if(account.getRole() == MemberRole.Admin || account.getRole() == MemberRole.Patient) {
-			return List.of(account.getRole().name(), "Activated");
+			return new String[] {account.getRole().name(), "Activated"};
 		}
 		
 		var employee = employeeRepo.findOneByAccountUsername(account.getUsername())
 				.orElseThrow(() -> new UsernameNotFoundException("Invalid login id."));
 		
-		return employee.isActivated() ? List.of(account.getRole().name(), "Activated") : 
-			List.of(account.getRole().name());
+		return employee.isActivated() ? new String[] {account.getRole().name(), "Activated"} : 
+			new String[] {account.getRole().name()};
 	}
 
 }
