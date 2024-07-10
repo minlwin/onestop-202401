@@ -48,5 +48,15 @@ public record PatientListItem(
 			root.get(Patient_.email),
 			cb.count(appointments)
 		);
+		
+		cq.groupBy(
+			root.get(Patient_.id),
+			root.get(Patient_.name),
+			root.get(Patient_.gender),
+			root.get(Patient_.dob),
+			root.get(Patient_.registerAt),
+			root.get(Patient_.phone),
+			root.get(Patient_.email)
+		);
 	}
 }

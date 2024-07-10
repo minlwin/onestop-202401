@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.onestop.hospital.api.input.PatientSearch;
@@ -23,8 +24,10 @@ public class PatientApi {
 
 	@GetMapping
 	@PreAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #form.doctorEmail eq authentication.name)")
-	PageInfo<PatientListItem> search(PatientSearch form) {
-		return service.search(form);
+	PageInfo<PatientListItem> search(PatientSearch form, 
+			@RequestParam(required = false, defaultValue = "0") int page, 
+			@RequestParam(required = false, defaultValue = "10") int size) {
+		return service.search(form, page, size);
 	}
 	
 	@GetMapping("{id}")

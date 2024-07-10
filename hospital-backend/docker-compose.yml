@@ -31,4 +31,52 @@ services:
     environment:
       - TZ="Asia/Yangon"
     depends_on:
-      - db    
+      - db
+
+  locations:
+    build: ./hospital-locations
+    container_name: hospital-locations
+    networks:
+      - hospital
+    ports:
+      - 8081:8080
+    environment:
+      - TZ="Asia/Yangon"
+    depends_on:
+      - auth
+
+  members:
+    build: ./hospital-members
+    container_name: hospital-members
+    networks:
+      - hospital
+    ports:
+      - 8082:8080
+    environment:
+      - TZ="Asia/Yangon"
+    depends_on:
+      - auth
+    
+  appointments:
+    build: ./hospital-appointments
+    container_name: hospital-appointments
+    networks:
+      - hospital
+    ports:
+      - 8083:8080
+    environment:
+      - TZ="Asia/Yangon"
+    depends_on:
+      - members
+
+  review:
+    build: ./hospital-review
+    container_name: hospital-review
+    networks:
+      - hospital
+    ports:
+      - 8083:8080
+    environment:
+      - TZ="Asia/Yangon"
+    depends_on:
+      - members

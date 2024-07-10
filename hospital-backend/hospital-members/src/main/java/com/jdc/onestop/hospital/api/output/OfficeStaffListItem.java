@@ -38,7 +38,7 @@ public record OfficeStaffListItem(
 				s.getAssignAt());
 	}
 
-	public static void select(CriteriaQuery<PatientListItem> cq, Root<OfficeStaff> root) {
+	public static void select(CriteriaQuery<OfficeStaffListItem> cq, Root<OfficeStaff> root) {
 		cq.multiselect(
 			root.get(OfficeStaff_.id),
 			root.get(OfficeStaff_.account).get(Account_.fullName),

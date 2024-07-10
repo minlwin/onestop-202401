@@ -16,7 +16,7 @@ public record DistrictDto(
 	public static void select(CriteriaQuery<DistrictDto> cq, Root<District> root) {
 		cq.multiselect(
 			root.get(District_.id),
-			root.get(District_.id),
+			root.get(District_.name),
 			root.get(District_.division).get(Division_.id),
 			root.get(District_.division).get(Division_.name)
 		);

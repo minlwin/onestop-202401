@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +19,9 @@ import com.jdc.onestop.hospital.api.input.DoctorEditForm;
 import com.jdc.onestop.hospital.api.input.DoctorSearch;
 import com.jdc.onestop.hospital.api.output.DoctorDetails;
 import com.jdc.onestop.hospital.api.output.DoctorListItem;
-import com.jdc.onestop.hospital.commons.dto.DoctorInfo;
+import com.jdc.onestop.hospital.api.output.OfficeStaffDetails;
+import com.jdc.onestop.hospital.commons.dto.AddressChangeForm;
+import com.jdc.onestop.hospital.commons.dto.DepartmentChangeForm;
 import com.jdc.onestop.hospital.commons.dto.StatusUpdateForm;
 import com.jdc.onestop.hospital.domain.PageInfo;
 import com.jdc.onestop.hospital.service.DoctorService;
@@ -31,8 +34,10 @@ public class DoctorApi {
 	private DoctorService service;
 
 	@GetMapping
-	PageInfo<DoctorListItem> search(DoctorSearch form) {
-		return service.search(form);
+	PageInfo<DoctorListItem> search(DoctorSearch form,
+			@RequestParam(required = false, defaultValue = "0") int page, 
+			@RequestParam(required = false, defaultValue = "10") int size) {
+		return service.search(form, page, size);
 	}
 	
 	@GetMapping("{id}")
@@ -43,7 +48,7 @@ public class DoctorApi {
 	
 	@PostMapping
 	@PreAuthorize("hasAnyAuthority('Admin', 'Office')")
-	DoctorInfo create(
+	DoctorDetails create(
 			@Validated @RequestBody DoctorEditForm form, 
 			BindingResult result) {
 		return service.create(form);
@@ -51,7 +56,7 @@ public class DoctorApi {
 
 	@PutMapping("{id}")
 	@PreAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #form.email eq authentication.name)")
-	DoctorInfo edit(@PathVariable int id, 
+	DoctorDetails edit(@PathVariable int id, 
 			@Validated @RequestBody DoctorEditForm form, 
 			BindingResult result) {
 		return service.update(id, form);
@@ -59,16 +64,31 @@ public class DoctorApi {
 	
 	@PutMapping("{id}/status")
 	@PreAuthorize("hasAnyAuthority('Admin', 'Office')")
-	DoctorInfo updateStatus(@PathVariable int id, 
+	DoctorDetails updateStatus(@PathVariable int id, 
 			@Validated @RequestBody StatusUpdateForm form, 
 			BindingResult result) {
 		return service.updateStatus(id, form);
 	}
 	
+	@PutMapping("{id}/department")
+	OfficeStaffDetails update(@PathVariable int id, 
+			@Validated @RequestBody DepartmentChangeForm form, 
+			BindingResult result) {
+		return service.update(id, form);
+	}
+
+	@PutMapping("{id}/address")
+	OfficeStaffDetails update(@PathVariable int id, 
+			@Validated @RequestBody AddressChangeForm form, 
+			BindingResult result) {
+		return service.update(id, form);
+	}
+	
 	@PutMapping("{id}/profile")
-	DoctorInfo uploadProfileImage(@PathVariable int id, 
+	DoctorDetails uploadProfileImage(@PathVariable int id, 
 			MultipartFile file) {
 		return service.uploadImage(id, file);
 	}
+	
 	
 }

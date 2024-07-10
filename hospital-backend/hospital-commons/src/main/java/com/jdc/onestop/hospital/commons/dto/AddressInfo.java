@@ -15,14 +15,13 @@ public record AddressInfo(
 		
 		if(null != address) {
 			return new AddressInfo(
-					address.getBuilding(), 
-					address.getStreet(), 
-					address.getQuarter(), 
-					address.getTownship().getId(), 
-					address.getTownship().getName(), 
-					address.getTownship().getDistrict().getName(), 
-					address.getTownship().getDistrict().getDivision().getName()
-					);
+				address.getBuilding(), 
+				address.getStreet(), 
+				address.getQuarter(), 
+				address.getTownship().getId(), 
+				address.getTownship().getName(), 
+				address.getTownship().getDistrict().getName(), 
+				address.getTownship().getDistrict().getDivision().getName());
 		}
 		
 		return null;

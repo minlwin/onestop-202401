@@ -7,5 +7,4 @@ public record StatusUpdateForm(
 		String statusCode,
 		@NotBlank(message = "Please enter status change reason.")
 		String changeReason) {
-
 }

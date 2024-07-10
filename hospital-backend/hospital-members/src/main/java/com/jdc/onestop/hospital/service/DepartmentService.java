@@ -1,5 +1,7 @@
 package com.jdc.onestop.hospital.service;
 
+import java.util.function.Function;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -11,10 +13,15 @@ import com.jdc.onestop.hospital.api.input.DepartmentSearch;
 import com.jdc.onestop.hospital.api.output.DepartmentDetails;
 import com.jdc.onestop.hospital.api.output.DepartmentListItem;
 import com.jdc.onestop.hospital.domain.PageInfo;
+import com.jdc.onestop.hospital.domain.member.entity.Department;
+import com.jdc.onestop.hospital.domain.member.entity.Department_;
 import com.jdc.onestop.hospital.domain.member.repo.DepartmentRepo;
 import com.jdc.onestop.hospital.domain.member.repo.EmployeeRepo;
 import com.jdc.onestop.hospital.exceptions.ApiBusinessException;
 import com.jdc.onestop.hospital.utils.EmployeeCode;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
 
 @Service
 public class DepartmentService {
@@ -56,13 +63,6 @@ public class DepartmentService {
 		return DepartmentDetails.from(entity);
 	}
 
-	private void validate(DepartmentEditForm form) {
-
-		if(departmentRepo.countByCode(form.code()) > 0) {
-			throw new ApiBusinessException("Department code has been already used.");
-		}
-	}
-
 	@Transactional(readOnly = true)
 	public DepartmentDetails findById(int id) {
 		var entity = departmentRepo.findById(id)
@@ -71,9 +71,36 @@ public class DepartmentService {
 	}
 
 	@Transactional(readOnly = true)
-	public PageInfo<DepartmentListItem> search(DepartmentSearch form) {
-		// TODO Auto-generated method stub
-		return null;
+	public PageInfo<DepartmentListItem> search(DepartmentSearch form, int page, int size) {
+		return departmentRepo.search(queryFunc(form), countFunc(form), page, size);
+	}
+	
+	private Function<CriteriaBuilder, CriteriaQuery<DepartmentListItem>> queryFunc(DepartmentSearch form) {
+		return cb -> {
+			var cq = cb.createQuery(DepartmentListItem.class);
+			var root = cq.from(Department.class);
+			
+			DepartmentListItem.select(cb, cq, root);
+			cq.where(form.where(cb, root));
+			
+			return cq;
+		};
 	}
 
+	private Function<CriteriaBuilder, CriteriaQuery<Long>> countFunc(DepartmentSearch form) {
+		return cb -> {
+			var cq = cb.createQuery(Long.class);
+			var root = cq.from(Department.class);
+			cq.select(cb.count(root.get(Department_.id)));
+			cq.where(form.where(cb, root));
+			return cq;
+		};
+	}
+
+	private void validate(DepartmentEditForm form) {
+
+		if(departmentRepo.countByCode(form.code()) > 0) {
+			throw new ApiBusinessException("Department code has been already used.");
+		}
+	}
 }

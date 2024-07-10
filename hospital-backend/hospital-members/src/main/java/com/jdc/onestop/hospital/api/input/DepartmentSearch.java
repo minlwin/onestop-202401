@@ -2,7 +2,10 @@ package com.jdc.onestop.hospital.api.input;
 
 import java.util.ArrayList;
 
+import org.springframework.util.StringUtils;
+
 import com.jdc.onestop.hospital.domain.member.entity.Department;
+import com.jdc.onestop.hospital.domain.member.entity.Department_;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
@@ -15,6 +18,15 @@ public record DepartmentSearch(
 	public Predicate[] where(CriteriaBuilder cb, Root<Department> root) {
 		var list = new ArrayList<Predicate>();
 		
+		if(StringUtils.hasLength(code)) {
+			list.add(cb.equal(root.get(Department_.code), code));
+		}
+		
+		if(StringUtils.hasLength(name)) {
+			list.add(cb.like(cb.lower(root.get(Department_.name)), 
+					name.toLowerCase().concat("%")));
+		}
+
 		return list.toArray(size -> new Predicate[size]);
 	}
 }
