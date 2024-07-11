@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jdc.onestop.hospital.api.input.DoctorEditForm;
+import com.jdc.onestop.hospital.api.input.DoctorCreateForm;
 import com.jdc.onestop.hospital.api.input.DoctorSearch;
+import com.jdc.onestop.hospital.api.input.DoctorEditForm;
 import com.jdc.onestop.hospital.api.output.DoctorDetails;
 import com.jdc.onestop.hospital.api.output.DoctorListItem;
-import com.jdc.onestop.hospital.api.output.OfficeStaffDetails;
 import com.jdc.onestop.hospital.commons.dto.AddressChangeForm;
 import com.jdc.onestop.hospital.commons.dto.DepartmentChangeForm;
 import com.jdc.onestop.hospital.commons.dto.StatusUpdateForm;
@@ -49,7 +49,7 @@ public class DoctorApi {
 	@PostMapping
 	@PreAuthorize("hasAnyAuthority('Admin', 'Office')")
 	DoctorDetails create(
-			@Validated @RequestBody DoctorEditForm form, 
+			@Validated @RequestBody DoctorCreateForm form, 
 			BindingResult result) {
 		return service.create(form);
 	}
@@ -71,20 +71,23 @@ public class DoctorApi {
 	}
 	
 	@PutMapping("{id}/department")
-	OfficeStaffDetails update(@PathVariable int id, 
+	@PreAuthorize("hasAnyAuthority('Admin', 'Office')")
+	DoctorDetails update(@PathVariable int id, 
 			@Validated @RequestBody DepartmentChangeForm form, 
 			BindingResult result) {
 		return service.update(id, form);
 	}
 
 	@PutMapping("{id}/address")
-	OfficeStaffDetails update(@PathVariable int id, 
+	@PostAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #returnObject.email eq authentication.name)")
+	DoctorDetails update(@PathVariable int id, 
 			@Validated @RequestBody AddressChangeForm form, 
 			BindingResult result) {
 		return service.update(id, form);
 	}
 	
 	@PutMapping("{id}/profile")
+	@PostAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #returnObject.email eq authentication.name)")
 	DoctorDetails uploadProfileImage(@PathVariable int id, 
 			MultipartFile file) {
 		return service.uploadImage(id, file);

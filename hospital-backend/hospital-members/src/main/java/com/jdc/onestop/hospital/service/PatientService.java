@@ -9,11 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.onestop.hospital.api.input.PatientEditForm;
 import com.jdc.onestop.hospital.api.input.PatientSearch;
-import com.jdc.onestop.hospital.api.output.OfficeStaffDetails;
 import com.jdc.onestop.hospital.api.output.PatientDetails;
 import com.jdc.onestop.hospital.api.output.PatientListItem;
 import com.jdc.onestop.hospital.commons.dto.AddressChangeForm;
 import com.jdc.onestop.hospital.domain.PageInfo;
+import com.jdc.onestop.hospital.domain.location.repo.TownshipRepo;
 import com.jdc.onestop.hospital.domain.member.entity.Patient;
 import com.jdc.onestop.hospital.domain.member.entity.Patient_;
 import com.jdc.onestop.hospital.domain.member.repo.PatientRepo;
@@ -27,6 +27,8 @@ public class PatientService {
 	
 	@Autowired
 	private PatientRepo patientRepo;
+	@Autowired
+	private TownshipRepo townshipRepo;
 
 	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	public PatientDetails update(int id, PatientEditForm form) {
@@ -38,9 +40,18 @@ public class PatientService {
 	}
 	
 	@Transactional(isolation = Isolation.REPEATABLE_READ)
-	public OfficeStaffDetails update(int id, AddressChangeForm form) {
-		// TODO Auto-generated method stub
-		return null;
+	public PatientDetails update(int id, AddressChangeForm form) {
+		var township = townshipRepo.findById(form.townshipId())
+				.orElseThrow(() -> new ApiBusinessException("There is no township with given id."));
+
+		return patientRepo.findById(id)
+				.stream()
+				.peek(entity -> {
+					entity.setAddress(form.address(township));
+				})
+				.map(PatientDetails::from)
+				.findAny()
+				.orElseThrow(() -> new ApiBusinessException("There is no patient with given id."));
 	}	
 
 	@Transactional(readOnly = true)

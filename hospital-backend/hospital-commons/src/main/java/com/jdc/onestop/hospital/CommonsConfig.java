@@ -13,13 +13,13 @@ import com.jdc.onestop.hospital.security.JwtTokenGenerator;
 import com.jdc.onestop.hospital.security.JwtTokenParser;
 
 @Configuration
-@PropertySource(value = "classpath:/jwt-token.properties")
+@PropertySource(value = "classpath:/commons.properties")
 public class CommonsConfig {
-
+	
 	@Bean(initMethod = "initBean")
 	JwtTokenParser jwtTokenParser() {
 		return new JwtTokenParser();
-	}
+	}	
 	
 	@Configuration
 	@Profile("auth-client")

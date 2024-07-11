@@ -2,7 +2,10 @@ FROM amazoncorretto:21-alpine-jdk
 
 RUN apk update && apk add --no-cache tzdata
 
-RUN addgroup -S spring && adduser -S spring -G spring 
+RUN addgroup -S spring \
+    && adduser -S spring -G spring \
+    && mkdir -p /var/log/application \
+    && chown -R spring:spring /var/log/application
 
 USER spring:spring
 

@@ -4,6 +4,10 @@ networks:
   hospital:
 volumes:
   hospital-db:
+  storage-member:
+  log-auth:
+  log-locations:
+  log-members:
 
 services:
   db:
@@ -32,6 +36,8 @@ services:
       - TZ="Asia/Yangon"
     depends_on:
       - db
+    volumes:
+      - log-auth:/var/log/application
 
   locations:
     build: ./hospital-locations
@@ -44,6 +50,8 @@ services:
       - TZ="Asia/Yangon"
     depends_on:
       - auth
+    volumes:
+      - log-locations:/var/log/application
 
   members:
     build: ./hospital-members
@@ -56,27 +64,5 @@ services:
       - TZ="Asia/Yangon"
     depends_on:
       - auth
-    
-  appointments:
-    build: ./hospital-appointments
-    container_name: hospital-appointments
-    networks:
-      - hospital
-    ports:
-      - 8083:8080
-    environment:
-      - TZ="Asia/Yangon"
-    depends_on:
-      - members
-
-  review:
-    build: ./hospital-review
-    container_name: hospital-review
-    networks:
-      - hospital
-    ports:
-      - 8083:8080
-    environment:
-      - TZ="Asia/Yangon"
-    depends_on:
-      - members
+    volumes:
+      - log-members:/var/log/application

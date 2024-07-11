@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -43,7 +44,7 @@ public abstract class Employee extends AuditableEntity {
 	@Column(nullable = false)
 	private String email;
 	
-	@ManyToOne(optional = false)
+	@OneToOne(optional = false)
 	private Account account;
 	
 	private Address address;

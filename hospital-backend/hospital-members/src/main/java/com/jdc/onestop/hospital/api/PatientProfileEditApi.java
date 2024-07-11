@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.onestop.hospital.api.input.PatientEditForm;
-import com.jdc.onestop.hospital.api.output.OfficeStaffDetails;
 import com.jdc.onestop.hospital.api.output.PatientDetails;
 import com.jdc.onestop.hospital.commons.dto.AddressChangeForm;
 import com.jdc.onestop.hospital.service.PatientService;
@@ -32,7 +31,7 @@ public class PatientProfileEditApi {
 	}
 	
 	@PutMapping("{id}/address")
-	OfficeStaffDetails update(@PathVariable int id, 
+	PatientDetails update(@PathVariable int id, 
 			@Validated @RequestBody AddressChangeForm form, 
 			BindingResult result) {
 		return service.update(id, form);
