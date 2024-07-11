@@ -32,12 +32,14 @@ public record DepartmentListItem(
 		var employee = root.join(Department_.employee, JoinType.LEFT);
 		var doctor = cb.treat(employee, Doctor.class);
 		var staff = cb.treat(employee, OfficeStaff.class);
+		var head = root.join(Department_.head, JoinType.LEFT);
+		var headAccount = head.join(Employee_.account, JoinType.LEFT);
 		
 		cq.multiselect(
 			root.get(Department_.id),
 			root.get(Department_.code),
 			root.get(Department_.name),
-			root.get(Department_.head).get(Employee_.account).get(Account_.fullName),
+			headAccount.get(Account_.fullName),
 			root.get(Department_.phone),
 			root.get(Department_.email),
 			cb.count(doctor.get(Doctor_.id)),
@@ -48,7 +50,7 @@ public record DepartmentListItem(
 			root.get(Department_.id),
 			root.get(Department_.code),
 			root.get(Department_.name),
-			root.get(Department_.head).get(Employee_.account).get(Account_.fullName),
+			headAccount.get(Account_.fullName),
 			root.get(Department_.phone),
 			root.get(Department_.email)
 		);
