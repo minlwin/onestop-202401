@@ -1,5 +1,6 @@
 package com.jdc.onestop.hospital.domain.member.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jdc.onestop.hospital.domain.transaction.entity.Review;
@@ -27,10 +28,10 @@ public class Doctor extends Employee {
 	private DoctorStatus status;
 	
 	@OneToMany(mappedBy = "doctor")
-	private List<DoctorSection> section;
+	private List<DoctorSection> section = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "doctor")
-	private List<Review> review;
+	private List<Review> review = new ArrayList<>();
 	
 	private int star;
 }

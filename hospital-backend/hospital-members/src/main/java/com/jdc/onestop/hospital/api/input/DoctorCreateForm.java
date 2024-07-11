@@ -7,6 +7,7 @@ import com.jdc.onestop.hospital.domain.member.entity.Doctor;
 import com.jdc.onestop.hospital.domain.utils.consts.DoctorStatus;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record DoctorCreateForm(
 		@NotBlank(message = "Please enter doctor name.")
@@ -17,7 +18,7 @@ public record DoctorCreateForm(
 		String phone,
 		@NotBlank(message = "Please enter email for login.")
 		String email,
-		@NotBlank(message = "Please enter assign date.")
+		@NotNull(message = "Please enter assign date.")
 		LocalDate assignAt,
 		@NotBlank(message = "Please enter department code.")
 		String departmentCode
