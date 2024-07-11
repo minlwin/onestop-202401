@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jdc.onestop.hospital.api.input.DoctorCreateForm;
 import com.jdc.onestop.hospital.api.input.DoctorSearch;
+import com.jdc.onestop.hospital.api.input.DoctorSectionForms;
 import com.jdc.onestop.hospital.api.input.DoctorEditForm;
 import com.jdc.onestop.hospital.api.output.DoctorDetails;
 import com.jdc.onestop.hospital.api.output.DoctorListItem;
@@ -93,5 +94,11 @@ public class DoctorApi {
 		return service.uploadImage(id, file);
 	}
 	
+	@PutMapping("{id}/section")
+	@PostAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #returnObject.email eq authentication.name)")
+	DoctorDetails update(@PathVariable int id, 
+			@Validated @RequestBody DoctorSectionForms form, BindingResult result) {
+		return service.uploadImage(id, form);
+	}
 	
 }

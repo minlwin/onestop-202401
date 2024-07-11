@@ -2,13 +2,15 @@ package com.jdc.onestop.hospital.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @ConfigurationProperties(prefix = "app.member")
 public class MemberApplicationProperties {
 
 	private String profilePath;
 	
-	private String[] imageFileExtensions;
+	private String imageFileExtensions;
 }

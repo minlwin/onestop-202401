@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,8 +19,8 @@ public class ProfileImageStorageService {
 	@Value("${app.member.profile-path}")
 	private String storageFolder;
 	
-	@Value("${app.member.file-extensions}")
-	private String[] extensions;
+	@Value("${app.member.image-file-extensions}")
+	private String extensions;
 	
 	private static final DateTimeFormatter DF = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
 	
@@ -45,7 +44,7 @@ public class ProfileImageStorageService {
 	private void validate(MultipartFile file) {
 		var extension = getExtension(file.getOriginalFilename());
 		
-		if(!List.of(extensions).contains(extension.toLowerCase())) {
+		if(!extensions.contains(extension.toLowerCase())) {
 			throw new ApiBusinessException("Invalid image file extension.");
 		}
 	}

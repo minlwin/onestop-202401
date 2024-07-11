@@ -4,10 +4,13 @@ networks:
   hospital:
 volumes:
   hospital-db:
+  rabbit:
   storage-member:
   log-auth:
   log-locations:
   log-members:
+  log-appointments:
+  log-reviews:
 
 services:
   db:
@@ -24,7 +27,19 @@ services:
       - POSTGRES_PASSWORD=hospitalpwd
     volumes:
       - hospital-db:/var/lib/postgresql/data
-
+  rabbitmq:
+    image: 'rabbitmq:management'
+    container_name: hospital-mq
+    networks:
+      - hospital
+    environment:
+      - 'RABBITMQ_DEFAULT_PASS=secret'
+      - 'RABBITMQ_DEFAULT_USER=mqclient'
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbit:/var/lib/rabbitmq
   auth:
     build: ./hospital-auth
     container_name: hospital-auth
@@ -36,6 +51,7 @@ services:
       - TZ="Asia/Yangon"
     depends_on:
       - db
+      - rabbitmq
     volumes:
       - log-auth:/var/log/application
 
@@ -66,3 +82,29 @@ services:
       - auth
     volumes:
       - log-members:/var/log/application
+  appointments:
+    build: ./hospital-appointments
+    container_name: hospital-appointments
+    networks:
+      - hospital
+    ports:
+      - 8083:8080
+    environment:
+      - TZ="Asia/Yangon"
+    depends_on:
+      - auth
+    volumes:
+      - log-appointments:/var/log/application
+  reviews:
+    build: ./hospital-review
+    container_name: hospital-reviews
+    networks:
+      - hospital
+    ports:
+      - 8084:8080
+    environment:
+      - TZ="Asia/Yangon"
+    depends_on:
+      - auth
+    volumes:
+      - log-reviews:/var/log/application

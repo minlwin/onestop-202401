@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jdc.onestop.hospital.api.input.DoctorCreateForm;
 import com.jdc.onestop.hospital.api.input.DoctorSearch;
+import com.jdc.onestop.hospital.api.input.DoctorSectionForms;
 import com.jdc.onestop.hospital.api.input.DoctorEditForm;
 import com.jdc.onestop.hospital.api.output.DoctorDetails;
 import com.jdc.onestop.hospital.api.output.DoctorListItem;
@@ -161,6 +162,13 @@ public class DoctorService {
 				.findAny()
 				.orElseThrow(() -> new ApiBusinessException("There is no doctor with given id."));
 	}
+	
+	@Transactional(isolation = Isolation.REPEATABLE_READ)
+	public DoctorDetails uploadImage(int id, DoctorSectionForms form) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 	@Transactional(readOnly = true)
 	public DoctorDetails findById(int id) {
@@ -195,5 +203,6 @@ public class DoctorService {
 			return cq;
 		};
 	}
+
 
 }
