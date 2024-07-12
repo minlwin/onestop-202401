@@ -7,13 +7,14 @@ import com.jdc.onestop.hospital.domain.member.entity.OfficeStaff;
 import com.jdc.onestop.hospital.domain.utils.consts.OfficeStaffStatus;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record OfficeStaffCreateForm(
 		@NotBlank(message = "Please enter staff name.")
 		String name,
 		@NotBlank(message = "Please enter staff position.")
 		String position,
-		@NotBlank(message = "Please enter assign date.")
+		@NotNull(message = "Please enter assign date.")
 		LocalDate assignAt,
 		@NotBlank(message = "Please enter department code.")
 		String departmentCode,

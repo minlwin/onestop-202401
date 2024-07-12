@@ -72,6 +72,7 @@ public class ExceptionHandlers {
 	@ExceptionHandler
 	@ResponseStatus(code = HttpStatus.FORBIDDEN)
 	List<String> handle(AccessDeniedException e) {
+		log.error("Access Deined Error", e);
 		return List.of(e.getMessage());
 	}
 	

@@ -35,6 +35,10 @@ public class CommonsConfig {
 			return new SecurityExceptionResolver();
 		}
 		
+		@Bean(initMethod = "initBean")
+		JwtTokenGenerator jwtTokenGenerator() {
+			return new JwtTokenGenerator();
+		}
 	}
 	
 	@Configuration

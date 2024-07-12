@@ -73,7 +73,9 @@ public class OfficeStaffService {
 		entity.setDepartment(depertment);
 		form.updateFields(entity);
 		
-		return null;
+		entity = staffRepo.saveAndFlush(entity);
+		
+		return OfficeStaffDetails.from(entity);
 	}
 
 	@Transactional(isolation = Isolation.REPEATABLE_READ)

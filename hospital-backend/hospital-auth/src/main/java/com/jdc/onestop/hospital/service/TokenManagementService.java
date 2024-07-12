@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.onestop.hospital.api.input.TokenRefreshForm;
 import com.jdc.onestop.hospital.api.input.TokenRequestForm;
-import com.jdc.onestop.hospital.api.output.TokenResponse;
+import com.jdc.onestop.hospital.commons.dto.TokenResponse;
 import com.jdc.onestop.hospital.domain.member.repo.AccountRepo;
 import com.jdc.onestop.hospital.security.JwtTokenGenerator;
 import com.jdc.onestop.hospital.security.JwtTokenParser;

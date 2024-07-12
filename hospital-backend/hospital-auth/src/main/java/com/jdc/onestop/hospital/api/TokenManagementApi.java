@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.onestop.hospital.api.input.TokenRefreshForm;
 import com.jdc.onestop.hospital.api.input.TokenRequestForm;
-import com.jdc.onestop.hospital.api.output.TokenResponse;
+import com.jdc.onestop.hospital.commons.dto.TokenResponse;
 import com.jdc.onestop.hospital.service.TokenManagementService;
 
 @RestController

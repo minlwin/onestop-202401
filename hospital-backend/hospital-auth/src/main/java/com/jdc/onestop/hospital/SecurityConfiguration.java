@@ -18,7 +18,8 @@ public class SecurityConfiguration {
 		http.cors(cors -> {});
 		
 		http.authorizeHttpRequests(req -> {
-			req.anyRequest().permitAll();
+			req.requestMatchers("/token/**").permitAll();
+			req.anyRequest().authenticated();
 		});
 		
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

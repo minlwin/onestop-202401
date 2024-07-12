@@ -58,7 +58,7 @@ public class AppUserDetailsService implements UserDetailsService{
 	private boolean isDisableEmployee(Account account) {
 		var employee = employeeRepo.findOneByAccountUsername(account.getUsername())
 				.orElseThrow(() -> new UsernameNotFoundException("Invalid login id."));
-		return employee.getAssignAt().isBefore(LocalDate.now());
+		return employee.getAssignAt().isAfter(LocalDate.now());
 	}
 
 	private String[] getAuthorities(Account account) {
