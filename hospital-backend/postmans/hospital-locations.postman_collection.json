@@ -29,6 +29,53 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "search-district",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{location-url}}/district?divisionId=10",
+					"host": [
+						"{{location-url}}"
+					],
+					"path": [
+						"district"
+					],
+					"query": [
+						{
+							"key": "divisionId",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search-townships",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{location-url}}/township",
+					"host": [
+						"{{location-url}}"
+					],
+					"path": [
+						"township"
+					],
+					"query": [
+						{
+							"key": "divisionId",
+							"value": "10",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -40,7 +87,7 @@
 				"exec": [
 					"pm.request.headers.add({",
 					"    key: \"Authorization\",",
-					"    value: \"{{adminAccessToken}}\"",
+					"    value: \"{{patientAccessToken}}\"",
 					"})"
 				]
 			}

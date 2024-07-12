@@ -196,6 +196,8 @@ public class DoctorService {
 			deletedSections.add(new DoctorSectionChangeItem(section.getDay(), section.getSection(), section.getMaxToken()));
 		}
 		
+		doctor.getSection().clear();
+		
 		for(var section : form.sections()) {
 			var doctorSection = new DoctorSection();
 			doctorSection.setDoctor(doctor);
@@ -203,7 +205,7 @@ public class DoctorService {
 			doctorSection.setSection(section.section());
 			doctorSection.setMaxToken(section.maxToken());
 			sectionRepo.saveAndFlush(doctorSection);
-			
+			doctor.getSection().add(doctorSection);
 			createdSections.add(new DoctorSectionChangeItem(section.day(), section.section(), section.maxToken()));
 		}
 		

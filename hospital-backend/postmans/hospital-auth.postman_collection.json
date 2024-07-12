@@ -111,6 +111,102 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "new-patient",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Min Lwin\",\n    \"phone\" : \"09782003098\",\n    \"email\" : \"minlwin.jdc@gmail.com\",\n    \"password\" : \"minlwin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{member-url}}/public/signup",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"public",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "geneate-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"pm.globals.set('patientAccessToken', resp.accessToken)",
+									"pm.globals.set('patientRefreshToken', resp.refreshToken)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "minlwin.jdc@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "minlwin123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{auth-url}}/token/generate",
+							"host": [
+								"{{auth-url}}"
+							],
+							"path": [
+								"token",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search-division",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{location-url}}/division",
+							"host": [
+								"{{location-url}}"
+							],
+							"path": [
+								"division"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

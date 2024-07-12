@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "077d7d4f-b153-4f4b-b8cc-979fd6af7b28",
+		"name": "hospital-members",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2989298",
+		"_collection_link": "https://lively-satellite-430517.postman.co/workspace/hospital-apis~f5def36c-8c1f-4a63-a9a2-afcfb6f9f8b5/collection/2989298-077d7d4f-b153-4f4b-b8cc-979fd6af7b28?action=share&source=collection_link&creator=2989298"
+	},
+	"item": [
+		{
+			"name": "departments",
+			"item": [
+				{
+					"name": "create-department",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminAccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\" : \"OPD\",\n    \"name\" : \"Out Patient Departmen\",\n    \"phone\" : \"01-111234\",\n    \"email\" : \"opt@hospital.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{member-url}}/departments",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search-department",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminAccessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{member-url}}/departments",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"departments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "doctors",
+			"item": [
+				{
+					"name": "create-doctor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminAccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Sithu Ye Lwin\",\n    \"degree\" : \"MBBS\",\n    \"phone\" : \"0911112222\",\n    \"email\" : \"sithu@gmail.com\",\n    \"departmentCode\" : \"OPD\",\n    \"assignAt\" : \"2024-07-30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{member-url}}/doctors",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search-doctor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminAccessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{member-url}}/doctors",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-section",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminAccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startDate\" : \"2024-07-15\",\n    \"sections\" : [\n        {\n            \"day\" : \"MONDAY\",\n            \"section\" : \"Morning\",\n            \"maxToken\" : \"50\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{member-url}}/doctors/1/section",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"doctors",
+								"1",
+								"section"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-by-id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminAccessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{member-url}}/doctors/1",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"doctors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.request.addHeader({",
+					"    key: \"Content-Type\",",
+					"    value: \"application/json\"",
+					"})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
