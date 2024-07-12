@@ -1,5 +1,8 @@
 package com.jdc.onestop.hospital.domain.transaction.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jdc.onestop.hospital.domain.AuditableEntity;
 import com.jdc.onestop.hospital.domain.member.entity.Doctor;
 import com.jdc.onestop.hospital.domain.utils.embeddables.DoctorSchedulePk;
@@ -9,6 +12,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,5 +35,10 @@ public class DoctorSchedule extends AuditableEntity{
 	
 	@Column(name = "max_token")
 	private Integer maxToken;
+	
+	private boolean deleted;
+	
+	@OneToMany(mappedBy = "schedule")
+	private List<Appointment> appointment = new ArrayList<>(); 
 	
 }

@@ -34,36 +34,26 @@ public class MessagingConfig {
 		
 		@Bean
 		Queue newSectionQueue() {
-			return QueueBuilder.durable().build();
+			return QueueBuilder.durable("create-section-queue").build();
 		}
 		
 		@Bean
 		Binding newSectionBinding() {
 			return BindingBuilder.bind(newSectionQueue()).to(sectionChange()).with(DoctorSectionChangeAction.Create);
 		}
-		
-		@Bean
-		Queue changeSectionQueue() {
-			return QueueBuilder.durable().build();
-		}
-
-		@Bean
-		Binding changeSectionBinding() {
-			return BindingBuilder.bind(changeSectionQueue()).to(sectionChange()).with(DoctorSectionChangeAction.Update);
-		}
 
 		@Bean
 		Queue deleteSectionQueue() {
-			return QueueBuilder.durable().build();
+			return QueueBuilder.durable("delete-section-queue").build();
 		}
 
 		@Bean
 		Binding deleteSectionBinding() {
-			return BindingBuilder.bind(deleteSectionQueue()).to(sectionChange()).with(DoctorSectionChangeAction.Update);
+			return BindingBuilder.bind(deleteSectionQueue()).to(sectionChange()).with(DoctorSectionChangeAction.Delete);
 		}
 	}
 	
 	public enum DoctorSectionChangeAction {
-		Create, Update, Delete
+		Create, Delete
 	}
 }

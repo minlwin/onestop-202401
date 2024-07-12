@@ -1,9 +1,12 @@
 package com.jdc.onestop.hospital.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +15,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jdc.onestop.hospital.MessagingConfig.DoctorSectionChangeAction;
 import com.jdc.onestop.hospital.api.input.DoctorCreateForm;
 import com.jdc.onestop.hospital.api.input.DoctorSearch;
 import com.jdc.onestop.hospital.api.input.DoctorSectionForms;
@@ -20,15 +24,19 @@ import com.jdc.onestop.hospital.api.output.DoctorDetails;
 import com.jdc.onestop.hospital.api.output.DoctorListItem;
 import com.jdc.onestop.hospital.commons.dto.AddressChangeForm;
 import com.jdc.onestop.hospital.commons.dto.DepartmentChangeForm;
+import com.jdc.onestop.hospital.commons.dto.DoctorSectionChange;
+import com.jdc.onestop.hospital.commons.dto.DoctorSectionChangeItem;
 import com.jdc.onestop.hospital.commons.dto.StatusUpdateForm;
 import com.jdc.onestop.hospital.domain.PageInfo;
 import com.jdc.onestop.hospital.domain.location.repo.TownshipRepo;
 import com.jdc.onestop.hospital.domain.member.entity.Account;
 import com.jdc.onestop.hospital.domain.member.entity.Doctor;
+import com.jdc.onestop.hospital.domain.member.entity.DoctorSection;
 import com.jdc.onestop.hospital.domain.member.entity.Doctor_;
 import com.jdc.onestop.hospital.domain.member.repo.AccountRepo;
 import com.jdc.onestop.hospital.domain.member.repo.DepartmentRepo;
 import com.jdc.onestop.hospital.domain.member.repo.DoctorRepo;
+import com.jdc.onestop.hospital.domain.member.repo.DoctorSectionRepo;
 import com.jdc.onestop.hospital.domain.utils.consts.DoctorStatus;
 import com.jdc.onestop.hospital.domain.utils.consts.MemberRole;
 import com.jdc.onestop.hospital.exceptions.ApiBusinessException;
@@ -59,6 +67,15 @@ public class DoctorService {
 	
 	@Autowired
 	private ProfileImageStorageService storageService;
+	
+	@Autowired
+	private DoctorSectionRepo sectionRepo;
+	
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
+	
+	@Autowired
+	private DirectExchange sectionChange;
 
 	@Transactional(isolation = Isolation.SERIALIZABLE)
 	public DoctorDetails create(DoctorCreateForm form) {
@@ -164,9 +181,43 @@ public class DoctorService {
 	}
 	
 	@Transactional(isolation = Isolation.REPEATABLE_READ)
-	public DoctorDetails uploadImage(int id, DoctorSectionForms form) {
-		// TODO Auto-generated method stub
-		return null;
+	public DoctorDetails updateSection(int id, DoctorSectionForms form) {
+		
+		var doctor = doctorRepo.findById(id)
+				.orElseThrow(() -> new ApiBusinessException("There is no doctor with given id."));
+		
+		var deletedSections = new ArrayList<DoctorSectionChangeItem>();
+		var createdSections = new ArrayList<DoctorSectionChangeItem>();
+		
+		var sections = doctor.getSection();
+		
+		for(var section : sections) {
+			sectionRepo.delete(section);
+			deletedSections.add(new DoctorSectionChangeItem(section.getDay(), section.getSection(), section.getMaxToken()));
+		}
+		
+		for(var section : form.sections()) {
+			var doctorSection = new DoctorSection();
+			doctorSection.setDoctor(doctor);
+			doctorSection.setDay(section.day());
+			doctorSection.setSection(section.section());
+			doctorSection.setMaxToken(section.maxToken());
+			sectionRepo.saveAndFlush(doctorSection);
+			
+			createdSections.add(new DoctorSectionChangeItem(section.day(), section.section(), section.maxToken()));
+		}
+		
+		if(!deletedSections.isEmpty()) {
+			var message = new DoctorSectionChange(id, form.startDate(), deletedSections);
+			rabbitTemplate.convertAndSend(sectionChange.getName(), DoctorSectionChangeAction.Delete.name(), message);
+		}
+		
+		if(!createdSections.isEmpty()) {
+			var message = new DoctorSectionChange(id, form.startDate(), createdSections);
+			rabbitTemplate.convertAndSend(sectionChange.getName(), DoctorSectionChangeAction.Create.name(), message);
+		}
+		
+		return DoctorDetails.from(doctor);
 	}
 	
 

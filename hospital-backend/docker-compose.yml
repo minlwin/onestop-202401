@@ -2,10 +2,11 @@ version: '3.8'
 
 networks:
   hospital:
+
 volumes:
   hospital-db:
   rabbit:
-  storage-member:
+  storage-members:
   log-auth:
   log-locations:
   log-members:
@@ -82,6 +83,8 @@ services:
       - auth
     volumes:
       - log-members:/var/log/application
+      - storage-members:/var/lib/storage	  
+
   appointments:
     build: ./hospital-appointments
     container_name: hospital-appointments
@@ -95,6 +98,7 @@ services:
       - auth
     volumes:
       - log-appointments:/var/log/application
+
   reviews:
     build: ./hospital-review
     container_name: hospital-reviews

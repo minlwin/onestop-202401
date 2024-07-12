@@ -98,7 +98,7 @@ public class DoctorApi {
 	@PostAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #returnObject.email eq authentication.name)")
 	DoctorDetails update(@PathVariable int id, 
 			@Validated @RequestBody DoctorSectionForms form, BindingResult result) {
-		return service.uploadImage(id, form);
+		return service.updateSection(id, form);
 	}
 	
 }
