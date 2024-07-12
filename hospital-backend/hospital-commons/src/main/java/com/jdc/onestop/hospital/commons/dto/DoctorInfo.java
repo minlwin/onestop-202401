@@ -5,6 +5,7 @@ import com.jdc.onestop.hospital.utils.EmployeeCode;
 
 public record DoctorInfo(
 		int id,
+		String email,
 		String name,
 		String profile,
 		String degree,
@@ -17,6 +18,7 @@ public record DoctorInfo(
 	public static DoctorInfo from(Doctor entity) {
 		return new DoctorInfo(
 				entity.getId(), 
+				entity.getEmail(),
 				entity.getAccount().getFullName(), 
 				entity.getProfile(),
 				entity.getDegree(), 

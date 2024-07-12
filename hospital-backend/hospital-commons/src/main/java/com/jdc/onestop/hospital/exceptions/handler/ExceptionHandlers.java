@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.jdc.onestop.hospital.domain.DomainException;
 import com.jdc.onestop.hospital.exceptions.ApiBusinessException;
 import com.jdc.onestop.hospital.exceptions.ApiJwtTokenExiprationException;
 import com.jdc.onestop.hospital.exceptions.ApiJwtTokenInvalidationException;
@@ -32,9 +33,12 @@ public class ExceptionHandlers {
 		return e.getMessages();
 	}
 	
-	@ExceptionHandler
+	@ExceptionHandler(value = {
+		ApiBusinessException.class,	
+		DomainException.class
+	})
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	List<String> handle(ApiBusinessException e) {
+	List<String> handle(RuntimeException e) {
 		return List.of(e.getMessage());
 	}
 	

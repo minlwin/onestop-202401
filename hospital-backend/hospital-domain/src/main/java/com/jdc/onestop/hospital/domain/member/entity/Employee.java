@@ -11,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToOne;
@@ -21,7 +22,9 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@Table(name = "EMPLOYEE")
+@Table(name = "EMPLOYEE", indexes = {
+		@Index(columnList = "email")
+})
 @EqualsAndHashCode(callSuper = false)
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Employee extends AuditableEntity {

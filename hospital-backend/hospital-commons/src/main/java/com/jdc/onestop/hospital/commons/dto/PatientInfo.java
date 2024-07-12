@@ -7,12 +7,14 @@ import com.jdc.onestop.hospital.domain.utils.consts.Gender;
 
 public record PatientInfo(
 		int id,
+		String email,
 		String name,
 		Gender gender,
 		LocalDate dob) {
 
 	public static PatientInfo from(Patient entity) {
 		return new PatientInfo(entity.getId(), 
+				entity.getEmail(),
 				entity.getName(), 
 				entity.getGender(), 
 				entity.getDob());

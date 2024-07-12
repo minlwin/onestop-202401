@@ -8,6 +8,7 @@ import com.jdc.onestop.hospital.domain.utils.embeddables.AppointmentPk;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -16,12 +17,14 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@Table(name = "APPOINTMENT")
+@Table(name = "APPOINTMENT", indexes = {
+		@Index(columnList = "status")
+})
 @EqualsAndHashCode(callSuper = false)
 public class Appointment extends AuditableEntity {
 
 	@EmbeddedId
-	private AppointmentPk id;
+	private AppointmentPk id = new AppointmentPk();
 	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id", insertable = false, updatable = false)
@@ -44,4 +47,16 @@ public class Appointment extends AuditableEntity {
 
 	@Column(name = "change_by")
 	private String changeBy;
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+		id.setPatientId(patient.getId());
+	}
+	
+	public void setSchedule(DoctorSchedule schedule) {
+		this.schedule = schedule;
+		id.setDoctorId(schedule.getId().getDoctorId());
+		id.setIssueDate(schedule.getId().getIssueDate());
+		id.setSection(schedule.getId().getSection());
+	}
 }

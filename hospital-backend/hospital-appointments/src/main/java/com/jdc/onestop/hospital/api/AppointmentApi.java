@@ -1,6 +1,8 @@
 package com.jdc.onestop.hospital.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.onestop.hospital.api.input.AppointmentEditForm;
 import com.jdc.onestop.hospital.api.input.AppointmentSearch;
+import com.jdc.onestop.hospital.api.input.AppointmentStatusUpdateForm;
 import com.jdc.onestop.hospital.api.output.AppointmentDetails;
 import com.jdc.onestop.hospital.api.output.AppointmentListItem;
-import com.jdc.onestop.hospital.commons.dto.StatusUpdateForm;
 import com.jdc.onestop.hospital.domain.PageInfo;
 import com.jdc.onestop.hospital.service.AppointmentService;
 
@@ -28,6 +30,7 @@ public class AppointmentApi {
 	private AppointmentService service;
 
 	@GetMapping
+	@PreAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #form.doctorEmail eq authentication.name) || (hasAuthority('Patient') && #form.patientEmail eq authentication.name)")
 	PageInfo<AppointmentListItem> search(AppointmentSearch form, 
 			@RequestParam(required = false, defaultValue = "0") int page, 
 			@RequestParam(required = false, defaultValue = "10") int size) {
@@ -35,11 +38,13 @@ public class AppointmentApi {
 	}
 	
 	@GetMapping("{id}")
+	@PostAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #returnObject.doctor.email eq authentication.name) || (hasAuthority('Patient') && #returnObject.patient.email eq authentication.name)")
 	AppointmentDetails findById(@PathVariable String id) {
 		return service.findById(id);
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('Patient') && #form.email eq authentication.name")
 	AppointmentDetails create(
 			@Validated @RequestBody AppointmentEditForm form, BindingResult result) {
 		return service.create(form);
@@ -48,7 +53,7 @@ public class AppointmentApi {
 	@PutMapping("{id}")
 	AppointmentDetails updateStatus(
 			@PathVariable String id,
-			@Validated @RequestBody StatusUpdateForm form, BindingResult result) {
+			@Validated @RequestBody AppointmentStatusUpdateForm form, BindingResult result) {
 		return service.update(id, form);
 	}
 }
