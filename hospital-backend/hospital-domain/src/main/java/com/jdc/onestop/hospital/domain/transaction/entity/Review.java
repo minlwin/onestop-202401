@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 public class Review extends AuditableEntity{
 
 	@EmbeddedId
-	private ReviewPk id;
+	private ReviewPk id = new ReviewPk();
 	
 	@ManyToOne(optional = false)
 	@JoinColumn(insertable = false, updatable = false)
@@ -32,4 +32,14 @@ public class Review extends AuditableEntity{
 	
 	private int star;
 	private String reason;
+	
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+		id.setDoctorId(doctor.getId());
+	}
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+		id.setPatientId(patient.getId());
+	}
 }
