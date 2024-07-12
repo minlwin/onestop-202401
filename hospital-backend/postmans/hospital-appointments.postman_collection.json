@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "d902cd59-269c-4de7-b4d5-5afc51eab69d",
+		"name": "hospital-appointments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2989298",
+		"_collection_link": "https://lively-satellite-430517.postman.co/workspace/hospital-apis~f5def36c-8c1f-4a63-a9a2-afcfb6f9f8b5/collection/2989298-d902cd59-269c-4de7-b4d5-5afc51eab69d?action=share&source=collection_link&creator=2989298"
+	},
+	"item": [
+		{
+			"name": "search-schedules",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{appointment-url}}/public/schedules",
+					"host": [
+						"{{appointment-url}}"
+					],
+					"path": [
+						"public",
+						"schedules"
+					],
+					"query": [
+						{
+							"key": "doctor",
+							"value": "sithu",
+							"disabled": true
+						},
+						{
+							"key": "from",
+							"value": "2024-07-16",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

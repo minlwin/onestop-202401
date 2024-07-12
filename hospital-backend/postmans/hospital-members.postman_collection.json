@@ -43,6 +43,38 @@
 					"response": []
 				},
 				{
+					"name": "create-department-admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminAccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\" : \"ADM\",\n    \"name\" : \"Administration Department\",\n    \"phone\" : \"01-111236\",\n    \"email\" : \"admin@hospital.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{member-url}}/departments",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "search-department",
 					"request": {
 						"method": "GET",
@@ -70,38 +102,6 @@
 		{
 			"name": "doctors",
 			"item": [
-				{
-					"name": "create-doctor",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{adminAccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\" : \"Sithu Ye Lwin\",\n    \"degree\" : \"MBBS\",\n    \"phone\" : \"0911112222\",\n    \"email\" : \"sithu@gmail.com\",\n    \"departmentCode\" : \"OPD\",\n    \"assignAt\" : \"2024-07-30\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{member-url}}/doctors",
-							"host": [
-								"{{member-url}}"
-							],
-							"path": [
-								"doctors"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "search-doctor",
 					"request": {

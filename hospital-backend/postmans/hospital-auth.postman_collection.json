@@ -122,7 +122,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"Min Lwin\",\n    \"phone\" : \"09782003098\",\n    \"email\" : \"minlwin.jdc@gmail.com\",\n    \"password\" : \"minlwin123\"\n}",
+							"raw": "{\n    \"name\" : \"Min Lwin\",\n    \"phone\" : \"09782003098\",\n    \"email\" : \"{{patientUserName}}\",\n    \"password\" : \"{{patientPass}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -188,19 +188,292 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "new-doctor",
+			"item": [
 				{
-					"name": "search-division",
+					"name": "create-doctor",
 					"request": {
-						"method": "GET",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminAccessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Sithu Ye Lwin\",\n    \"degree\" : \"MBBS\",\n    \"phone\" : \"0911112222\",\n    \"email\" : \"{{doctorUsername}}\",\n    \"departmentCode\" : \"OPD\",\n    \"assignAt\" : \"2024-07-10\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{location-url}}/division",
+							"raw": "{{member-url}}/doctors",
 							"host": [
-								"{{location-url}}"
+								"{{member-url}}"
 							],
 							"path": [
-								"division"
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "first-login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"pm.globals.set('doctorAccessToken', resp.accessToken)",
+									"pm.globals.set('doctorRefreshToken', resp.refreshToken)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{doctorUsername}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{auth-url}}/token/generate",
+							"host": [
+								"{{auth-url}}"
+							],
+							"path": [
+								"token",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"pm.globals.set('doctorAccessToken', resp.accessToken)",
+									"pm.globals.set('doctorRefreshToken', resp.refreshToken)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{doctorAccessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{doctorUsername}}\",\n    \"oldPass\" : \"123456\",\n    \"newPass\" : \"{{doctorPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{member-url}}/change-pass",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"change-pass"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "new-staff",
+			"item": [
+				{
+					"name": "create-staff",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminAccessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Zin Lin Htet\",\n    \"position\" : \"Manager\",\n    \"assignAt\" : \"2024-07-10\",\n    \"departmentCode\" : \"ADM\",\n    \"email\" : \"{{staffUsername}}\",\n    \"phone\" : \"0911112225\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{member-url}}/staffs",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"staffs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "first-login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"pm.globals.set('staffAccessToken', resp.accessToken)",
+									"pm.globals.set('staffRefreshToken', resp.refreshToken)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{staffUsername}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{auth-url}}/token/generate",
+							"host": [
+								"{{auth-url}}"
+							],
+							"path": [
+								"token",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resp = pm.response.json()",
+									"pm.globals.set('staffAccessToken', resp.accessToken)",
+									"pm.globals.set('staffRefreshToken', resp.refreshToken)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{staffAccessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{staffUsername}}\",\n    \"oldPass\" : \"123456\",\n    \"newPass\" : \"{{staffPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{member-url}}/change-pass",
+							"host": [
+								"{{member-url}}"
+							],
+							"path": [
+								"change-pass"
 							]
 						}
 					},

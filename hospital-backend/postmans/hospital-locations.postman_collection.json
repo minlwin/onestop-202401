@@ -87,7 +87,7 @@
 				"exec": [
 					"pm.request.headers.add({",
 					"    key: \"Authorization\",",
-					"    value: \"{{patientAccessToken}}\"",
+					"    value: \"{{doctorAccessToken}}\"",
 					"})"
 				]
 			}
