@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { WidgetsModule } from '../../../widgets/widgets.module';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { SignupClientService } from '../../../services/client/signup-client.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,10 @@ export class SignupComponent {
 
   form:FormGroup
 
-  constructor(builder:FormBuilder, private router:Router) {
+  constructor(builder:FormBuilder,
+    private router:Router,
+    private client:SignupClientService
+  ) {
     this.form = builder.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
@@ -24,6 +28,10 @@ export class SignupComponent {
   }
 
   signUp() {
-    this.router.navigate(['/home', 'signin'])
+    if(this.form.valid) {
+      this.client.signUp(this.form.value).subscribe(_ => {
+        this.router.navigate(['/home', 'signin'])
+      })
+    }
   }
 }

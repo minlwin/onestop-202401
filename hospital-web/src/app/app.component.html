@@ -1,4 +1,17 @@
-<router-outlet></router-outlet>
+@if (showPublicNav()) {
+  <app-public-navbar></app-public-navbar>
+} @else {
+  <app-member-navbar></app-member-navbar>
+}
+
+@if (showCover()) {
+  <div id="home-cover">
+  </div>
+}
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>
 
 <div #errorDialog class="modal">
   <div class="modal-dialog">

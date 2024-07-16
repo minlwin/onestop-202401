@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand bg-primary navbar-dark">
+  <div class="container">
+    <a [routerLink]="['/member', 'top']" class="navbar-brand">
+      <i class="bi-house"></i> The Hospital
+    </a>
+
+    <ul class="navbar-nav">
+
+      @if (activated()) {
+
+        <li class="nav-item">
+          <a [routerLink]="['/member', 'appointments']" routerLinkActive="active" class="nav-link">
+            <i class="bi-calendar-check"></i> Appointments
+          </a>
+        </li>
+
+        @if (role() != 'Patient') {
+          <li class="nav-item">
+            <a [routerLink]="['/member', 'departments']" routerLinkActive="active" class="nav-link">
+              <i class="bi-diagram-3"></i> Departments
+            </a>
+          </li>
+
+          @if (role() == 'Doctor') {
+            <li class="nav-item">
+              <a [routerLink]="['/member', 'member', 'patients']" routerLinkActive="active" class="nav-link">
+                <i class="bi-people"></i> Patients
+              </a>
+            </li>
+
+          } @else {
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="bi-people"></i> Members
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a [routerLink]="['/member', 'members', 'office-staffs']" routerLinkActive="active" class="dropdown-item">Office Staff</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/member', 'members', 'doctors']" routerLinkActive="active" class="dropdown-item">Doctors</a>
+                </li>
+                <li class="dropdown-divider"></li>
+                <li>
+                  <a [routerLink]="['/member', 'members', 'patients']" routerLinkActive="active" class="dropdown-item">Patients</a>
+                </li>
+              </ul>
+            </li>
+          }
+        }
+
+      }
+
+      <li class="nav-item">
+        <a (click)="signOut()" class="nav-link">
+          <i class="bi-lock"></i> Sign Out
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

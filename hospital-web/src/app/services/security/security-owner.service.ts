@@ -21,7 +21,9 @@ export class SecurityOwner {
   username = computed(() => this.loginUser()?.username)
   roles = computed(() => this.loginUser()?.roles)
   loginUserName = computed(() => this.loginUser()?.name)
+
   active = computed(() => this.roles()?.filter(role => role == 'Activated').length == 1)
+  memberRole = computed(() => this.roles()?.filter(role => role != 'Activated').pop())
 
   login(user:LoginUser) {
     this.loginUser.set(user)
