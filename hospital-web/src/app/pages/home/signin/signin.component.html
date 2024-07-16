@@ -10,7 +10,7 @@
     </app-form-group>
 
     <div>
-      <button (click)="signIn()" type="button" class="btn btn-primary me-2">
+      <button [class.disabled]="!form.valid" (click)="signIn()" type="button" class="btn btn-primary me-2">
         <i class="bi-unlock"></i> Sign In
       </button>
 
