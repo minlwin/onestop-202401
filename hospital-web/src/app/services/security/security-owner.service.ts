@@ -31,6 +31,7 @@ export class SecurityOwner {
 
   logout() {
     this.loginUser.set(undefined)
+    localStorage.clear()
   }
 
 }

@@ -61,7 +61,11 @@ public class JwtTokenParser {
 				return UsernamePasswordAuthenticationToken.authenticated(username, null, authorities);
 				
 			} catch (ExpiredJwtException e) {
-				throw new ApiJwtTokenExiprationException(e.getMessage());
+				if(type == TokenType.Access) {
+					throw new ApiJwtTokenExiprationException(e.getMessage());
+				} else {
+					throw new ApiJwtTokenInvalidationException("Expired refresh token", e);
+				}
 			} catch (JwtException e) {
 				throw new ApiJwtTokenInvalidationException("Invalid Token", e);
 			}

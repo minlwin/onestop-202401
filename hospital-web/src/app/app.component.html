@@ -1,1 +1,27 @@
 <router-outlet></router-outlet>
+
+<div #errorDialog class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title">
+          <i class="bi-info-circle"></i> Messages
+        </span>
+      </div>
+
+      <div class="modal-body">
+        <ul>
+          @for (item of errorMessages(); track $index) {
+          <li>{{item}}</li>
+          }
+        </ul>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" (click)="closeDialog()" class="btn btn-primary">
+          <i class="bi-check"></i> OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { SecurityOwner } from '../../services/security/security-owner.service';
 
 @Component({
   selector: 'app-member-home',
@@ -10,4 +11,12 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class MemberHomeComponent {
 
+  constructor(private security:SecurityOwner, private router:Router) {
+
+  }
+
+  signOut() {
+    this.security.logout()
+    this.router.navigate(['/'])
+  }
 }
