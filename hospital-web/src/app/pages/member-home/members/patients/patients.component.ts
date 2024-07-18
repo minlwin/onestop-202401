@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { WidgetsModule } from '../../../../widgets/widgets.module';
+import { PagerComponent } from '../../../pager-component';
+import { PatientClientService } from '../../../../services/client/patient-client.service';
 
 @Component({
   selector: 'app-patients',
@@ -10,6 +12,19 @@ import { WidgetsModule } from '../../../../widgets/widgets.module';
   templateUrl: './patients.component.html',
   styles: ``
 })
-export class PatientsComponent {
+export class PatientsComponent extends PagerComponent {
 
+  form:FormGroup
+
+  constructor(builder:FormBuilder, client:PatientClientService) {
+    super(client.search)
+    this.form = builder.group({
+      gender: '',
+      keyword: '',
+      page: 0,
+      size: 10
+    })
+
+    this.search()
+  }
 }

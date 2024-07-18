@@ -7,6 +7,8 @@ import { PageTitleComponent } from './page-title/page-title.component';
 import { StarsComponent } from './stars/stars.component';
 import { ListViewComponent } from './list-view/list-view.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { DoctorListComponent } from './doctor-list/doctor-list.component';
+import { StaffListComponent } from './staff-list/staff-list.component';
 
 
 
@@ -18,7 +20,9 @@ import { PaginationComponent } from './pagination/pagination.component';
     PageTitleComponent,
     StarsComponent,
     ListViewComponent,
-    PaginationComponent
+    PaginationComponent,
+    DoctorListComponent,
+    StaffListComponent
   ],
   imports: [
     CommonModule
@@ -30,7 +34,9 @@ import { PaginationComponent } from './pagination/pagination.component';
     PageTitleComponent,
     StarsComponent,
     ListViewComponent,
-    PaginationComponent
+    PaginationComponent,
+    DoctorListComponent,
+    StaffListComponent
   ]
 })
 export class WidgetsModule { }

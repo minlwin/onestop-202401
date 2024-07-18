@@ -1,0 +1,27 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Position</th>
+      <th>Assign At</th>
+      <th>Status</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (item of items(); track $index) {
+      <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.position}}</td>
+        <td>{{item.assignAt}}</td>
+        <td>{{item.status}}</td>
+        <td>{{item.phone}}</td>
+        <td>{{item.email}}</td>
+        <td></td>
+      </tr>
+    }
+  </tbody>
+</table>

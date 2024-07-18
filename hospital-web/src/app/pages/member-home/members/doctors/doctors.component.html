@@ -1,10 +1,10 @@
-<app-list-view title="Doctor Management" icon="bi-people">
+<app-list-view title="Doctor Management" icon="bi-people" [pager]="pager()">
 
-  <form search class="row">
+  <form [formGroup]="form" search class="row">
 
     <div class="col-auto">
       <app-form-group label="Status">
-        <select class="form-select">
+        <select formControlName="status" class="form-select">
           <option value="">All</option>
           <option value="OnDuty">On Duty</option>
           <option value="Retired">Retired</option>
@@ -14,39 +14,23 @@
 
     <div class="col-auto">
       <app-form-group label="Department">
-        <input type="text" class="form-control" placeholder="Search Department">
+        <input formControlName="department" type="text" class="form-control" placeholder="Search Department">
       </app-form-group>
     </div>
 
     <div class="col-auto">
       <app-form-group label="Name">
-        <input type="text" class="form-control" placeholder="Search Name">
+        <input formControlName="name" type="text" class="form-control" placeholder="Search Name">
       </app-form-group>
     </div>
 
     <div class="col btn-wrapper">
-      <button type="button" class="btn btn-primary me-2">
+      <button (click)="search()" type="button" class="btn btn-primary me-2">
         <i class="bi-search"></i> Search
       </button>
-
-      <a href="#" class="btn btn-outline-primary">
-        <i class="bi-plus"></i> Add New
-      </a>
     </div>
 
   </form>
 
-  <table list class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Status</th>
-        <th>Assign At</th>
-        <th>Name</th>
-        <th>Degree</th>
-        <th>Department</th>
-        <th>Phone</th>
-      </tr>
-    </thead>
-  </table>
+  <app-doctor-list list [items]="contents()"></app-doctor-list>
 </app-list-view>

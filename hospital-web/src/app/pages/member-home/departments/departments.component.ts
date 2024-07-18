@@ -1,10 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { WidgetsModule } from '../../../widgets/widgets.module';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { PagerComponent } from '../../pager-component';
 import { DepartmentClientService } from '../../../services/client/department-client.service';
-import { Pager } from '../../../services/client/utils';
 
 @Component({
   selector: 'app-departments',
@@ -16,11 +15,9 @@ import { Pager } from '../../../services/client/utils';
 export class DepartmentsComponent extends PagerComponent{
 
   form:FormGroup
-  contents = signal<any[]>([])
-  pager = signal<Pager | undefined>(undefined)
 
-  constructor(bulder:FormBuilder, private client:DepartmentClientService) {
-    super()
+  constructor(bulder:FormBuilder, client:DepartmentClientService) {
+    super(client.search)
     this.form = bulder.group({
       code: '',
       name: '',
@@ -29,18 +26,6 @@ export class DepartmentsComponent extends PagerComponent{
     })
 
     this.search()
-  }
-
-  override pathForm(data: any): void {
-    this.form.patchValue(data)
-  }
-
-  override search() {
-    this.client.search(this.form.value).subscribe(result => {
-      const {contents, ... pager} = result
-      this.contents.set(contents)
-      this.pager.set(pager)
-    })
   }
 
 }

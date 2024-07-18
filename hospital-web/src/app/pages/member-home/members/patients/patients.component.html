@@ -1,9 +1,9 @@
 <app-list-view title="Patient Management" icon="bi-people-fill">
 
-  <form search class="row">
+  <form search [formGroup]="form" class="row">
     <div class="col-auto">
       <app-form-group label="Gender">
-        <select class="form-select">
+        <select formControlName="gender" class="form-select">
           <option value="">All</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
@@ -13,12 +13,12 @@
 
     <div class="col-auto">
       <app-form-group label="Keyword">
-        <input type="text" class="form-control" placeholder="Search Keyword">
+        <input formControlName="keyword" type="text" class="form-control" placeholder="Search Keyword">
       </app-form-group>
     </div>
 
     <div class="col btn-wrapper">
-      <button type="button" class="btn btn-primary me-2">
+      <button (click)="search()" type="button" class="btn btn-primary me-2">
         <i class="bi-search"></i> Search
       </button>
     </div>
@@ -38,5 +38,13 @@
         <th class="text-end">Visit Count</th>
       </tr>
     </thead>
+
+    <tbody>
+      @for (item of contents(); track $index) {
+        <tr>
+          <td>{{item.code}}</td>
+        </tr>
+      }
+    </tbody>
   </table>
 </app-list-view>

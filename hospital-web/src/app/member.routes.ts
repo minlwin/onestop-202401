@@ -42,7 +42,7 @@ export const routes:Route[] = [
       {path: 'details', component: PatientDetailsComponent, title: 'Patients'},
       {path: '', redirectTo: '/member/members/patients/list', pathMatch: 'full'}
     ]},
-    {path: '', redirectTo: '/member/members/patients', pathMatch: 'full'}
+    {path: '', redirectTo: '/member/members/patients', pathMatch: 'prefix'}
   ]},
   {path: '', redirectTo: '/member/top', pathMatch: 'full'}
 ]
