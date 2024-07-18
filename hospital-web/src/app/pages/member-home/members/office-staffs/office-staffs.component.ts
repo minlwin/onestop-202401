@@ -17,13 +17,15 @@ export class OfficeStaffsComponent extends PagerComponent{
   form:FormGroup
 
   constructor(builder:FormBuilder, client:StaffClientService) {
-    super(client.search)
+    super(client)
     this.form = builder.group({
       status: '',
       keyword: '',
       page: 0,
       size: 10
     })
+
+    this.search()
   }
 
 }

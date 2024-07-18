@@ -11,7 +11,7 @@ const PROFILE_URL = `${environment.url.member}/patient/profile`
 })
 export class PatientClientService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {}
 
   search(form:any) {
     return this.http.get<PageInfo>(URL, {params: form})

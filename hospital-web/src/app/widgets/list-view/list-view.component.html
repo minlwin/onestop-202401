@@ -5,11 +5,13 @@
 <ng-content select="[search]"></ng-content>
 
 <!-- Table View -->
-<section class="py-3">
+<section class="pt-3">
   <ng-content select="[list]"></ng-content>
 </section>
 
 <!-- Pagination -->
-@if (pager() != undefined && pager()?.page! > 0) {
-  <app-pagination></app-pagination>
+@if (pager() != undefined && pager()?.totalPages! > 0) {
+  <app-pagination [pager]="pager()"
+    (onPageChange)="listener().onPageChage($event)"
+    (onSizeChange)="listener().onSizeChange($event)"></app-pagination>
 }

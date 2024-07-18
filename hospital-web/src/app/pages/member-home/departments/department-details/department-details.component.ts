@@ -1,7 +1,8 @@
-import { Component, computed, effect, input, signal } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { WidgetsModule } from '../../../../widgets/widgets.module';
 import { DepartmentClientService } from '../../../../services/client/department-client.service';
 import { RouterLink } from '@angular/router';
+import { DetailsComponent } from '../../../details-component';
 
 @Component({
   selector: 'app-department-details',
@@ -10,10 +11,9 @@ import { RouterLink } from '@angular/router';
   templateUrl: './department-details.component.html',
   styles: ``
 })
-export class DepartmentDetailsComponent {
+export class DepartmentDetailsComponent extends DetailsComponent{
 
   id = input<number>()
-  details = signal<any>(undefined)
 
   title = computed(() => this.details() ? `${this.details()?.code} : ${this.details()?.name}` : `No Data`)
   head = computed(() => this.details()?.head)
@@ -21,10 +21,6 @@ export class DepartmentDetailsComponent {
   staffs = computed(() => this.details()?.staffs || [])
 
   constructor(client:DepartmentClientService) {
-    effect(() => {
-      if(this.id()) {
-        client.findById(this.id()!).subscribe(result => this.details.set(result))
-      }
-    }, {allowSignalWrites: true})
+    super(client)
   }
 }

@@ -1,4 +1,4 @@
-<app-list-view title="Patient Management" icon="bi-people-fill">
+<app-list-view title="Patient Management" icon="bi-people-fill" [listener]="this">
 
   <form search [formGroup]="form" class="row">
     <div class="col-auto">
@@ -36,6 +36,7 @@
         <th>Phone</th>
         <th>Email</th>
         <th class="text-end">Visit Count</th>
+        <th></th>
       </tr>
     </thead>
 
@@ -43,6 +44,14 @@
       @for (item of contents(); track $index) {
         <tr>
           <td>{{item.code}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.gender}}</td>
+          <td>{{item.age}}</td>
+          <td>{{item.registerAt}}</td>
+          <td>{{item.phone}}</td>
+          <td>{{item.email}}</td>
+          <td class="text-end">{{item.visitCount}}</td>
+          <td></td>
         </tr>
       }
     </tbody>

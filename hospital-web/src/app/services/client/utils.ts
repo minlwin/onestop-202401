@@ -14,10 +14,14 @@ export interface PageInfo {
   page:number
   size:number
   count:number
+  totalPages:number
+  pageList:number[]
 }
 
 export interface Pager {
   page:number
   size:number
   count:number
+  totalPages:number
+  pageList:number[]
 }

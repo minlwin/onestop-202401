@@ -1,9 +1,9 @@
-<div class="row">
+<div class="row gx-3">
   <div class="col-auto">
     <!-- Page Size -->
     <div class="input-group">
       <span class="input-group-text">Page Size</span>
-      <select class="form-select">
+      <select #sizeSelect (change)="sizeChange(sizeSelect.value)" class="form-select">
         <option value="10">10</option>
         <option value="25">25</option>
         <option value="50">50</option>
@@ -12,28 +12,27 @@
   </div>
 
   <div class="col-auto">
-    <!-- Top Page -->
-    <a href="#" class="btn btn-outline-primary me-2">
-      <i class="bi-skip-backward"></i>
-    </a>
+    @if (showFirst()) {
+      <!-- Top Page -->
+      <a (click)="pageChange(0)" class="btn btn-outline-primary me-2">
+        <i class="bi-skip-backward"></i>
+      </a>
+    }
 
     <!-- Page List -->
-    <a href="#" class="btn btn-outline-primary me-2">
-      1
-    </a>
+    @for (item of pager()?.pageList; track $index) {
+      <a (click)="pageChange(item)" [class.active]="item == pager()?.page" class="btn btn-outline-primary" [class.me-2]="item < pager()?.pageList?.length! - 1">
+        {{item + 1}}
+      </a>
+    }
 
-    <a href="#" class="btn btn-outline-primary me-2">
-      10
-    </a>
 
-    <a href="#" class="btn btn-outline-primary me-2">
-      20
-    </a>
-
-    <!-- Last Page -->
-    <a href="#" class="btn btn-outline-primary">
-      <i class="bi-skip-forward"></i>
-    </a>
+    @if (showLast()) {
+      <!-- Last Page -->
+      <a (click)="pageChange(pager()?.totalPages! - 1)" class="btn btn-outline-primary ms-2">
+        <i class="bi-skip-forward"></i>
+      </a>
+    }
 
   </div>
 
@@ -43,7 +42,7 @@
       <div class="col-auto">
         <div class="input-group">
           <span class="input-group-text">Pages</span>
-          <span class="form-control">10</span>
+          <span class="form-control d-inline-block px-3">{{pager()?.totalPages}}</span>
         </div>
       </div>
 
@@ -51,7 +50,7 @@
       <div class="col-auto">
         <div class="input-group">
           <span class="input-group-text">Total</span>
-          <span class="form-control">98</span>
+          <span class="form-control d-inline-block px-3">{{pager()?.count}}</span>
         </div>
       </div>
 

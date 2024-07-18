@@ -17,7 +17,7 @@ export class DepartmentsComponent extends PagerComponent{
   form:FormGroup
 
   constructor(bulder:FormBuilder, client:DepartmentClientService) {
-    super(client.search)
+    super(client)
     this.form = bulder.group({
       code: '',
       name: '',

@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
 import { Pager } from '../../services/client/utils';
+import { PagerListener } from '../pagination/pagination.component';
 
 @Component({
   selector: 'app-list-view',
@@ -8,7 +9,9 @@ import { Pager } from '../../services/client/utils';
 })
 export class ListViewComponent {
 
+  icon = input<string>()
   title = input.required<string>()
-  icon = input<string | undefined>()
-  pager = input<Pager | undefined>()
+
+  listener = input.required<PagerListener>()
+  pager = input<Pager>()
 }

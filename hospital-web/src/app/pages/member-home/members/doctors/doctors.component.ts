@@ -17,12 +17,14 @@ export class DoctorsComponent extends PagerComponent {
   form:FormGroup
 
   constructor(builder:FormBuilder, client:DoctorClientService) {
-    super(client.search)
+    super(client)
     this.form = builder.group({
       status: '',
       department: '',
       name: ''
     })
+
+    this.search()
   }
 
 }

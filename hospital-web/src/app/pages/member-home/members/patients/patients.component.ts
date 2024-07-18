@@ -17,7 +17,7 @@ export class PatientsComponent extends PagerComponent {
   form:FormGroup
 
   constructor(builder:FormBuilder, client:PatientClientService) {
-    super(client.search)
+    super(client)
     this.form = builder.group({
       gender: '',
       keyword: '',

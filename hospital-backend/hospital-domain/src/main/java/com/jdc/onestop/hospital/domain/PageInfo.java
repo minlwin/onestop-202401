@@ -1,42 +1,31 @@
 package com.jdc.onestop.hospital.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public record PageInfo<T>(List<T> contents, int page, int size, long count) {
 
-	public static<T> Builder<T> builder() {
-		return new Builder<>();
+	public Long getTotalPages() {
+		return count % size == 0 ? count / size : (count / size) + 1;
 	}
-
-	public static class Builder<T> {
-		private List<T> contents;
-		private int page;
-		private int size;
-		private long count;
+	
+	public List<Integer> getPageList() {
 		
-		public PageInfo<T> build() {
-			return new PageInfo<>(contents, page, size, count);
+		List<Integer> pages = new ArrayList<Integer>();
+		pages.add(page);
+		
+		while(pages.getFirst() > 0 && pages.size() < 2) {
+			pages.addFirst(pages.getFirst() - 1);
+		}
+		
+		while(pages.size() < 5 && pages.getLast() < getTotalPages() - 1) {
+			pages.add(pages.getLast() + 1);
 		}
 
-		public Builder<T> contents(List<T> contents) {
-			this.contents = contents;
-			return this;
+		while(pages.size() < 5 && pages.getFirst() > 0) {
+			pages.addFirst(pages.getFirst() - 1);
 		}
 
-		public Builder<T> page(int page) {
-			this.page = page;
-			return this;
-		}
-
-		public Builder<T> size(int size) {
-			this.size = size;
-			return this;
-		}
-
-		public Builder<T> count(long count) {
-			this.count = count;
-			return this;
-		}
-
+		return pages;
 	}
 }

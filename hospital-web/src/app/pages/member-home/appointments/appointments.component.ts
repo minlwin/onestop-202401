@@ -18,12 +18,14 @@ export class AppointmentsComponent extends PagerComponent {
   form:FormGroup
 
   constructor(builder:FormBuilder, client:AppointmentClientService) {
-    super(client.search)
+    super(client)
     this.form = builder.group({
       status: '',
       keyword: '',
       from: '',
       to: ''
     })
+
+    this.search()
   }
 }

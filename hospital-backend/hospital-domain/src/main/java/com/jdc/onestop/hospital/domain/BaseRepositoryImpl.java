@@ -21,31 +21,21 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> implem
 
 	@Override
 	public <R> List<R> search(Function<CriteriaBuilder, CriteriaQuery<R>> queryFunc) {
-		var criteriaQuery = queryFunc.apply(entityManager.getCriteriaBuilder());
-		var query = entityManager.createQuery(criteriaQuery);
-		return query.getResultList();
+		return entityManager.createQuery(queryFunc.apply(entityManager.getCriteriaBuilder()))
+				.getResultList();
 	}
 
 	@Override
 	public <R> PageInfo<R> search(Function<CriteriaBuilder, CriteriaQuery<R>> queryFunc,
 			Function<CriteriaBuilder, CriteriaQuery<Long>> countFunc, int page, int size) {
 		
-		var countCriteriaQuery = countFunc.apply(entityManager.getCriteriaBuilder());
-		var countQuery = entityManager.createQuery(countCriteriaQuery);
-		var count = countQuery.getSingleResult();
+		var count = entityManager.createQuery(countFunc.apply(entityManager.getCriteriaBuilder())).getSingleResult();
 		
-		var criteriaQuery = queryFunc.apply(entityManager.getCriteriaBuilder());
-		var query = entityManager.createQuery(criteriaQuery);
-		query.setFirstResult(page * size);
-		query.setMaxResults(size);
-		var contents = query.getResultList();
+		var contents = entityManager.createQuery(queryFunc.apply(entityManager.getCriteriaBuilder()))
+				.setFirstResult(page * size)
+				.setMaxResults(size).getResultList();
 		
-		return PageInfo.<R>builder()
-		 	.contents(contents)
-		 	.page(page)
-		 	.size(size)
-		 	.count(count)
-		 	.build();
+		return new PageInfo<R>(contents, page, size, count);
 	}
 
 }

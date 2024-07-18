@@ -10,10 +10,10 @@ export abstract class PagerComponent {
   contents = signal<any[]>([])
   pager = signal<Pager | undefined>(undefined)
 
-  constructor(private searchFunc:PageSearchFunc) {}
+  constructor(private client:SearchEnableClient) {}
 
   search() {
-    this.searchFunc(this.form.value).subscribe(result => {
+    this.client.search(this.form.value).subscribe(result => {
       const {contents, ... pager} = result
       this.contents.set(contents)
       this.pager.set(pager)
@@ -31,6 +31,6 @@ export abstract class PagerComponent {
   }
 }
 
-export interface PageSearchFunc {
-  (form:any):Observable<PageInfo>
+export interface SearchEnableClient {
+  search(form:any):Observable<PageInfo>
 }
