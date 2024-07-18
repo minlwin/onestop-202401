@@ -24,7 +24,7 @@ export class StaffClientService {
     return this.http.put<any>(URL, form)
   }
 
-  updateInfo(id:number, form:any) {
+  update(id:number, form:any) {
     return this.http.put<any>(`${URL}/${id}/info`, form)
   }
 

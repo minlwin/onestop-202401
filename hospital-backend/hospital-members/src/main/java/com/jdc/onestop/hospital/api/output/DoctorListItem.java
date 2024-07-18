@@ -21,6 +21,7 @@ public record DoctorListItem(
 		String departmentName,
 		String degree,
 		String phone,
+		String email,
 		LocalDate assignAt,
 		int stars
 		) {
@@ -40,6 +41,7 @@ public record DoctorListItem(
 			root.get(Doctor_.department).get(Department_.name),
 			root.get(Doctor_.degree),
 			root.get(Doctor_.phone),
+			root.get(Doctor_.email),
 			root.get(Doctor_.assignAt),
 			root.get(Doctor_.star)			
 		);
@@ -56,6 +58,7 @@ public record DoctorListItem(
 				d.getDepartment().getName(), 
 				d.getDegree(), 
 				d.getPhone(), 
+				d.getEmail(),
 				d.getAssignAt(),
 				d.getStar());
 	}

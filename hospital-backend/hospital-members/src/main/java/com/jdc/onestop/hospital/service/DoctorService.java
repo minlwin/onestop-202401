@@ -16,10 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jdc.onestop.hospital.MessagingConfig.DoctorSectionChangeAction;
-import com.jdc.onestop.hospital.api.input.DoctorCreateForm;
+import com.jdc.onestop.hospital.api.input.DoctorEditForm;
 import com.jdc.onestop.hospital.api.input.DoctorSearch;
 import com.jdc.onestop.hospital.api.input.DoctorSectionForms;
-import com.jdc.onestop.hospital.api.input.DoctorEditForm;
 import com.jdc.onestop.hospital.api.output.DoctorDetails;
 import com.jdc.onestop.hospital.api.output.DoctorListItem;
 import com.jdc.onestop.hospital.commons.dto.AddressChangeForm;
@@ -78,9 +77,9 @@ public class DoctorService {
 	private DirectExchange sectionChange;
 
 	@Transactional(isolation = Isolation.SERIALIZABLE)
-	public DoctorDetails create(DoctorCreateForm form) {
+	public DoctorDetails create(DoctorEditForm form) {
 		
-		var depertment = departmentRepo.findOneByCode(form.departmentCode())
+		var depertment = departmentRepo.findById(form.department())
 				.orElseThrow(() -> new ApiBusinessException("There is no department with given code."));
 		
 		var account = new Account();
@@ -92,10 +91,12 @@ public class DoctorService {
 		account = accountRepo.save(account);
 		
 		var doctor = new Doctor();
+		doctor.setEmail(form.email());
 		doctor.setAccount(account);
 		doctor.setDepartment(depertment);
+		doctor.setStatus(DoctorStatus.OnDuty);
 		
-		form.updateFields(doctor);
+		form.update(doctor);
 		
 		doctor = doctorRepo.save(doctor);
 		

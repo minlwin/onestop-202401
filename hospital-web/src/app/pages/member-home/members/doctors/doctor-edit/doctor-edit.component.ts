@@ -1,38 +1,64 @@
-import { Component, input } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, computed, effect, input, signal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DoctorClientService } from '../../../../../services/client/doctor-client.service';
 import { WidgetsModule } from '../../../../../widgets/widgets.module';
 import { Router } from '@angular/router';
+import { EditableComponent } from '../../../../editable-component';
+import { DepartmentClientService } from '../../../../../services/client/department-client.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-doctor-edit',
   standalone: true,
-  imports: [WidgetsModule, ReactiveFormsModule],
+  imports: [WidgetsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './doctor-edit.component.html',
   styles: ``
 })
-export class DoctorEditComponent {
+export class DoctorEditComponent extends EditableComponent{
 
   id = input<number>()
-  departmentId = input<number>()
-
   form:FormGroup
 
+  departmentId = input<number>()
+  department = signal<any>({})
+
+  title = computed(() => this.id() ? 'Edit Doctor' : 'Add New Doctor')
+
   constructor(builder:FormBuilder,
-    private client:DoctorClientService,
+    client:DoctorClientService,
+    departmentClient:DepartmentClientService,
     private router:Router
   ) {
-    this.form = builder.group({})
+    super(client)
+    this.form = builder.group({
+      department: [undefined, Validators.required],
+      email: ['', Validators.required],
+      name: ['', Validators.required],
+      degree: ['', Validators.required],
+      phone: ['', Validators.required],
+      assignAt: ['', Validators.required]
+    })
+
+    effect(() => {
+      if(this.departmentId()) {
+        departmentClient.findById(this.departmentId()!).subscribe(dep => {
+          this.department.set(dep)
+          this.form.patchValue({department: dep.id})
+        })
+      }
+
+    }, {allowSignalWrites: true})
   }
 
-  save() {
-    if(this.form.valid) {
-      const request = this.id() ? this.client.updateInfo(this.id()!, this.form.value)
-        : this.client.create(this.form.value)
-
-      request.subscribe(result => {
-        this.router.navigate(['member/members/doctors/details'], {queryParams: {id : result.id}})
-      })
-    }
+  override extractFromValue(details: any) {
+    const {info, ... _} = details
+    const {id, department, ... formData} = info
+    this.department.set(department)
+    return formData
   }
+
+  override onSaved(result: any): void {
+    this.router.navigate(['/member/members/doctors/details'], {queryParams: {id: result.id}})
+  }
+
 }

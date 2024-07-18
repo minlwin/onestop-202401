@@ -26,10 +26,10 @@
   <a [routerLink]="['../edit']" [queryParams]="{id: id()}" class="btn btn-outline-primary me-2">
     <i class="bi-pencil"></i> Edit Department
   </a>
-  <a [routerLink]="['/member/members/doctors/edit']" class="btn btn-outline-primary me-2">
+  <a [routerLink]="['/member/members/doctors/edit']" [queryParams]="{departmentId: id()}" class="btn btn-outline-primary me-2">
     <i class="bi-plus"></i> Add Doctor
   </a>
-  <a [routerLink]="['/member/members/office-staffs/edit']" class="btn btn-outline-primary me-2">
+  <a [routerLink]="['/member/members/office-staffs/edit']" [queryParams]="{departmentId: id()}" class="btn btn-outline-primary me-2">
     <i class="bi-plus"></i> Add Office Staff
   </a>
 </div>

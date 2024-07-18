@@ -20,7 +20,11 @@
         <td>{{item.status}}</td>
         <td>{{item.phone}}</td>
         <td>{{item.email}}</td>
-        <td></td>
+        <td class="text-center">
+          <a [routerLink]="['/member/members/doctors/details']" [queryParams]="{id: item.id}" class="icon-link">
+            <i class="bi-search"></i>
+          </a>
+        </td>
       </tr>
     }
   </tbody>

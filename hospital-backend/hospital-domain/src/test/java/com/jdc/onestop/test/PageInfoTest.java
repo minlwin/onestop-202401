@@ -17,6 +17,7 @@ public class PageInfoTest {
 		"5,10,55",
 		"6,10,55",
 		"0,10,11",
+		"1,10,11",
 	})
 	void test(int page, int size, long count) {
 		

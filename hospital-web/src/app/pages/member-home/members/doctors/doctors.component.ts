@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { WidgetsModule } from '../../../../widgets/widgets.module';
 import { PagerComponent } from '../../../pager-component';
 import { DoctorClientService } from '../../../../services/client/doctor-client.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-doctors',
   standalone: true,
-  imports: [WidgetsModule, ReactiveFormsModule, RouterLink],
+  imports: [WidgetsModule, ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './doctors.component.html',
   styles: ``
 })

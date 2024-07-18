@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jdc.onestop.hospital.api.input.DoctorCreateForm;
+import com.jdc.onestop.hospital.api.input.DoctorEditForm;
 import com.jdc.onestop.hospital.api.input.DoctorSearch;
 import com.jdc.onestop.hospital.api.input.DoctorSectionForms;
-import com.jdc.onestop.hospital.api.input.DoctorEditForm;
 import com.jdc.onestop.hospital.api.output.DoctorDetails;
 import com.jdc.onestop.hospital.api.output.DoctorListItem;
 import com.jdc.onestop.hospital.commons.dto.AddressChangeForm;
@@ -50,7 +49,7 @@ public class DoctorApi {
 	@PostMapping
 	@PreAuthorize("hasAnyAuthority('Admin', 'Office')")
 	DoctorDetails create(
-			@Validated @RequestBody DoctorCreateForm form, 
+			@Validated @RequestBody DoctorEditForm form, 
 			BindingResult result) {
 		return service.create(form);
 	}

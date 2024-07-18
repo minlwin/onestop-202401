@@ -9,8 +9,7 @@ import { ListViewComponent } from './list-view/list-view.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { DoctorListComponent } from './doctor-list/doctor-list.component';
 import { StaffListComponent } from './staff-list/staff-list.component';
-
-
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,10 +21,11 @@ import { StaffListComponent } from './staff-list/staff-list.component';
     ListViewComponent,
     PaginationComponent,
     DoctorListComponent,
-    StaffListComponent
+    StaffListComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterLink
   ],
   exports: [
     FormGroupComponent,

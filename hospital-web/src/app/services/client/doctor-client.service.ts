@@ -21,10 +21,10 @@ export class DoctorClientService {
   }
 
   create(form:any) {
-    return this.http.put<any>(URL, form)
+    return this.http.post<any>(URL, form)
   }
 
-  updateInfo(id:number, form:any) {
+  update(id:number, form:any) {
     return this.http.put<any>(`${URL}/${id}/info`, form)
   }
 

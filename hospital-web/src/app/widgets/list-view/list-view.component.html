@@ -10,7 +10,7 @@
 </section>
 
 <!-- Pagination -->
-@if (pager() != undefined && pager()?.totalPages! > 0) {
+@if (pager() != undefined && pager()?.totalPages! > 1) {
   <app-pagination [pager]="pager()"
     (onPageChange)="listener().onPageChage($event)"
     (onSizeChange)="listener().onSizeChange($event)"></app-pagination>
