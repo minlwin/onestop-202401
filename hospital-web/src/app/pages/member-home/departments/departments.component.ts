@@ -27,6 +27,8 @@ export class DepartmentsComponent extends PagerComponent{
       page: 0,
       size: 10
     })
+
+    this.search()
   }
 
   override pathForm(data: any): void {

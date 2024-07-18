@@ -34,7 +34,9 @@ public class DepartmentService {
 	@Transactional(isolation = Isolation.SERIALIZABLE)
 	public DepartmentDetails create(DepartmentEditForm form) {
 
-		validate(form);
+		if(departmentRepo.countByCode(form.code()) > 0) {
+			throw new ApiBusinessException("Department code has been already used.");
+		}
 
 		var entity = departmentRepo.save(form.entity());		
 		
@@ -44,12 +46,17 @@ public class DepartmentService {
 	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	public DepartmentDetails update(int id, DepartmentEditForm form) {
 		
-		validate(form);
 		
 		var entity = departmentRepo.findById(id)
 				.orElseThrow(() -> new ApiBusinessException("There is no department with given id."));
 		
-		entity.setCode(form.code());
+		if(!entity.getCode().equals(form.code())) {
+			if(departmentRepo.countByCode(form.code()) > 0) {
+				throw new ApiBusinessException("Department code has been already used.");
+			}
+			entity.setCode(form.code());
+		}
+		
 		entity.setName(form.name());
 		entity.setPhone(form.phone());
 		entity.setEmail(form.email());
@@ -97,10 +104,4 @@ public class DepartmentService {
 		};
 	}
 
-	private void validate(DepartmentEditForm form) {
-
-		if(departmentRepo.countByCode(form.code()) > 0) {
-			throw new ApiBusinessException("Department code has been already used.");
-		}
-	}
 }

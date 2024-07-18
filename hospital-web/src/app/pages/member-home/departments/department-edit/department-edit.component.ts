@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, effect, input, signal } from '@angular/core';
 import { WidgetsModule } from '../../../../widgets/widgets.module';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DepartmentClientService } from '../../../../services/client/department-client.service';
@@ -25,6 +25,19 @@ export class DepartmentEditComponent {
       email: ['', [Validators.required, Validators.email]],
       headCode : ''
     })
+
+    effect(() => {
+      if(this.id()) {
+        client.findById(this.id()!).subscribe(result => {
+          const {id, doctors, staffs, head, ... data} = result
+          this.form.patchValue(data)
+          if(head) {
+            this.form.patchValue({head: head.code})
+            this.headName.set(head.name)
+          }
+        })
+      }
+    }, {allowSignalWrites: true})
   }
 
   save() {
