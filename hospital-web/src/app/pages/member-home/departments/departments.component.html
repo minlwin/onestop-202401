@@ -1,6 +1,6 @@
-<app-list-view title="Department Management" icon="bi-diagram-3">
+<app-list-view title="Department Management" icon="bi-diagram-3" [pager]="pager()">
 
-  <form search class="row">
+  <form search [formGroup]="form" class="row">
 
     <div class="col-auto">
       <app-form-group label="Code">
@@ -15,11 +15,11 @@
     </div>
 
     <div class="col btn-wrapper">
-      <button type="button" class="btn btn-primary me-2">
+      <button (click)="search()" type="button" class="btn btn-primary me-2">
         <i class="bi-search"></i> Search
       </button>
 
-      <a href="#" class="btn btn-outline-primary">
+      <a [routerLink]="['../', 'edit']" class="btn btn-outline-primary">
         <i class="bi-plus"></i> Add New
       </a>
     </div>
@@ -34,7 +34,29 @@
         <th>Head</th>
         <th>Phone</th>
         <th>Email</th>
+        <td class="text-end">Doctors</td>
+        <td class="text-end">Staffs</td>
+        <td class="text-center"></td>
       </tr>
     </thead>
+
+    <tbody>
+      @for (item of contents(); track $index) {
+        <tr>
+          <td>{{item.code}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.head}}</td>
+          <td>{{item.phone}}</td>
+          <td>{{item.email}}</td>
+          <td class="text-end">{{item.doctors}}</td>
+          <td class="text-end">{{item.staffs}}</td>
+          <td class="text-center">
+            <a [routerLink]="['../', 'details']" [queryParams]="{id: item.id}" class="icon-link">
+              <i class="bi-send"></i>
+            </a>
+          </td>
+        </tr>
+      }
+    </tbody>
   </table>
 </app-list-view>

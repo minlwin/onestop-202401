@@ -38,9 +38,6 @@ export class AppComponent implements AfterViewInit{
       })
 
     effect(() => {
-
-      console.log('Show Public Menu', this.showPublicNav())
-
       if(this.showErrorDialog()) {
         this.modalDialog?.show()
       }

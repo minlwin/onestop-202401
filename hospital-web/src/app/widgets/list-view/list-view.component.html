@@ -10,4 +10,6 @@
 </section>
 
 <!-- Pagination -->
-<app-pagination></app-pagination>
+@if (pager() != undefined && pager()?.page! > 0) {
+  <app-pagination></app-pagination>
+}

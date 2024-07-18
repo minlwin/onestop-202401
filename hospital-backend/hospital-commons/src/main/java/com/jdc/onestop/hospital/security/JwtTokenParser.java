@@ -46,11 +46,11 @@ public class JwtTokenParser {
 				
 				var typeValue = jwt.getPayload().get(typeKey);
 				
-				if(!StringUtils.hasLength(typeKey) 
+				if(null == typeValue 
 						|| null == type 
 						|| !type.name().equals(typeValue)) {
 					throw new ApiJwtTokenInvalidationException("Invalid Token type");
-							}
+				}
 				
 				var username = jwt.getPayload().getSubject();
 				var roleString = jwt.getPayload().get(roleKey).toString();

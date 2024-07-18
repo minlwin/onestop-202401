@@ -20,16 +20,16 @@ export const tokenRefreshInterceptor: HttpInterceptorFn = (req, next) => {
           }).pipe(
             switchMap(loginUser => {
               security.login(loginUser)
-              return next(req.clone({headers: req.headers.append('Authorization', loginUser.accessToken)}))
+              return next(req.clone({headers: req.headers.set('Authorization', security.accessToken()!)}))
             }),
             catchError(error => {
+              console.error('Refresh Error', error)
               security.logout()
               return throwError(() => error)
             })
           )
         }
       }
-
       return throwError(() => e)
     })
   );

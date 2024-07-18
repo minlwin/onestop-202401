@@ -12,6 +12,10 @@ public record DepartmentHead(
 	public String getCode() {
 		return EmployeeCode.format.formatted(id);
 	}
+	
+	public String getShortName() {
+		return "%s : %s".formatted(getCode(), name());
+	}
 
 	public static DepartmentHead from(Employee entity) {
 		

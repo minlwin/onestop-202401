@@ -6,12 +6,19 @@ import { DoctorsComponent } from "./pages/member-home/members/doctors/doctors.co
 import { PatientsComponent } from "./pages/member-home/members/patients/patients.component";
 import { DepartmentsComponent } from "./pages/member-home/departments/departments.component";
 import { TopPageComponent } from "./pages/home/top-page/top-page.component";
+import { DepartmentEditComponent } from "./pages/member-home/departments/department-edit/department-edit.component";
+import { DepartmentDetailsComponent } from "./pages/member-home/departments/department-details/department-details.component";
 
 export const routes:Route[] = [
   {path: 'top', component: TopPageComponent, data: {showCover: true}},
   {path: 'appointments', component: AppointmentsComponent},
   {path: 'dash-board', component: DashBoardComponent},
-  {path: 'departments', component: DepartmentsComponent},
+  {path: 'departments', children: [
+    {path: 'list', component: DepartmentsComponent},
+    {path: 'edit', component: DepartmentEditComponent},
+    {path: 'details', component: DepartmentDetailsComponent},
+    {path: '', redirectTo: '/member/departments/list', pathMatch: 'full'}
+  ]},
   {path: 'members', children: [
     {path: 'office-staffs', component: OfficeStaffsComponent},
     {path: 'doctors', component: DoctorsComponent},

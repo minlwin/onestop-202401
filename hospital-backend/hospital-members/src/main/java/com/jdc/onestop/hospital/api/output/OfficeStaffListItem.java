@@ -20,6 +20,7 @@ public record OfficeStaffListItem(
 		String departmentName,
 		String position,
 		String phone,
+		String email,
 		LocalDate assignAt) {
 
 	public String getCode() {
@@ -35,6 +36,7 @@ public record OfficeStaffListItem(
 				s.getDepartment().getName(), 
 				s.getPosition(), 
 				s.getPhone(), 
+				s.getEmail(),
 				s.getAssignAt());
 	}
 
@@ -47,6 +49,7 @@ public record OfficeStaffListItem(
 			root.get(OfficeStaff_.department).get(Department_.name),
 			root.get(OfficeStaff_.position),
 			root.get(OfficeStaff_.phone),
+			root.get(OfficeStaff_.email),
 			root.get(OfficeStaff_.assignAt)
 		);
 	}

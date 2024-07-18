@@ -1,0 +1,67 @@
+<app-page-title icon="bi-building" [title]="title()"></app-page-title>
+
+<!-- Informations -->
+<div class="row mb-3">
+  <div class="col">
+    <!-- Head -->
+    <app-form-group label="Department Head">
+      <span class="form-control">{{head()?.shortName || 'No department head'}}</span>
+    </app-form-group>
+  </div>
+  <div class="col">
+    <!-- Phone -->
+    <app-form-group label="Phone Number">
+      <span class="form-control">{{details()?.phone}}</span>
+    </app-form-group>
+  </div>
+  <div class="col">
+    <!-- Email -->
+    <app-form-group label="Email">
+      <span class="form-control">{{details()?.email}}</span>
+    </app-form-group>
+  </div>
+</div>
+
+<div class="nav nav-underline">
+  <a data-bs-toggle="tab" data-bs-target="#doctors" class="nav-link active">
+    Doctors
+  </a>
+  <a data-bs-toggle="tab" data-bs-target="#staffs" class="nav-link">
+    Office Staffs
+  </a>
+</div>
+
+<div class="tab-content pt-3">
+  <div id="doctors" class="tab-pane fade show active">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Degree</th>
+          <th>Assign At</th>
+          <th>Status</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <div id="staffs" class="tab-pane fade">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Position</th>
+          <th>Assign At</th>
+          <th>Status</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+
+  </div>
+</div>
