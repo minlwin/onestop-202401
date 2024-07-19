@@ -53,7 +53,6 @@ export class StaffDetailsComponent extends DetailsComponent {
       array.push({label: 'Township', value: data.phone})
     }
     return array
-
   })
 
   constructor(client:StaffClientService) {
