@@ -46,6 +46,14 @@ export class PatientDetailsComponent extends DetailsComponent{
     return array
   })
 
+  profile = computed(() => {
+    return {
+      name : this.patient()?.name,
+      image : undefined,
+      phone : this.patient()?.phone,
+      email: this.patient()?.email
+    }
+  })
 
   constructor(client:PatientClientService) {
     super(client)

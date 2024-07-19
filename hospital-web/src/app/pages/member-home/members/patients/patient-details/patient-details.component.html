@@ -3,19 +3,7 @@
 <div class="row mt-3">
 
   <div class="col-4">
-    <div class="card">
-      <img src="/images/profile.png" alt="">
-      <div class="card-body">
-        <h5 class="card-title">
-          {{patient()?.code}} : {{patient()?.name}}
-        </h5>
-
-        <ul class="list-group list-group-flush mt-3">
-          <li class="list-group-item"><i class="bi-telephone"></i> {{patient()?.phone}}</li>
-          <li class="list-group-item"><i class="bi-envelope"></i> {{patient()?.email}}</li>
-        </ul>
-      </div>
-    </div>
+    <app-profile [profile]="profile()"></app-profile>
   </div>
 
   <div class="col">
@@ -43,6 +31,4 @@
     </app-information-card>
 
   </div>
-
-
 </div>
