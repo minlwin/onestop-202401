@@ -1,74 +1,34 @@
-import { Component, computed, effect, input, signal } from '@angular/core';
-import { EditableComponent } from '../../../../editable-component';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { StaffClientService } from '../../../../../services/client/staff-client.service';
+import { Component, effect, input, signal } from '@angular/core';
 import { WidgetsModule } from '../../../../../widgets/widgets.module';
-import { Router } from '@angular/router';
-import { DepartmentClientService } from '../../../../../services/client/department-client.service';
+import { RouterOutlet } from '@angular/router';
+import { StaffClientService } from '../../../../../services/client/staff-client.service';
+import { Profile } from '../../../../../widgets/profile/profile.component';
 
 @Component({
   selector: 'app-staff-edit',
   standalone: true,
-  imports: [WidgetsModule, ReactiveFormsModule],
+  imports: [WidgetsModule, RouterOutlet],
   templateUrl: './staff-edit.component.html',
   styles: ``
 })
-export class StaffEditComponent extends EditableComponent {
+export class StaffEditComponent {
 
   id = input<number>()
-  form:FormGroup
 
-  departmentId = input<number>()
-  department = signal<any>({})
+  profile = signal<Profile | undefined>(undefined)
 
-  title = computed(() => this.id() ? 'Edit Staff' : 'Add New Staff')
-
-
-  constructor(
-    builder:FormBuilder,
-    client:StaffClientService,
-    departmentClient:DepartmentClientService,
-    private router:Router
-  ) {
-    super(client)
-
-    this.form = builder.group({
-      department: [undefined, Validators.required],
-      email: ['', Validators.required],
-      name: ['', Validators.required],
-      position: ['', Validators.required],
-      phone: ['', Validators.required],
-      assignAt: ['', Validators.required],
-      reason: ''
-    })
-
+  constructor(client:StaffClientService) {
     effect(() => {
-      if(this.departmentId()) {
-        departmentClient.findById(this.departmentId()!).subscribe(dep => {
-          this.department.set(dep)
-          this.form.patchValue({department: dep.id})
+      if(this.id()) {
+        client.findById(this.id()!).subscribe(result => {
+          this.profile.set({
+            name: result?.doctor?.name,
+            image: result?.doctor?.profile,
+            phone: result?.doctor?.phone,
+            email: result?.doctor?.email
+          })
         })
       }
-    }, {allowSignalWrites: true})
-
-  }
-
-  override onSaved(result: any): void {
-    this.router.navigate(['/member/members/office-staffs/details'], {queryParams: {id: result.id}})
-  }
-
-  override extractFromValue(details: any) {
-
-    this.department.set(details.department)
-    this.form.patchValue({department: details.department.id})
-
-    return {
-      department: details.department.id,
-      email: details.email,
-      name: details.name,
-      position: details.position,
-      phone: details.phone,
-      assignAt: details.assignAt
-    }
+    })
   }
 }

@@ -1,65 +1,37 @@
-import { Component, computed, effect, input, signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DoctorClientService } from '../../../../../services/client/doctor-client.service';
+import { Component, effect, input, signal } from '@angular/core';
 import { WidgetsModule } from '../../../../../widgets/widgets.module';
-import { Router } from '@angular/router';
-import { EditableComponent } from '../../../../editable-component';
-import { DepartmentClientService } from '../../../../../services/client/department-client.service';
-import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { DoctorClientService } from '../../../../../services/client/doctor-client.service';
+import { Profile } from '../../../../../widgets/profile/profile.component';
+import { DoctorEditState } from './doctor-edit.state';
 
 @Component({
   selector: 'app-doctor-edit',
   standalone: true,
-  imports: [WidgetsModule, ReactiveFormsModule, CommonModule],
+  providers: [
+    DoctorEditState
+  ],
+  imports: [WidgetsModule, RouterOutlet],
   templateUrl: './doctor-edit.component.html',
   styles: ``
 })
-export class DoctorEditComponent extends EditableComponent{
+export class DoctorEditComponent {
 
   id = input<number>()
-  form:FormGroup
+  profile = signal<Profile | undefined>(undefined)
 
-  departmentId = input<number>()
-  department = signal<any>({})
-
-  title = computed(() => this.id() ? 'Edit Doctor' : 'Add New Doctor')
-
-  constructor(builder:FormBuilder,
-    client:DoctorClientService,
-    departmentClient:DepartmentClientService,
-    private router:Router
-  ) {
-    super(client)
-    this.form = builder.group({
-      department: [undefined, Validators.required],
-      email: ['', Validators.required],
-      name: ['', Validators.required],
-      degree: ['', Validators.required],
-      phone: ['', Validators.required],
-      assignAt: ['', Validators.required],
-      reason: ''
-    })
-
+  constructor(client:DoctorClientService, state:DoctorEditState) {
     effect(() => {
-      if(this.departmentId()) {
-        departmentClient.findById(this.departmentId()!).subscribe(dep => {
-          this.department.set(dep)
-          this.form.patchValue({department: dep.id})
+      if(this.id()) {
+        client.findById(this.id()!).subscribe(result => {
+          this.profile.set({
+            name: result?.doctor?.name,
+            image: result?.doctor?.profile,
+            phone: result?.doctor?.phone,
+            email: result?.doctor?.email
+          })
         })
       }
-    }, {allowSignalWrites: true})
+    })
   }
-
-  override extractFromValue(details: any) {
-    const {info, ... _} = details
-    const {id, department, ... formData} = info
-    this.department.set(department)
-    this.form.patchValue({department: department.id})
-    return formData
-  }
-
-  override onSaved(result: any): void {
-    this.router.navigate(['/member/members/doctors/details'], {queryParams: {id: result.id}})
-  }
-
 }

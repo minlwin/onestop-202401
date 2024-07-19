@@ -10,14 +10,22 @@ import { CommonModule } from '@angular/common';
   selector: 'app-doctor-details',
   standalone: true,
   imports: [WidgetsModule, RouterLink, CommonModule],
-  templateUrl: './doctor-details.component.html',
-  styles: ``
+  templateUrl: './doctor-details.component.html'
 })
 export class DoctorDetailsComponent extends DetailsComponent{
 
   id = input<number>()
 
   doctor = computed(() => this.details()?.doctor)
+
+  profile = computed(() => {
+    return {
+      name : this.doctor()?.name,
+      image : this.doctor()?.profile,
+      phone : this.doctor()?.phone,
+      email: this.doctor()?.email
+    }
+  })
 
   personalInfo = computed(() => {
     const array:Information[] = []

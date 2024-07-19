@@ -37,8 +37,8 @@
       <div class="card-body">
         <h5 class="card-title d-flex justify-content-between align-items-center">
           <span><i class="bi-people-fill"></i> Doctors</span>
-          <a [routerLink]="['/member/members/doctors/edit']" class="btn btn-outline-primary">
-            <i class="bi-plus"></i> Add Doctor
+          <a [routerLink]="['/member/members/doctors/edit/profile']" [queryParams]="{departmentId : details()?.id}" class="icon-link">
+            <i class="bi-plus-lg"></i>
           </a>
         </h5>
 
@@ -81,15 +81,15 @@
       <div class="card-body">
         <h5 class="card-title d-flex justify-content-between align-items-center">
           <span><i class="bi-people-fill"></i> Office Staffs</span>
-          <a [routerLink]="['/member/members/office-staffs/edit']" class="btn btn-outline-primary">
-            <i class="bi-plus"></i> Add Staff
+          <a [routerLink]="['/member/members/office-staffs/edit/profile']" [queryParams]="{departmentId : details()?.id}" class="icon-link">
+            <i class="bi-plus-lg"></i>
           </a>
         </h5>
 
         @if (staffs()?.length > 0) {
           <div class="list-group list-group-flush">
 
-            <div class="list-group-item list-group-item-dark">
+            <div class="list-group-item">
               <div class="row">
                 <div class="col">Code</div>
                 <div class="col">Name</div>

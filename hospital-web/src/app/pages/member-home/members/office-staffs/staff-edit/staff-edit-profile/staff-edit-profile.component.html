@@ -1,0 +1,51 @@
+<form [formGroup]="form">
+  <!-- Department -->
+  <div class="row">
+    <div class="col">
+      <app-form-group label="Department" [vertical]="true">
+        <span class="form-control">{{department()?.name || 'Department Name'}}</span>
+      </app-form-group>
+    </div>
+    <div class="col">
+      <app-form-group [valid]="form.get('assignAt')?.valid" label="Assign At">
+        <input formControlName="assignAt" type="date" class="form-control" />
+      </app-form-group>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <app-form-group [valid]="form.get('name')?.valid" label="Staff Name">
+        <input formControlName="name" placeholder="Enter Staff Name" class="form-control" />
+      </app-form-group>
+    </div>
+    <div class="col">
+      <app-form-group [valid]="form.get('position')?.valid" label="Position" [vertical]="true">
+        <input formControlName="position" placeholder="Enter Position" class="form-control" />
+      </app-form-group>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <app-form-group [valid]="form.get('email')?.valid" label="Email">
+        <input [readOnly]="id() != undefined" formControlName="email" placeholder="Enter email for login" class="form-control" />
+      </app-form-group>
+    </div>
+    <div class="col">
+      <app-form-group [valid]="form.get('phone')?.valid" label="Phone" [vertical]="true">
+        <input formControlName="phone" type="tel" placeholder="Enter Phone Number" class="form-control" />
+      </app-form-group>
+    </div>
+  </div>
+
+  <app-form-group label="Remark" [vertical]="true">
+    <textarea formControlName="reason" class="form-control"></textarea>
+  </app-form-group>
+
+  <div>
+    <button (click)="save()" [class.disabled]="!form.valid" type="button" class="btn btn-primary">
+      <i class="bi-save2"></i> Save Staff
+    </button>
+  </div>
+</form>

@@ -1,9 +1,11 @@
 <div class="card mb-4">
   <div class="card-body">
-    <h5 class="card-title d-flex justify-content-between align-items-center">
-      <ng-content select="[title]"></ng-content>
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="card-title ">
+        <ng-content select="[title]"></ng-content>
+      </h5>
       <ng-content select="[action]"></ng-content>
-    </h5>
+    </div>
 
     @if (informations() != undefined && informations()?.length! > 0) {
       <div class="list-group list-group-flush">

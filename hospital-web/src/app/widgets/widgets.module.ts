@@ -12,6 +12,7 @@ import { StaffListComponent } from './staff-list/staff-list.component';
 import { RouterLink } from '@angular/router';
 import { KeyValueComponent } from './key-value/key-value.component';
 import { InformationCardComponent } from './information-card/information-card.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { InformationCardComponent } from './information-card/information-card.co
     StaffListComponent,
     KeyValueComponent,
     InformationCardComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { InformationCardComponent } from './information-card/information-card.co
     DoctorListComponent,
     StaffListComponent,
     KeyValueComponent,
-    InformationCardComponent
+    InformationCardComponent,
+    ProfileComponent
   ]
 })
 export class WidgetsModule { }

@@ -1,54 +1,15 @@
-<app-page-title icon="bi-pencil" [title]="title()"></app-page-title>
+<app-page-title icon="bi-person" title="Edit Doctor"></app-page-title>
 
-<form [formGroup]="form" class="w-75">
-
-  <!-- Department -->
-  <div class="row">
-    <div class="col">
-      <app-form-group label="Department" [vertical]="true">
-        <span class="form-control">{{department()?.name || 'Department Name'}}</span>
-      </app-form-group>
-    </div>
-    <div class="col">
-      <app-form-group [valid]="form.get('assignAt')?.valid" label="Assign At">
-        <input formControlName="assignAt" type="date" class="form-control" />
-      </app-form-group>
-    </div>
+<div class="row mt-3">
+  <div class="col-4">
+    <app-profile [profile]="profile()"></app-profile>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <app-form-group [valid]="form.get('name')?.valid" label="Doctor Name">
-        <input formControlName="name" placeholder="Enter Doctor Name" class="form-control" />
-      </app-form-group>
-    </div>
-    <div class="col">
-      <app-form-group [valid]="form.get('degree')?.valid" label="Degree" [vertical]="true">
-        <input formControlName="degree" placeholder="Enter Degree" class="form-control" />
-      </app-form-group>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col">
-      <app-form-group [valid]="form.get('email')?.valid" label="Email">
-        <input [readOnly]="id() != undefined" formControlName="email" placeholder="Enter email for login" class="form-control" />
-      </app-form-group>
-    </div>
-    <div class="col">
-      <app-form-group [valid]="form.get('phone')?.valid" label="Phone" [vertical]="true">
-        <input formControlName="phone" type="tel" placeholder="Enter Phone Number" class="form-control" />
-      </app-form-group>
-    </div>
-  </div>
-
-  <app-form-group label="Remark" [vertical]="true">
-    <textarea formControlName="reason" class="form-control"></textarea>
-  </app-form-group>
-
-  <div>
-    <button (click)="save()" [class.disabled]="!form.valid" type="button" class="btn btn-primary">
-      <i class="bi-save2"></i> Save Doctor
-    </button>
-  </div>
-</form>
+</div>

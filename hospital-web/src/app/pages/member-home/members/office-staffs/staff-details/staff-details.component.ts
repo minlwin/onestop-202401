@@ -18,6 +18,15 @@ export class StaffDetailsComponent extends DetailsComponent {
 
   override id = input<number>()
 
+  profile = computed(() => {
+    return {
+      name : this.details()?.name,
+      image : undefined,
+      phone : this.details()?.phone,
+      email: this.details()?.email
+    }
+  })
+
   personalInfo = computed(() => {
     const array:Information[] = []
 
