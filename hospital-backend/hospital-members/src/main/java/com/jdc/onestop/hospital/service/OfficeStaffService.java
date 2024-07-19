@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jdc.onestop.hospital.api.input.OfficeStaffCreateForm;
 import com.jdc.onestop.hospital.api.input.OfficeStaffEditForm;
 import com.jdc.onestop.hospital.api.input.OfficeStaffSearch;
 import com.jdc.onestop.hospital.api.output.OfficeStaffDetails;
@@ -56,8 +55,8 @@ public class OfficeStaffService {
 	private TownshipRepo townshipRepo;
 
 	@Transactional(isolation = Isolation.SERIALIZABLE)
-	public OfficeStaffDetails create(OfficeStaffCreateForm form) {
-		var depertment = departmentRepo.findOneByCode(form.departmentCode())
+	public OfficeStaffDetails create(OfficeStaffEditForm form) {
+		var depertment = departmentRepo.findById(form.department())
 				.orElseThrow(() -> new ApiBusinessException("There is no department with given code."));
 		
 		var account = new Account();
@@ -71,7 +70,9 @@ public class OfficeStaffService {
 		var entity = new OfficeStaff();
 		entity.setAccount(account);
 		entity.setDepartment(depertment);
-		form.updateFields(entity);
+		entity.setEmail(form.email());
+		entity.setStatus(OfficeStaffStatus.Assigned);
+		form.update(entity);
 		
 		entity = staffRepo.saveAndFlush(entity);
 		

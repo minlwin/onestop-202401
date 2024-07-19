@@ -1,54 +1,109 @@
-<app-page-title icon="bi-building" [title]="title()"></app-page-title>
+<app-page-title icon="bi-building" title="Department Information"></app-page-title>
 
-<!-- Informations -->
-<div class="row mb-3">
+<div class="row mt-3">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <img src="/images/department.png" class="w-100">
+
+        <h5 class="card-title mt-4">
+          {{details()?.code}} : {{details()?.name}}
+        </h5>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <i class="bi-person"></i> {{head()?.name || 'There is no head'}}
+          </li>
+          <li class="list-group-item">
+            <i class="bi-telephone"></i> {{details()?.phone || 'There is no phone'}}
+          </li>
+          <li class="list-group-item">
+            <i class="bi-envelope"></i> {{details()?.email || 'There is no email'}}
+          </li>
+        </ul>
+
+        <div class="mt-3 text-end">
+          <a class="btn btn-outline-primary">
+            <i class="bi-pencil"></i> Edit Information
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="col">
-    <!-- Head -->
-    <app-form-group label="Department Head">
-      <span class="form-control">{{head()?.shortName || 'No department head'}}</span>
-    </app-form-group>
-  </div>
-  <div class="col">
-    <!-- Phone -->
-    <app-form-group label="Phone Number">
-      <span class="form-control">{{details()?.phone}}</span>
-    </app-form-group>
-  </div>
-  <div class="col">
-    <!-- Email -->
-    <app-form-group label="Email">
-      <span class="form-control">{{details()?.email}}</span>
-    </app-form-group>
-  </div>
-</div>
 
-<div class="mb-3">
-  <a [routerLink]="['../edit']" [queryParams]="{id: id()}" class="btn btn-outline-primary me-2">
-    <i class="bi-pencil"></i> Edit Department
-  </a>
-  <a [routerLink]="['/member/members/doctors/edit']" [queryParams]="{departmentId: id()}" class="btn btn-outline-primary me-2">
-    <i class="bi-plus"></i> Add Doctor
-  </a>
-  <a [routerLink]="['/member/members/office-staffs/edit']" [queryParams]="{departmentId: id()}" class="btn btn-outline-primary me-2">
-    <i class="bi-plus"></i> Add Office Staff
-  </a>
-</div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between align-items-center">
+          <span><i class="bi-people-fill"></i> Doctors</span>
+          <a [routerLink]="[]" class="btn btn-outline-primary">
+            <i class="bi-plus"></i> Add Doctor
+          </a>
+        </h5>
 
-<div class="nav nav-underline">
-  <a data-bs-toggle="tab" data-bs-target="#doctors" class="nav-link active">
-    Doctors
-  </a>
-  <a data-bs-toggle="tab" data-bs-target="#staffs" class="nav-link">
-    Office Staffs
-  </a>
-</div>
+        @if (doctors()?.length > 0) {
+          <div class="list-group list-group-flush">
+            <div class="list-group-item">
+              <div class="row">
+                <div class="col-2">Code</div>
+                <div class="col">Name</div>
+                <div class="col-5">Degree</div>
+                <div class="col">Assign Date</div>
+              </div>
+            </div>
 
-<div class="tab-content pt-3">
-  <div id="doctors" class="tab-pane fade show active">
-    <app-doctor-list [items]="doctors()"></app-doctor-list>
-  </div>
+            @for (item of doctors(); track $index) {
+              <div class="list-group-item">
+                <div class="row">
+                  <div class="col-2">{{item.code}}</div>
+                  <div class="col">{{item.name}}</div>
+                  <div class="col-5">{{item.degree}}</div>
+                  <div class="col">
+                    <div class="d-flex justify-content-between">
+                      <span>{{item.assignAt}}</span>
+                      <a href="#" class="icon-link">
+                        <i class="bi-arrow-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <p>There is no doctors in this department.</p>
+        }
 
-  <div id="staffs" class="tab-pane fade">
-    <app-staff-list [items]="staffs()"></app-staff-list>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between align-items-center">
+          <span><i class="bi-people-fill"></i> Office Staffs</span>
+          <a [routerLink]="[]" class="btn btn-outline-primary">
+            <i class="bi-plus"></i> Add Staff
+          </a>
+        </h5>
+
+        @if (staffs()?.length > 0) {
+          <div class="list-group list-group-flush">
+
+            <div class="list-group-item list-group-item-dark">
+              <div class="row">
+                <div class="col">Code</div>
+                <div class="col">Name</div>
+                <div class="col">Position</div>
+                <div class="col">Assign Date</div>
+              </div>
+            </div>
+
+          </div>
+        } @else {
+          <p>There is no office staff in this department.</p>
+        }
+      </div>
+    </div>
+
   </div>
 </div>

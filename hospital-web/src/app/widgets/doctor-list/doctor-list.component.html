@@ -1,6 +1,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>Code</th>
       <th>Name</th>
       <th>Degree</th>
       <th>Assign At</th>
@@ -14,6 +15,7 @@
   <tbody>
     @for (item of items(); track $index) {
       <tr>
+        <td>{{item.code}}</td>
         <td>{{item.name}}</td>
         <td>{{item.degree}}</td>
         <td>{{item.assignAt}}</td>
@@ -22,7 +24,7 @@
         <td>{{item.email}}</td>
         <td class="text-center">
           <a [routerLink]="['/member/members/doctors/details']" [queryParams]="{id: item.id}" class="icon-link">
-            <i class="bi-search"></i>
+            <i class="bi-arrow-right"></i>
           </a>
         </td>
       </tr>

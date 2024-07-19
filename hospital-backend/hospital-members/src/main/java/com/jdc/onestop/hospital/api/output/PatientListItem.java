@@ -7,7 +7,7 @@ import java.time.Period;
 import com.jdc.onestop.hospital.domain.member.entity.Patient;
 import com.jdc.onestop.hospital.domain.member.entity.Patient_;
 import com.jdc.onestop.hospital.domain.utils.consts.Gender;
-import com.jdc.onestop.hospital.utils.EmployeeCode;
+import com.jdc.onestop.hospital.utils.PatientCode;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -24,13 +24,16 @@ public record PatientListItem(
 		String email,
 		long visitCount) {
 
-	public int getAge() {
-		var period = Period.between(dob, LocalDate.now());
-		return period.getYears();
+	public String getAge() {
+		if(null != dob) {
+			var period = Period.between(dob, LocalDate.now());
+			return String.valueOf(period.getYears());
+		}
+		return "";
 	}
 	
 	public String getCode() {
-		return EmployeeCode.format.formatted(id);
+		return PatientCode.format.formatted(id);
 	}
 	
 	public static void select(CriteriaBuilder cb, 

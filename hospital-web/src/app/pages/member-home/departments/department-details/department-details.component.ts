@@ -3,11 +3,12 @@ import { WidgetsModule } from '../../../../widgets/widgets.module';
 import { DepartmentClientService } from '../../../../services/client/department-client.service';
 import { RouterLink } from '@angular/router';
 import { DetailsComponent } from '../../../details-component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-department-details',
   standalone: true,
-  imports: [WidgetsModule, RouterLink],
+  imports: [WidgetsModule, RouterLink, CommonModule],
   templateUrl: './department-details.component.html',
   styles: ``
 })

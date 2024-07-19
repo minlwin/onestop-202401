@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jdc.onestop.hospital.api.input.OfficeStaffCreateForm;
 import com.jdc.onestop.hospital.api.input.OfficeStaffEditForm;
 import com.jdc.onestop.hospital.api.input.OfficeStaffSearch;
 import com.jdc.onestop.hospital.api.output.OfficeStaffDetails;
@@ -47,7 +46,7 @@ public class OfficeStaffApi {
 	
 	@PostMapping
 	OfficeStaffDetails create(
-			@Validated @RequestBody OfficeStaffCreateForm form, 
+			@Validated @RequestBody OfficeStaffEditForm form, 
 			BindingResult result) {
 		return service.create(form);
 	}

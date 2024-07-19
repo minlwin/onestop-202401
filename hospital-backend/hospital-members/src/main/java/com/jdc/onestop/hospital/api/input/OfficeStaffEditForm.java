@@ -6,17 +6,21 @@ import java.time.LocalDateTime;
 import com.jdc.onestop.hospital.domain.member.entity.OfficeStaff;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record OfficeStaffEditForm(
+		@NotNull(message = "Please select department")
+		Integer department,
 		@NotBlank(message = "Please enter staff name.")
 		String name,
 		@NotBlank(message = "Please enter staff position.")
 		String position,
-		@NotBlank(message = "Please enter assign date.")
+		@NotNull(message = "Please enter assign date.")
 		LocalDate assignAt,
+		@NotBlank(message = "Please enter email for login.")
+		String email,
 		@NotBlank(message = "Please enter phone number.")
 		String phone,
-		@NotBlank(message = "Please enter change reason.")
 		String reason) {
 
 	public void update(OfficeStaff entity) {

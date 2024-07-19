@@ -91,8 +91,8 @@ public class DoctorService {
 		account = accountRepo.save(account);
 		
 		var doctor = new Doctor();
-		doctor.setEmail(form.email());
 		doctor.setAccount(account);
+		doctor.setEmail(form.email());
 		doctor.setDepartment(depertment);
 		doctor.setStatus(DoctorStatus.OnDuty);
 		

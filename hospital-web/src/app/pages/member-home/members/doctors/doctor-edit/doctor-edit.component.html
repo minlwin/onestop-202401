@@ -32,7 +32,7 @@
   <div class="row">
     <div class="col">
       <app-form-group [valid]="form.get('email')?.valid" label="Email">
-        <input formControlName="email" placeholder="Enter email for login" class="form-control" />
+        <input [readOnly]="id() != undefined" formControlName="email" placeholder="Enter email for login" class="form-control" />
       </app-form-group>
     </div>
     <div class="col">
@@ -41,6 +41,10 @@
       </app-form-group>
     </div>
   </div>
+
+  <app-form-group label="Remark" [vertical]="true">
+    <textarea formControlName="reason" class="form-control"></textarea>
+  </app-form-group>
 
   <div>
     <button (click)="save()" [class.disabled]="!form.valid" type="button" class="btn btn-primary">

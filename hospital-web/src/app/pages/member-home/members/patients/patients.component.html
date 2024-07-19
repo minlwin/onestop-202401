@@ -51,7 +51,11 @@
           <td>{{item.phone}}</td>
           <td>{{item.email}}</td>
           <td class="text-end">{{item.visitCount}}</td>
-          <td></td>
+          <td>
+            <a [routerLink]="['/member/members/patients/details']" [queryParams]="{id: item.id}" class="icon-link">
+              <i class="bi-arrow-right"></i>
+            </a>
+          </td>
         </tr>
       }
     </tbody>

@@ -21,7 +21,7 @@ export class StaffClientService {
   }
 
   create(form:any) {
-    return this.http.put<any>(URL, form)
+    return this.http.post<any>(URL, form)
   }
 
   update(id:number, form:any) {

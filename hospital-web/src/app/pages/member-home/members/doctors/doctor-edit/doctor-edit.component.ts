@@ -36,7 +36,8 @@ export class DoctorEditComponent extends EditableComponent{
       name: ['', Validators.required],
       degree: ['', Validators.required],
       phone: ['', Validators.required],
-      assignAt: ['', Validators.required]
+      assignAt: ['', Validators.required],
+      reason: ''
     })
 
     effect(() => {
@@ -46,7 +47,6 @@ export class DoctorEditComponent extends EditableComponent{
           this.form.patchValue({department: dep.id})
         })
       }
-
     }, {allowSignalWrites: true})
   }
 
@@ -54,6 +54,7 @@ export class DoctorEditComponent extends EditableComponent{
     const {info, ... _} = details
     const {id, department, ... formData} = info
     this.department.set(department)
+    this.form.patchValue({department: department.id})
     return formData
   }
 

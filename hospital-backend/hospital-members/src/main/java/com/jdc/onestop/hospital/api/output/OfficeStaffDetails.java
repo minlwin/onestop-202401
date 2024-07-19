@@ -19,6 +19,7 @@ public record OfficeStaffDetails(
 		LocalDateTime statusChangeAt,
 		String statusChangeReason,
 		String phone,
+		String email,
 		AddressInfo address) {
 
 	public String getCode() {
@@ -36,6 +37,7 @@ public record OfficeStaffDetails(
 				entity.getChangeAt(), 
 				entity.getChangeReason(), 
 				entity.getPhone(), 
+				entity.getEmail(),
 				AddressInfo.from(entity.getAddress()));
 	}
 

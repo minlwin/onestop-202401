@@ -1,1 +1,143 @@
-<p>staff-details works!</p>
+<app-page-title icon="bi-person" title="Staff Information"></app-page-title>
+
+<div class="row mt-3">
+  <div class="col-4">
+    <div class="card">
+      <img src="/images/profile.png" alt="">
+      <div class="card-body">
+        <h5 class="card-title">
+          {{details()?.code}} : {{details()?.name}}
+        </h5>
+
+        <ul class="list-group list-group-flush mt-3">
+          <li class="list-group-item"><i class="bi-shield"></i> {{details()?.position}}</li>
+          <li class="list-group-item"><i class="bi-telephone"></i> {{details()?.phone}}</li>
+          <li class="list-group-item"><i class="bi-envelope"></i> {{details()?.email}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between align-items-center">
+          <span>
+            <i class="bi-person"></i> Personal Information
+          </span>
+
+          <a href="#" class="btn btn-outline-primary">
+            <i class="bi-pencil"></i> Edit Profile
+          </a>
+        </h5>
+
+        <div class="list-group list-group-flush">
+          <div class="list-group-item">
+            <div class="row">
+              <div class="col-4">Staff Name</div>
+              <div class="col">{{details()?.name}}</div>
+            </div>
+          </div>
+
+          <div class="list-group-item">
+            <div class="row">
+              <div class="col-4">Position</div>
+              <div class="col">{{details()?.position}}</div>
+            </div>
+          </div>
+
+          <div class="list-group-item">
+            <div class="row">
+              <div class="col-4">Assign Date</div>
+              <div class="col">{{details()?.assignAt}}</div>
+            </div>
+          </div>
+
+          <div class="list-group-item">
+            <div class="row">
+              <div class="col-4">Status</div>
+              <div class="col">{{details()?.status}}</div>
+            </div>
+          </div>
+
+          <div class="list-group-item">
+            <div class="row">
+              <div class="col-4">Status Change At</div>
+              <div class="col">{{details()?.statusChangeAt}}</div>
+            </div>
+          </div>
+
+          @if (details()?.statusChangeReason) {
+            <div class="list-group-item">
+              <div class="row">
+                <div class="col-4">Change Reason</div>
+                <div class="col">{{details()?.statusChangeReason}}</div>
+              </div>
+            </div>
+            }
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between align-items-center">
+          <span>
+            <i class="bi-diagram-3"></i> Department
+          </span>
+
+          <a href="#" class="btn btn-outline-primary">
+            <i class="bi-pencil"></i> Change Department
+          </a>
+        </h5>
+
+        <div class="list-group list-group-flush">
+
+          <div class="list-group-item">
+            <div class="row">
+              <div class="col-4">Department Code</div>
+              <div class="col">{{details()?.department.code}}</div>
+            </div>
+          </div>
+
+          <div class="list-group-item">
+            <div class="row">
+              <div class="col-4">Department Name</div>
+              <div class="col">{{details()?.department.name}}</div>
+            </div>
+          </div>
+
+          <div class="list-group-item">
+            <div class="row">
+              <div class="col-4">Department Phone</div>
+              <div class="col">{{details()?.department.phone}}</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between align-items-center">
+          <span>
+            <i class="bi-map-fill"></i> Address
+          </span>
+
+          <a href="#" class="btn btn-outline-primary">
+            <i class="bi-pencil"></i> Edit Address
+          </a>
+        </h5>
+
+        @if (details()?.address) {
+
+        } @else {
+          <p>There is no address information. Please enter address for employee.</p>
+        }
+      </div>
+    </div>
+
+  </div>
+</div>
