@@ -1,1 +1,65 @@
 <app-page-title icon="bi-person" title="Doctor Details"></app-page-title>
+
+<div class="row mt-3">
+  <div class="col-4">
+    <div class="card">
+      <img src="/images/profile.png" alt="">
+      <div class="card-body">
+        <h5 class="card-title">
+          {{doctor()?.code}} : {{doctor()?.name}}
+        </h5>
+
+        <ul class="list-group list-group-flush mt-3">
+          <li class="list-group-item"><i class="bi-telephone"></i> {{doctor()?.phone}}</li>
+          <li class="list-group-item"><i class="bi-envelope"></i> {{doctor()?.email}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <!-- Personal Information -->
+    <app-information-card [informations]="personalInfo()">
+      <span title>
+        <i class="bi-person"></i> Personal Information
+      </span>
+
+      <a action [routerLink]="['../edit']" [queryParams]="{id: doctor()?.id}" class="btn btn-outline-primary">
+        <i class="bi-pencil"></i> Edit
+      </a>
+
+    </app-information-card>
+
+    <!-- Department -->
+    <app-information-card [informations]="department()">
+      <span title>
+        <i class="bi-diagram-3"></i> Department
+      </span>
+
+      <a action href="#" class="btn btn-outline-primary">
+        <i class="bi-pencil"></i> Edit
+      </a>
+
+    </app-information-card>
+
+    <!-- Address -->
+    <app-information-card [informations]="address()" noDataMessage="There is no address information. Please enter address for employee.">
+      <span title>
+        <i class="bi-postcard"></i> Address
+      </span>
+
+      <a action href="#" class="btn btn-outline-primary">
+        <i class="bi-pencil"></i> Edit
+      </a>
+
+    </app-information-card>
+
+    <!-- Sections -->
+    <div class="card">
+      <div class="card-body">
+        <pre>{{details() | json}}</pre>
+      </div>
+    </div>
+
+  </div>
+</div>

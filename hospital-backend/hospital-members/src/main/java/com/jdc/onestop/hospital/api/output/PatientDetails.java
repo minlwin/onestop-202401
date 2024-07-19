@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.jdc.onestop.hospital.api.output.dto.AppointmentSummary;
+import com.jdc.onestop.hospital.commons.dto.AddressInfo;
 import com.jdc.onestop.hospital.commons.dto.PatientInfo;
 import com.jdc.onestop.hospital.domain.member.entity.Doctor;
 import com.jdc.onestop.hospital.domain.member.entity.Patient;
@@ -13,10 +14,14 @@ import com.jdc.onestop.hospital.utils.EmployeeCode;
 
 public record PatientDetails(		
 		PatientInfo patient,
+		AddressInfo address,
 		List<AppointmentSummary> appointments) {
 
 	public static PatientDetails from(Patient patient) {
-		return new PatientDetails(PatientInfo.from(patient), summary(patient.getAppointment()));
+		return new PatientDetails(
+				PatientInfo.from(patient), 
+				AddressInfo.from(patient.getAddress()),
+				summary(patient.getAppointment()));
 	}
 	
 	private static List<AppointmentSummary> summary(List<Appointment> appointments) {

@@ -58,6 +58,10 @@ export class StaffEditComponent extends EditableComponent {
   }
 
   override extractFromValue(details: any) {
+
+    this.department.set(details.department)
+    this.form.patchValue({department: details.department.id})
+
     return {
       department: details.department.id,
       email: details.email,

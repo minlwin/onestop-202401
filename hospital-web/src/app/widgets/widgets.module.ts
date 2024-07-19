@@ -10,6 +10,8 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { DoctorListComponent } from './doctor-list/doctor-list.component';
 import { StaffListComponent } from './staff-list/staff-list.component';
 import { RouterLink } from '@angular/router';
+import { KeyValueComponent } from './key-value/key-value.component';
+import { InformationCardComponent } from './information-card/information-card.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { RouterLink } from '@angular/router';
     PaginationComponent,
     DoctorListComponent,
     StaffListComponent,
+    KeyValueComponent,
+    InformationCardComponent,
   ],
   imports: [
     CommonModule,
@@ -36,7 +40,9 @@ import { RouterLink } from '@angular/router';
     ListViewComponent,
     PaginationComponent,
     DoctorListComponent,
-    StaffListComponent
+    StaffListComponent,
+    KeyValueComponent,
+    InformationCardComponent
   ]
 })
 export class WidgetsModule { }

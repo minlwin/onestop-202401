@@ -1,0 +1,23 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title d-flex justify-content-between align-items-center">
+      <ng-content select="[title]"></ng-content>
+      <ng-content select="[action]"></ng-content>
+    </h5>
+
+    @if (informations() != undefined && informations()?.length! > 0) {
+      <div class="list-group list-group-flush">
+        @for (item of informations(); track $index) {
+          <div class="list-group-item">
+            <div class="row">
+              <div class="col-4">{{item.label}}</div>
+              <div class="col">{{item.value}}</div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <p>{{noDataMessage() || 'There is no informations.'}}</p>
+    }
+  </div>
+</div>
