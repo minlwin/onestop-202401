@@ -22,10 +22,10 @@ export class StaffEditComponent {
       if(this.id()) {
         client.findById(this.id()!).subscribe(result => {
           this.profile.set({
-            name: result?.doctor?.name,
-            image: result?.doctor?.profile,
-            phone: result?.doctor?.phone,
-            email: result?.doctor?.email
+            name: result?.name,
+            image: result?.profile,
+            phone: result?.phone,
+            email: result?.email
           })
         })
       }
