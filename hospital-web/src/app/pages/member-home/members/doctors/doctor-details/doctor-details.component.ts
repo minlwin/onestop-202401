@@ -1,10 +1,10 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, effect, input } from '@angular/core';
 import { WidgetsModule } from '../../../../../widgets/widgets.module';
 import { DoctorClientService } from '../../../../../services/client/doctor-client.service';
-import { DetailsComponent } from '../../../../details-component';
-import { Information } from '../../../../../widgets/information-card/information-card.component';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { DetailsComponent } from '../../../../details-component';
+import { Information } from '../../../../../widgets/information-card/information-card.component';
 
 @Component({
   selector: 'app-doctor-details',
@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   imports: [WidgetsModule, RouterLink, CommonModule],
   templateUrl: './doctor-details.component.html'
 })
-export class DoctorDetailsComponent extends DetailsComponent{
+export class DoctorDetailsComponent extends DetailsComponent {
 
   id = input<number>()
 

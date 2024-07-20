@@ -1,16 +1,11 @@
-import { Component, effect, input, signal } from '@angular/core';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { WidgetsModule } from '../../../../../widgets/widgets.module';
 import { RouterOutlet } from '@angular/router';
 import { DoctorClientService } from '../../../../../services/client/doctor-client.service';
-import { Profile } from '../../../../../widgets/profile/profile.component';
-import { DoctorEditState } from './doctor-edit.state';
 
 @Component({
   selector: 'app-doctor-edit',
   standalone: true,
-  providers: [
-    DoctorEditState
-  ],
   imports: [WidgetsModule, RouterOutlet],
   templateUrl: './doctor-edit.component.html',
   styles: ``
@@ -18,20 +13,22 @@ import { DoctorEditState } from './doctor-edit.state';
 export class DoctorEditComponent {
 
   id = input<number>()
-  profile = signal<Profile | undefined>(undefined)
+  details = signal<any>(undefined)
 
-  constructor(client:DoctorClientService, state:DoctorEditState) {
+  profile = computed(() => {
+    return {
+      name : this.details()?.doctor.name,
+      image : this.details()?.doctor.profile,
+      phone : this.details()?.doctor.phone,
+      email: this.details()?.doctor.email
+    }
+  })
+
+  constructor(client:DoctorClientService) {
     effect(() => {
       if(this.id()) {
-        client.findById(this.id()!).subscribe(result => {
-          this.profile.set({
-            name: result?.doctor?.name,
-            image: result?.doctor?.profile,
-            phone: result?.doctor?.phone,
-            email: result?.doctor?.email
-          })
-        })
+        client.findById(this.id()!).subscribe(result => this.details.set(result))
       }
-    })
+    }, {allowSignalWrites: true})
   }
 }

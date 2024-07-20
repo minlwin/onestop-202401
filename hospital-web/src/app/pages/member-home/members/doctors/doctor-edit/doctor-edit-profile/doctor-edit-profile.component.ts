@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, signal } from '@angular/core';
+import { Component,   effect, input, signal } from '@angular/core';
 import { WidgetsModule } from '../../../../../../widgets/widgets.module';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,7 +21,8 @@ export class DoctorEditProfileComponent extends EditableComponent {
   departmentId = input<number>()
   department = signal<any>({})
 
-  constructor(builder:FormBuilder,
+  constructor(
+    builder:FormBuilder,
     client:DoctorClientService,
     departmentClient:DepartmentClientService,
     private router:Router
