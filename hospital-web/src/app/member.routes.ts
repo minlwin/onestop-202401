@@ -23,6 +23,7 @@ import { StaffEditDepartmentComponent } from "./pages/member-home/members/office
 import { PatientEditComponent } from "./pages/member-home/members/patients/patient-edit/patient-edit.component";
 import { PatientEditProfileComponent } from "./pages/member-home/members/patients/patient-edit/patient-edit-profile/patient-edit-profile.component";
 import { PatientEditAddressComponent } from "./pages/member-home/members/patients/patient-edit/patient-edit-address/patient-edit-address.component";
+import { DepartmentEditInfoComponent } from "./pages/member-home/departments/department-edit/department-edit-info/department-edit-info.component";
 
 export const routes:Route[] = [
   {path: 'top', component: TopPageComponent, data: {showCover: true}},
@@ -30,7 +31,10 @@ export const routes:Route[] = [
   {path: 'dash-board', component: DashBoardComponent},
   {path: 'departments', children: [
     {path: 'list', component: DepartmentsComponent, title: 'Department'},
-    {path: 'edit', component: DepartmentEditComponent, title: 'Department'},
+    {path: 'edit', component: DepartmentEditComponent, title: 'Department', children: [
+      {path: 'info', component: DepartmentEditInfoComponent},
+      {path: '', redirectTo: '/member/departments/edit/info', pathMatch: 'full'}
+    ]},
     {path: 'details', component: DepartmentDetailsComponent, title: 'Department'},
     {path: '', redirectTo: '/member/departments/list', pathMatch: 'full'}
   ]},

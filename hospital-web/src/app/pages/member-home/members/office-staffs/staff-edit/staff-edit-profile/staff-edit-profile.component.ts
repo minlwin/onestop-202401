@@ -56,7 +56,7 @@ export class StaffEditProfileComponent extends EditableComponent {
     this.router.navigate(['/member/members/office-staffs/details'], {queryParams: {id: result.id}})
   }
 
-  override extractFromValue(details: any) {
+  private extractFromValue(details: any) {
 
     this.department.set(details.department)
     this.form.patchValue({department: details.department.id})

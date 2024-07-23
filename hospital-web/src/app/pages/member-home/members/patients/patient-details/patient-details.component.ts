@@ -48,6 +48,7 @@ export class PatientDetailsComponent extends DetailsComponent{
 
   profile = computed(() => {
     return {
+      id: this.patient()?.id,
       name : this.patient()?.name,
       image : undefined,
       phone : this.patient()?.phone,

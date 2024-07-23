@@ -8,14 +8,8 @@ export abstract class EditableComponent {
   abstract get form():FormGroup
 
   abstract onSaved(result:any):void
-  abstract extractFromValue(details:any):any
 
-  constructor(private client:FindAndSaveEnableClient) {
-    effect(() => {
-      if(this.id()) {
-        client.findById(this.id()).subscribe(details => this.form.patchValue(this.extractFromValue(details)))
-      }
-    }, {allowSignalWrites: true})
+  constructor(private client:SaveEnableClient) {
   }
 
   save() {
@@ -26,9 +20,7 @@ export abstract class EditableComponent {
   }
 }
 
-export interface FindAndSaveEnableClient {
-
-  findById(id:any):Observable<any>
+export interface SaveEnableClient {
 
   create(form:any):Observable<any>
 

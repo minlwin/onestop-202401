@@ -20,6 +20,7 @@ export class DoctorDetailsComponent extends DetailsComponent {
 
   profile = computed(() => {
     return {
+      id: this.doctor()?.id,
       name : this.doctor()?.name,
       image : this.doctor()?.profile,
       phone : this.doctor()?.phone,
@@ -63,6 +64,8 @@ export class DoctorDetailsComponent extends DetailsComponent {
     }
     return array
   })
+
+  section = computed(() => this.details()?.sections || [])
 
   constructor(client:DoctorClientService) {
     super(client)

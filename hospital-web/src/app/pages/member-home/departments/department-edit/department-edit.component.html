@@ -1,54 +1,15 @@
 <app-page-title icon="bi-pencil" [title]="id() ? 'Edit Department' : 'Add New Department'"></app-page-title>
 
-<div class="w-75">
+<div class="row mt-3">
+  <div class="col-4">
+    <app-department-info [department]="department()"></app-department-info>
+  </div>
 
-  <form [formGroup]="form" >
-    <div class="row">
-      <div class="col-4">
-        <!-- Code -->
-        <app-form-group label="Code" [valid]="form.get('code')?.valid">
-          <input formControlName="code" type="text" class="form-control" placeholder="Department Code">
-        </app-form-group>
-      </div>
-      <div class="col">
-        <!-- Name -->
-        <app-form-group [valid]="form.get('name')?.valid" [vertical]="true" label="Name">
-          <input formControlName="name" type="text" class="form-control" placeholder="Department Name">
-        </app-form-group>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <router-outlet></router-outlet>
       </div>
     </div>
-
-    <!-- Head -->
-    <div class="row">
-      <div class="col-4">
-        <!-- Code -->
-        <app-form-group [vertical]="true" label="Head Code">
-          <input formControlName="headCode" type="text" class="form-control" placeholder="Department Head Code">
-        </app-form-group>
-      </div>
-      <div class="col">
-        <!-- Name -->
-        <app-form-group label="Head Name">
-          <span class="form-control" >
-            {{headName()}}
-          </span>
-        </app-form-group>
-      </div>
-    </div>
-
-    <!-- Phone -->
-    <app-form-group [valid]="form.get('phone')?.valid" [vertical]="true" label="Phone">
-      <input formControlName="phone" type="tel" class="form-control" placeholder="Enter Phone Number">
-    </app-form-group>
-
-    <!-- Email -->
-    <app-form-group [valid]="form.get('email')?.valid" [vertical]="true" label="Email">
-      <input formControlName="email" type="email" class="form-control" placeholder="Enter Email Address">
-    </app-form-group>
-
-    <button (click)="save()" [class.disabled]="!form.valid" class="btn btn-primary" type="button">
-      <i class="bi-save2"></i> Save
-    </button>
-  </form>
-
+  </div>
 </div>

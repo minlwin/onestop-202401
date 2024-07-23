@@ -13,6 +13,7 @@ export class ProfileComponent {
 }
 
 export interface Profile {
+  id: number | undefined
   name: string | undefined
   image: string | undefined
   phone: string | undefined

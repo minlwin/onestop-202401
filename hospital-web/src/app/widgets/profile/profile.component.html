@@ -4,7 +4,7 @@
     <ng-content select="[uploadBtn]"></ng-content>
   </div>
   <div class="card-body">
-    @if (profile()) {
+    @if (profile()?.id) {
       <h5 class="card-title">
         {{profile()?.name}}
       </h5>

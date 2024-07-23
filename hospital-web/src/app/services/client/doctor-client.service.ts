@@ -25,7 +25,7 @@ export class DoctorClientService {
   }
 
   update(id:number, form:any) {
-    return this.http.put<any>(`${URL}/${id}/info`, form)
+    return this.http.put<any>(`${URL}/${id}`, form)
   }
 
   updateStatus(id:number, form:any) {

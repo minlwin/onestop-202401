@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
 import { KeyValueComponent } from './key-value/key-value.component';
 import { InformationCardComponent } from './information-card/information-card.component';
 import { ProfileComponent } from './profile/profile.component';
+import { DepartmentInfoComponent } from './department-info/department-info.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ProfileComponent } from './profile/profile.component';
     KeyValueComponent,
     InformationCardComponent,
     ProfileComponent,
+    DepartmentInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { ProfileComponent } from './profile/profile.component';
     StaffListComponent,
     KeyValueComponent,
     InformationCardComponent,
-    ProfileComponent
+    ProfileComponent,
+    DepartmentInfoComponent
   ]
 })
 export class WidgetsModule { }

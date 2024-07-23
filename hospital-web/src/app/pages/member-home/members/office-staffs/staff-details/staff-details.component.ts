@@ -5,7 +5,6 @@ import { WidgetsModule } from '../../../../../widgets/widgets.module';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Information } from '../../../../../widgets/information-card/information-card.component';
-import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
 
 @Component({
   selector: 'app-staff-details',
@@ -20,6 +19,7 @@ export class StaffDetailsComponent extends DetailsComponent {
 
   profile = computed(() => {
     return {
+      id: this.details()?.id,
       name : this.details()?.name,
       image : undefined,
       phone : this.details()?.phone,

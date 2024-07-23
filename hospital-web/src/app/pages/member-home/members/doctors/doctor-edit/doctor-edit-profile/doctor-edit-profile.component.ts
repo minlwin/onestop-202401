@@ -5,11 +5,13 @@ import { Router } from '@angular/router';
 import { DepartmentClientService } from '../../../../../../services/client/department-client.service';
 import { DoctorClientService } from '../../../../../../services/client/doctor-client.service';
 import { EditableComponent } from '../../../../../editable-component';
+import { DoctorEditState } from '../doctor-edit.state';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-doctor-edit-profile',
   standalone: true,
-  imports: [WidgetsModule, ReactiveFormsModule],
+  imports: [WidgetsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './doctor-edit-profile.component.html',
   styles: ``
 })
@@ -23,6 +25,7 @@ export class DoctorEditProfileComponent extends EditableComponent {
 
   constructor(
     builder:FormBuilder,
+    state:DoctorEditState,
     client:DoctorClientService,
     departmentClient:DepartmentClientService,
     private router:Router
@@ -45,10 +48,15 @@ export class DoctorEditProfileComponent extends EditableComponent {
           this.form.patchValue({department: dep.id})
         })
       }
+
+      if(state.details()) {
+        this.form.patchValue(this.extractFromValue(state.details()))
+      }
+
     }, {allowSignalWrites: true})
   }
 
-  override extractFromValue(details: any) {
+  private extractFromValue(details: any) {
     const {doctor, ... _} = details
     const {id, department, ... formData} = doctor
     this.department.set(department)
