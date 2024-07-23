@@ -5,7 +5,7 @@
 <p>Welcome to The Hospital. You can take appointments for our doctors. <br>Thank you for your visiting to our home page.</p>
 
 <!-- Doctors -->
-<div class="row row-cols-3 g-4">
+<div class="row row-cols-4 g-4">
   @for (item of doctors(); track $index) {
     <app-doctor-grid-item [doctor]="item"></app-doctor-grid-item>
   }

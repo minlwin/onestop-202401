@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { DepartmentInfoComponent } from './department-info/department-info.component';
 import { AddressEditComponent } from './address-edit/address-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileImagePipe } from './profile-image.pipe';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProfileComponent,
     DepartmentInfoComponent,
     AddressEditComponent,
+    ProfileImagePipe
   ],
   imports: [
     CommonModule,
@@ -53,7 +55,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     InformationCardComponent,
     ProfileComponent,
     DepartmentInfoComponent,
-    AddressEditComponent
+    AddressEditComponent,
+    ProfileImagePipe
   ]
 })
 export class WidgetsModule { }

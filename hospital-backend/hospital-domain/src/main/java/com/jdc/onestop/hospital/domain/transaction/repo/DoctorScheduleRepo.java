@@ -13,4 +13,5 @@ public interface DoctorScheduleRepo extends BaseRepository<DoctorSchedule, Docto
 
 	@Query("select s from DoctorSchedule s where s.id.doctorId = ?1 and s.id.issueDate >= ?2")
 	List<DoctorSchedule> searchForUpdate(int doctorId, LocalDate dateForm);
+
 }

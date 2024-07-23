@@ -1,16 +1,16 @@
 package com.jdc.onestop.hospital.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.onestop.hospital.api.input.DoctorSearch;
-import com.jdc.onestop.hospital.api.output.DoctorDetails;
 import com.jdc.onestop.hospital.api.output.DoctorListItem;
-import com.jdc.onestop.hospital.domain.PageInfo;
+import com.jdc.onestop.hospital.api.output.dto.DoctorWithSchedules;
 import com.jdc.onestop.hospital.service.DoctorService;
 
 @RestController
@@ -21,14 +21,12 @@ public class PublicDoctorSearchApi {
 	private DoctorService service;
 
 	@GetMapping
-	PageInfo<DoctorListItem> search(DoctorSearch form,
-			@RequestParam(required = false, defaultValue = "0") int page, 
-			@RequestParam(required = false, defaultValue = "10") int size) {
-		return service.search(form, page, size);
+	List<DoctorListItem> search(DoctorSearch form) {
+		return service.search(form);
 	}
 	
 	@GetMapping("{id}")
-	DoctorDetails findById(@PathVariable int id) {
-		return service.findById(id);
+	DoctorWithSchedules findForAppointment(@PathVariable int id) {
+		return service.findForAppointment(id);
 	}
 }

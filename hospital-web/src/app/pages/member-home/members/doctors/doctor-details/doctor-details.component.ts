@@ -1,4 +1,4 @@
-import { Component, computed, effect, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { WidgetsModule } from '../../../../../widgets/widgets.module';
 import { DoctorClientService } from '../../../../../services/client/doctor-client.service';
 import { RouterLink } from '@angular/router';

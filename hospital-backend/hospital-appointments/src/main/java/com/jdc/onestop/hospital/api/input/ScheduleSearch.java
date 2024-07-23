@@ -17,6 +17,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
 public record ScheduleSearch(
+		String email,
 		String doctor, 
 		Section section,
 		LocalDate from,

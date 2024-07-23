@@ -1,7 +1,9 @@
 package com.jdc.onestop.hospital.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -21,8 +23,11 @@ import com.jdc.onestop.hospital.api.input.DoctorSearch;
 import com.jdc.onestop.hospital.api.input.DoctorSectionForms;
 import com.jdc.onestop.hospital.api.output.DoctorDetails;
 import com.jdc.onestop.hospital.api.output.DoctorListItem;
+import com.jdc.onestop.hospital.api.output.dto.DoctorScheduleInfo;
+import com.jdc.onestop.hospital.api.output.dto.DoctorWithSchedules;
 import com.jdc.onestop.hospital.commons.dto.AddressChangeForm;
 import com.jdc.onestop.hospital.commons.dto.DepartmentChangeForm;
+import com.jdc.onestop.hospital.commons.dto.DoctorInfo;
 import com.jdc.onestop.hospital.commons.dto.DoctorSectionChange;
 import com.jdc.onestop.hospital.commons.dto.DoctorSectionChangeItem;
 import com.jdc.onestop.hospital.commons.dto.StatusUpdateForm;
@@ -36,6 +41,7 @@ import com.jdc.onestop.hospital.domain.member.repo.AccountRepo;
 import com.jdc.onestop.hospital.domain.member.repo.DepartmentRepo;
 import com.jdc.onestop.hospital.domain.member.repo.DoctorRepo;
 import com.jdc.onestop.hospital.domain.member.repo.DoctorSectionRepo;
+import com.jdc.onestop.hospital.domain.transaction.repo.DoctorScheduleRepo;
 import com.jdc.onestop.hospital.domain.utils.consts.DoctorStatus;
 import com.jdc.onestop.hospital.domain.utils.consts.MemberRole;
 import com.jdc.onestop.hospital.exceptions.ApiBusinessException;
@@ -75,6 +81,9 @@ public class DoctorService {
 	
 	@Autowired
 	private DirectExchange sectionChange;
+	
+	@Autowired
+	private DoctorScheduleRepo scheduleRepo;
 
 	@Transactional(isolation = Isolation.SERIALIZABLE)
 	public DoctorDetails create(DoctorEditForm form) {
@@ -235,6 +244,25 @@ public class DoctorService {
 	public PageInfo<DoctorListItem> search(DoctorSearch form, int page, int size) {
 		return doctorRepo.search(queryFunc(form), countFunc(form), page, size);
 	}
+	
+	@Transactional(readOnly = true)
+	public List<DoctorListItem> search(DoctorSearch form) {
+		return doctorRepo.search(queryFunc(form));
+	}
+
+
+	@Transactional(readOnly = true)
+	public DoctorWithSchedules findForAppointment(int id) {
+		
+		var doctorInfo = doctorRepo.findById(id).map(DoctorInfo::from)
+				.orElseThrow(() -> new ApiBusinessException("There is no doctor with given id."));
+				
+		var schedules = scheduleRepo.searchForUpdate(id, LocalDate.now())
+				.stream().map(DoctorScheduleInfo::from).toList();
+		
+		return new DoctorWithSchedules(doctorInfo, schedules);
+	}
+
 
 	private Function<CriteriaBuilder, CriteriaQuery<DoctorListItem>> queryFunc(DoctorSearch form) {
 		return cb -> {
@@ -257,6 +285,5 @@ public class DoctorService {
 			return cq;
 		};
 	}
-
 
 }

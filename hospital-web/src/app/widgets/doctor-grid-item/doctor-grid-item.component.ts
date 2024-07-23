@@ -8,12 +8,6 @@ import { Component, computed, input } from '@angular/core';
 export class DoctorGridItemComponent {
 
   doctor = input.required<DoctorItem>()
-  profile = computed(() => this.doctor().profile !== undefined
-    ? this.doctor().profile : this.getProfileForNoPhoto(this.doctor().gender))
-
-  private getProfileForNoPhoto(gender:string) {
-    return gender == 'Male' ? '/images/male-doctor.png' : '/images/female-doctor.jpg'
-  }
 }
 
 export interface DoctorItem {
