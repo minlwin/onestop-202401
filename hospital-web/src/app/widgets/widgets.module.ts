@@ -14,6 +14,8 @@ import { KeyValueComponent } from './key-value/key-value.component';
 import { InformationCardComponent } from './information-card/information-card.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DepartmentInfoComponent } from './department-info/department-info.component';
+import { AddressEditComponent } from './address-edit/address-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,11 @@ import { DepartmentInfoComponent } from './department-info/department-info.compo
     InformationCardComponent,
     ProfileComponent,
     DepartmentInfoComponent,
+    AddressEditComponent,
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterLink
   ],
   exports: [
@@ -48,7 +52,8 @@ import { DepartmentInfoComponent } from './department-info/department-info.compo
     KeyValueComponent,
     InformationCardComponent,
     ProfileComponent,
-    DepartmentInfoComponent
+    DepartmentInfoComponent,
+    AddressEditComponent
   ]
 })
 export class WidgetsModule { }

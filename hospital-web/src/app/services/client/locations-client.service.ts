@@ -20,6 +20,6 @@ export class LocationsClientService {
   }
 
   searchTownship(form:any) {
-    return this.http.get<any[]>(`${URL}/district`, {params: form})
+    return this.http.get<any[]>(`${URL}/township`, {params: form})
   }
 }

@@ -1,1 +1,64 @@
 <h5><i class="bi-calendar-check"></i> Edit Sections</h5>
+
+<form [formGroup]="form">
+  <div class="row">
+    <div class="col-4">
+      <app-form-group label="Start Date" [valid]="form.get('startDate')?.valid">
+        <input formControlName="startDate" type="date" class="form-control">
+      </app-form-group>
+    </div>
+
+    <div class="col-4 btn-wrapper">
+      <button (click)="addItem()" type="button" class="btn btn-outline-primary d-inline-block w-100">
+        <i class="bi-plus"></i> Add Section
+      </button>
+    </div>
+  </div>
+
+  <div formArrayName="sections" class="mb-4">
+    @for (array of items.controls; track $index) {
+      <div [formGroupName]="$index" class="row mt-3">
+        <div class="col">
+          <app-form-group [valid]="getSectionForm($index)?.get('day')?.valid" [label]="$index == 0 ? 'Day' : undefined">
+            <select formControlName="day" class="form-select">
+              <option value="">Select One</option>
+              @for (item of days; track $index) {
+                <option [value]="item">{{item}}</option>
+              }
+            </select>
+          </app-form-group>
+        </div>
+
+        <div class="col">
+          <app-form-group [valid]="getSectionForm($index)?.get('section')?.valid" [label]="$index == 0 ? 'Section' : undefined">
+            <select formControlName="section" class="form-select">
+              <option value="">Select One</option>
+              @for (item of sections; track $index) {
+                <option [value]="item">{{item}}</option>
+              }
+            </select>
+          </app-form-group>
+        </div>
+
+        <div class="col">
+          <app-form-group [label]="$index == 0 ? 'Max Token' : undefined">
+            <div class="input-group">
+              <input formControlName="maxToken" type="number" class="form-control">
+              <button (click)="removeItem($index)" type="button" class="input-group-text">
+                <i class="bi-trash"></i>
+              </button>
+            </div>
+          </app-form-group>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div>
+    <button (click)="save()" [class.disabled]="!form.valid" type="button" class="btn btn-outline-primary">
+      <i class="bi-save2"></i> Save
+    </button>
+  </div>
+
+</form>
+

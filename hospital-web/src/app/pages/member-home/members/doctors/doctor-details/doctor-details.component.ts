@@ -58,14 +58,14 @@ export class DoctorDetailsComponent extends DetailsComponent {
 
     if(this.details()?.address) {
       const data = this.details()?.address
-      array.push({label: 'Address', value: data.code})
-      array.push({label: 'Quarter', value: data.name})
-      array.push({label: 'Township', value: data.phone})
+      array.push({label: 'Address', value: data.building})
+      array.push({label: 'Quarter', value: data.quarter})
+      array.push({label: 'Township', value: `${data.township}, ${data.division}`})
     }
     return array
   })
 
-  section = computed(() => this.details()?.sections || [])
+  sections = computed(() => this.details()?.sections || [])
 
   constructor(client:DoctorClientService) {
     super(client)

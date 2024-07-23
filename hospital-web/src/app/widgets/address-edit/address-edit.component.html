@@ -1,0 +1,64 @@
+<form [formGroup]="form()">
+  <!-- Division -->
+  <div class="row">
+    <div class="col-6">
+      <app-form-group [valid]="form().get('divisionId')?.valid" [vertical]="true" label="Division">
+        <select formControlName="divisionId" class="form-select">
+          <option value="">Select One</option>
+          @for (item of divisions(); track $index) {
+            <option [value]="item.id">{{item.name}}</option>
+          }
+        </select>
+      </app-form-group>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- District -->
+    <div class="col">
+      <app-form-group [valid]="form().get('districtId')?.valid" [vertical]="true" label="District">
+        <select formControlName="districtId" class="form-select">
+          <option value="">Select One</option>
+          @for (item of districts(); track $index) {
+            <option [value]="item.id">{{item.name}}</option>
+          }
+        </select>
+      </app-form-group>
+    </div>
+
+    <!-- Township -->
+    <div class="col">
+      <app-form-group [valid]="form().get('townshipId')?.valid" label="Township">
+        <select formControlName="townshipId" class="form-select">
+          <option value="">Select One</option>
+          @for (item of townships(); track $index) {
+            <option [value]="item.id">{{item.name}}</option>
+          }
+        </select>
+      </app-form-group>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Quarter -->
+    <div class="col">
+      <app-form-group [valid]="form().get('quarter')?.valid" [vertical]="true" label="Quarter">
+        <input formControlName="quarter" type="text" placeholder="Enter Querter" class="form-control">
+      </app-form-group>
+    </div>
+    <!-- Street -->
+    <div class="col">
+      <app-form-group [valid]="form().get('street')?.valid" label="Street Address">
+        <input formControlName="street" type="text" placeholder="Enter Street Address" class="form-control">
+      </app-form-group>
+    </div>
+  </div>
+
+  <!-- Building -->
+  <div class="mb-4">
+    <app-form-group [valid]="form().get('building')?.valid" label="Building Address">
+      <textarea formControlName="building" class="form-control"></textarea>
+    </app-form-group>
+  </div>
+
+</form>

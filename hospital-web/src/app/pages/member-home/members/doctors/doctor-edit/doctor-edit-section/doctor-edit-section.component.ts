@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { WidgetsModule } from '../../../../../../widgets/widgets.module';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EditableComponent, SaveEnableClient } from '../../../../../editable-component';
 import { Observable } from 'rxjs';
@@ -19,16 +19,54 @@ export class DoctorEditSectionComponent extends EditableComponent{
   id = input<number>()
   form:FormGroup
 
-  constructor(builder:FormBuilder, client:DoctorClientService, private router:Router) {
+  days = ["MONDAY",
+    "TUESDAY",
+    "WEDNESDAY",
+    "THURSDAY",
+    "FRIDAY",
+    "SATURDAY",
+    "SUNDAY"]
+
+  sections = ['Morning', 'Evening']
+
+  constructor(private builder:FormBuilder, client:DoctorClientService, private router:Router) {
     super(new EditableClientAdaptor(client))
     this.form = builder.group({
       startDate: ['', Validators.required],
       sections: builder.array([])
     })
+
+    if(this.items.length == 0) {
+      this.addItem()
+    }
+  }
+
+  get items():FormArray {
+    return this.form.get('sections') as FormArray
+  }
+
+  getSectionForm(index:number):FormGroup | undefined {
+    return this.items.controls[index] as FormGroup | undefined
   }
 
   override onSaved(result: any): void {
     this.router.navigate(['/member/members/doctors/details'], {queryParams: {id: result.doctor.id}})
+  }
+
+  addItem() {
+    this.items.push(this.builder.group({
+      day: ['', Validators.required],
+      section: ['', Validators.required],
+      maxToken: ''
+    }))
+  }
+
+  removeItem(index:number) {
+    this.items.removeAt(index)
+
+    if(this.items.length == 0) {
+      this.addItem()
+    }
   }
 }
 

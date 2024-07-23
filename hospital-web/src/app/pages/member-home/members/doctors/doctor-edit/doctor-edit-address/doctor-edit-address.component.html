@@ -1,1 +1,9 @@
-<p>doctor-edit-address works!</p>
+<h5><i class="bi-pencil"></i> Edit Address</h5>
+
+<app-address-edit [form]="form"></app-address-edit>
+
+<div>
+  <button (click)="save()" [class.disabled]="!form.valid" type="button" class="btn btn-outline-primary">
+    <i class="bi-save2"></i> Save Address
+  </button>
+</div>

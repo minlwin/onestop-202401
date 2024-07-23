@@ -55,8 +55,26 @@
           </a>
         </h5>
 
-        @if (section().length > 0) {
+        @if (sections().length > 0) {
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Section</th>
+                <th class="text-end">Max Token</th>
+              </tr>
+            </thead>
 
+            <tbody>
+              @for (item of sections(); track $index) {
+                <tr>
+                  <td>{{item.day}}</td>
+                  <td>{{item.section}}</td>
+                  <td class="text-end">{{item.maxToken}}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
         } @else {
           <p>There is no section for this doctor.</p>
         }

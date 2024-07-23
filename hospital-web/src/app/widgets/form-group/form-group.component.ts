@@ -7,7 +7,7 @@ import { Component, input } from '@angular/core';
 })
 export class FormGroupComponent {
 
-  label = input.required()
+  label = input<string | undefined>()
   valid = input<boolean | undefined>()
   vertical = input()
 }
