@@ -23,7 +23,7 @@ public class SecurityConfiguration {
 		
 		http.authorizeHttpRequests(req -> {
 			req.requestMatchers("/public/**").permitAll();
-			req.requestMatchers("/change-pass").authenticated();
+			req.requestMatchers("/change-pass", "/profile/**").authenticated();
 			req.anyRequest().hasAuthority("Activated");
 		});
 		

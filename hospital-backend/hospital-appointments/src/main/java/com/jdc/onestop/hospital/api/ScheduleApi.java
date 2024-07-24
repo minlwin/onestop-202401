@@ -13,14 +13,14 @@ import com.jdc.onestop.hospital.domain.PageInfo;
 import com.jdc.onestop.hospital.service.DoctorScheduleService;
 
 @RestController
-@RequestMapping("public/schedules")
+@RequestMapping("schedules")
 public class ScheduleApi {
 	
 	@Autowired
 	private DoctorScheduleService service;
 
 	@GetMapping
-	@PreAuthorize("hasAnyAuthority('Admin', 'Office') || (hasAuthority('Doctor') && #form.email eq authentication.name)")
+	@PreAuthorize("hasAnyAuthority('Admin', 'Office')")
 	public PageInfo<ScheduleListItem> search(
 			ScheduleSearch form,
 			@RequestParam(required = false, defaultValue = "0") int page,

@@ -22,7 +22,7 @@ public record PatientInfo(
 				entity.getGender(), 
 				entity.getDob(), 
 				entity.getEmail(),
-				entity.getPhone(),
+				entity.getAccount().getPhone(),
 				entity.getRegisterAt());
 	}
 	

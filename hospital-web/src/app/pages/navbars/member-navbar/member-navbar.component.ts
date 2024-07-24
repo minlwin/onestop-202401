@@ -13,9 +13,10 @@ export class MemberNavbarComponent implements AfterViewInit{
 
   activated = computed(() => this.security.active())
   role = computed(() => this.security.memberRole())
+  loginUser = computed(() => this.security.loginUserName())
 
-  toggler = viewChild<ElementRef>('dropdownToggler')
-  menu = viewChild<ElementRef>('dropdownMenu')
+  masterMenu = viewChild<ElementRef>('masterMenu')
+  memberMenu = viewChild<ElementRef>('memberMenu')
 
   constructor(private security:SecurityOwner, private router:Router) {
   }
@@ -23,28 +24,43 @@ export class MemberNavbarComponent implements AfterViewInit{
   ngAfterViewInit(): void {
 
     const observer = new MutationObserver(mutations => {
-      const menuHolder = this.toggler()?.nativeElement as HTMLElement
-      const active = mutations.map(m => m.target as HTMLElement).flatMap(a => Array.from(a.classList))
-        .filter(a => a == 'active').pop()
+      // Remove Active Class to Togglers
+      mutations.filter(m => m.target)
+        .map(m => m.target as HTMLElement)
+        .map(element => this.getToggler(element))
+        .forEach(element => element.classList.remove('active'))
 
-      if(active) {
-        menuHolder.classList.add('active')
-      } else {
-        menuHolder.classList.remove('active')
-      }
+      const mutantArray = mutations.map(m => m.target as HTMLElement)
+        .filter(element => element.classList.contains('active'))
+
+      const mutants = [... new Set(mutantArray)]
+
+      mutants.forEach(element => this.getToggler(element).classList.add('active'))
     })
 
-    if(this.toggler() && this.menu()) {
-      const subMenus = Array.from(this.menu()?.nativeElement.children)
-          .map(a => a as any).flatMap(a => Array.from(a.children))
-          .map(a => a as HTMLElement)
-
-      subMenus.forEach(a => {
-        observer.observe(a, {
-          attributes: true
-        })
-      })
+    if(this.masterMenu()) {
+      this.register(observer, this.masterMenu()?.nativeElement)
     }
+
+    if(this.memberMenu()) {
+      this.register(observer, this.memberMenu()?.nativeElement)
+    }
+  }
+
+  private getToggler(target:HTMLElement):any {
+    return target?.parentElement?.parentElement?.parentElement?.firstChild
+  }
+
+  private register(observer:MutationObserver, menu:any) {
+    const subMenus = Array.from(menu.children)
+      .map(a => a as any).flatMap(a => Array.from(a.children))
+      .map(a => a as HTMLElement)
+
+    subMenus.forEach(a => {
+      observer.observe(a, {
+        attributes: true
+      })
+    })
   }
 
   signOut() {

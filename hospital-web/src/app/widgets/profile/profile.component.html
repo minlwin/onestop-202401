@@ -4,7 +4,7 @@
     <ng-content select="[uploadBtn]"></ng-content>
   </div>
   <div class="card-body">
-    @if (profile()?.id) {
+    @if (profile()?.email) {
       <h5 class="card-title">
         {{profile()?.name}}
       </h5>
@@ -13,10 +13,6 @@
         <li class="list-group-item"><i class="bi-telephone"></i> {{profile()?.phone}}</li>
         <li class="list-group-item"><i class="bi-envelope"></i> {{profile()?.email}}</li>
       </ul>
-    } @else {
-      <h5 class="card-title">
-        Create New Doctor
-      </h5>
     }
   </div>
 </div>

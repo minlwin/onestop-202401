@@ -1,1 +1,59 @@
-<p>schedules works!</p>
+<app-list-view icon="bi-calendar" title="Schedule Management" [listener]="this" [pager]="pager()">
+
+  <form search [formGroup]="form" class="row">
+    <app-form-group label="Section" class="col-auto">
+      <select formControlName="section" class="form-select">
+        <option value="">All Section</option>
+        <option value="Morning">Morning</option>
+        <option value="Evening">Evening</option>
+      </select>
+    </app-form-group>
+
+    <app-form-group label="Doctor" class="col-auto">
+      <input formControlName="doctor" type="text" placeholder="Doctor Name" class="form-control">
+    </app-form-group>
+
+    <app-form-group label="From" class="col-auto">
+      <input formControlName="from" type="date" class="form-control">
+    </app-form-group>
+
+    <app-form-group label="To" class="col-auto">
+      <input formControlName="to" type="date" class="form-control">
+    </app-form-group>
+
+    <div class="col btn-wrapper">
+      <button (click)="search()" type="button" class="btn btn-outline-primary">
+        <i class="bi-search"></i> Search
+      </button>
+    </div>
+  </form>
+
+  <table list class="table table-striped">
+    <thead>
+      <tr>
+        <th>Doctor</th>
+        <th>Degree</th>
+        <th>Date</th>
+        <th>Day</th>
+        <th>Section</th>
+        <th class="text-end">Tokens</th>
+        <th class="text-end">Max Tokens</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (item of contents(); track $index) {
+        <tr>
+          <td>{{item.doctorName}}</td>
+          <td>{{item.degree}}</td>
+          <td>{{item.issueAt}}</td>
+          <td>{{item.day}}</td>
+          <td>{{item.section}}</td>
+          <td class="text-end">{{item.currentToken}}</td>
+          <td class="text-end">{{item.maxToken}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+</app-list-view>

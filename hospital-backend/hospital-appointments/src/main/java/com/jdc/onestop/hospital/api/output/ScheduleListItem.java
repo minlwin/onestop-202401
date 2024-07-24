@@ -1,5 +1,6 @@
 package com.jdc.onestop.hospital.api.output;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import com.jdc.onestop.hospital.domain.member.entity.Account_;
@@ -20,6 +21,10 @@ public record ScheduleListItem(
 		String degree,
 		int maxToken,
 		int currentToken) {
+	
+	public DayOfWeek getDay() {
+		return issueAt.getDayOfWeek();
+	}
 
 	public static void select(CriteriaQuery<ScheduleListItem> cq, 
 			Root<DoctorSchedule> root) {

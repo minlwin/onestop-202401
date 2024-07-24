@@ -42,9 +42,6 @@ public abstract class Employee extends AuditableEntity {
 	private LocalDate resignAt;
 
 	@Column(nullable = false)
-	private String phone;
-	
-	@Column(nullable = false)
 	private String email;
 	
 	@OneToOne(optional = false)

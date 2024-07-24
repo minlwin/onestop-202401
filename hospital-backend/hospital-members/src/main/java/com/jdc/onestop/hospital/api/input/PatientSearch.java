@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.util.StringUtils;
 
+import com.jdc.onestop.hospital.domain.member.entity.Account_;
 import com.jdc.onestop.hospital.domain.member.entity.Doctor_;
 import com.jdc.onestop.hospital.domain.member.entity.Patient;
 import com.jdc.onestop.hospital.domain.member.entity.Patient_;
@@ -39,7 +40,7 @@ public record PatientSearch(
 		
 		if(StringUtils.hasLength(keyword)) {
 			list.add(cb.or(
-				cb.like(root.get(Patient_.phone), keyword.concat("%")),
+				cb.like(root.get(Patient_.account).get(Account_.phone), keyword.concat("%")),
 				cb.like(cb.lower(root.get(Patient_.name)), keyword.toLowerCase().concat("%"))
 			));
 		}

@@ -24,7 +24,7 @@ public record DepartmentHead(
 					entity.getId(), 
 					entity.getAccount().getFullName(), 
 					entity.getAccount().getRole().name(), 
-					entity.getPhone());
+					entity.getAccount().getPhone());
 		}
 		
 		return null;

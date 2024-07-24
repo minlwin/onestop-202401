@@ -17,7 +17,6 @@ export class DoctorEditComponent {
 
   profile = computed(() => {
     return {
-      id: this.state.details()?.doctor.id,
       name : this.state.details()?.doctor.name,
       image : this.state.details()?.doctor.profile,
       phone : this.state.details()?.doctor.phone,

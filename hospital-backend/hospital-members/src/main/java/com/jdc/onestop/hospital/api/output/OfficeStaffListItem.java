@@ -35,7 +35,7 @@ public record OfficeStaffListItem(
 				s.getDepartment().getId(), 
 				s.getDepartment().getName(), 
 				s.getPosition(), 
-				s.getPhone(), 
+				s.getAccount().getPhone(), 
 				s.getEmail(),
 				s.getAssignAt());
 	}
@@ -48,7 +48,7 @@ public record OfficeStaffListItem(
 			root.get(OfficeStaff_.department).get(Department_.id),
 			root.get(OfficeStaff_.department).get(Department_.name),
 			root.get(OfficeStaff_.position),
-			root.get(OfficeStaff_.phone),
+			root.get(OfficeStaff_.account).get(Account_.phone),
 			root.get(OfficeStaff_.email),
 			root.get(OfficeStaff_.assignAt)
 		);

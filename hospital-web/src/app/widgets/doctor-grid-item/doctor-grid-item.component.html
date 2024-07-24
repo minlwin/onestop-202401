@@ -18,7 +18,7 @@
       <app-stars [value]="doctor().stars"></app-stars>
 
       <!-- Details Btn -->
-      <a href="#" class="btn btn-primary">
+      <a [routerLink]="['../schedule/list']" [queryParams]="{doctor: doctor().id}" class="btn btn-primary">
         <i class="bi-calendar-date"></i> Schedules
       </a>
     </div>

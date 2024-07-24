@@ -12,6 +12,7 @@ import com.jdc.onestop.hospital.utils.EmployeeCode;
 public record OfficeStaffDetails(
 		int id,
 		String name,
+		String profile,
 		String position,
 		DepartmentInfo department,
 		EmployeeStatus status,
@@ -30,13 +31,14 @@ public record OfficeStaffDetails(
 		return new OfficeStaffDetails(
 				entity.getId(), 
 				entity.getAccount().getFullName(), 
+				entity.getAccount().getProfile(),
 				entity.getPosition(), 
 				DepartmentInfo.from(entity.getDepartment()), 
 				entity.getStatus(), 
 				entity.getAssignAt(), 
 				entity.getChangeAt(), 
 				entity.getChangeReason(), 
-				entity.getPhone(), 
+				entity.getAccount().getPhone(), 
 				entity.getEmail(),
 				AddressInfo.from(entity.getAddress()));
 	}

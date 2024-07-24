@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { PageInfo } from './utils';
 
-const URL = `${environment.url.appointment}/public/schedules`
+const URL = `${environment.url.appointment}/schedules`
 
 @Injectable({
   providedIn: 'root'

@@ -36,6 +36,7 @@ public class AdminUserInitilizer {
 		admin.setPassword(passwordEncoder.encode("admin"));
 		admin.setRole(MemberRole.Admin);
 		admin.setFullName("Admin User");
+		admin.setPhone("09782003098");
 		repo.save(admin);
 	}
 }

@@ -95,6 +95,7 @@ public class DoctorService {
 		account.setFullName(form.name());
 		account.setUsername(form.email());
 		account.setRole(MemberRole.Doctor);
+		account.setPhone(form.phone());
 		account.setPassword(passwordEncoder.encode(passwordForNew));
 		
 		account = accountRepo.save(account);
@@ -176,18 +177,17 @@ public class DoctorService {
 	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	public DoctorDetails uploadImage(int id, MultipartFile file) {
 		
+		var doctor = doctorRepo.findById(id)
+				.orElseThrow(() -> new ApiBusinessException("There is no doctor with given id."));
+		
 		if(null == file) {
 			throw new ApiBusinessException("Please select profile photo.");
 		}
 		
-		var profile = storageService.saveProfile(id, file);
+		var profile = storageService.saveProfile(doctor.getEmail(), file);
+		doctor.getAccount().setProfile(profile);
 		
-		return doctorRepo.findById(id)
-				.stream()
-				.peek(a -> a.setProfile(profile))
-				.map(DoctorDetails::from)
-				.findAny()
-				.orElseThrow(() -> new ApiBusinessException("There is no doctor with given id."));
+		return DoctorDetails.from(doctor);
 	}
 	
 	@Transactional(isolation = Isolation.REPEATABLE_READ)

@@ -27,7 +27,7 @@ public record OfficeStaffEditForm(
 		entity.getAccount().setFullName(name);
 		entity.setPosition(position);
 		entity.setAssignAt(assignAt);
-		entity.setPhone(phone);
+		entity.getAccount().setPhone(phone);
 		entity.setChangeAt(LocalDateTime.now());
 		entity.setChangeReason(reason);
 	}

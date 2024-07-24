@@ -23,10 +23,10 @@ public record DoctorInfo(
 		return new DoctorInfo(
 				entity.getId(), 
 				entity.getAccount().getFullName(), 
-				entity.getProfile(),
+				entity.getAccount().getProfile(),
 				entity.getDegree(), 
 				entity.getEmail(),
-				entity.getPhone(),
+				entity.getAccount().getPhone(),
 				entity.getAssignAt(),
 				DepartmentInfo.from(entity.getDepartment()));
 	}

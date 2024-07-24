@@ -22,7 +22,6 @@ export class StaffEditComponent {
       if(this.id()) {
         client.findById(this.id()!).subscribe(result => {
           this.profile.set({
-            id: result?.id,
             name: result?.name,
             image: result?.profile,
             phone: result?.phone,

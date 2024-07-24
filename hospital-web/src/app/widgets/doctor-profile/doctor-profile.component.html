@@ -1,0 +1,78 @@
+<!-- Personal Information -->
+<app-information-card [informations]="personalInfo()">
+  <span title>
+    <i class="bi-person"></i> Personal Information
+  </span>
+
+  @if (security.isAdmin() || security.isOffice()) {
+    <a action [routerLink]="['../edit/profile']" [queryParams]="{id: doctor()?.id}" class="icon-link">
+      <i class="bi-pencil"></i>
+    </a>
+  }
+
+</app-information-card>
+
+<!-- Department -->
+<app-information-card [informations]="department()">
+  <span title>
+    <i class="bi-diagram-3"></i> Department
+  </span>
+
+  @if (security.isAdmin() || security.isOffice()) {
+    <a action [routerLink]="['../edit', 'department']" [queryParams]="{id: doctor()?.id}" class="icon-link">
+      <i class="bi-pencil"></i>
+    </a>
+  }
+
+</app-information-card>
+
+<!-- Address -->
+<app-information-card [informations]="address()" noDataMessage="There is no address information. Please enter address for employee.">
+  <span title>
+    <i class="bi-postcard"></i> Address
+  </span>
+
+  <a action [routerLink]="['../edit', 'address']" [queryParams]="{id: doctor()?.id}" href="#" class="icon-link">
+    <i class="bi-pencil"></i>
+  </a>
+
+</app-information-card>
+
+<!-- Sections -->
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title d-flex justify-content-between align-items-center">
+      <span>
+        <i class="bi-calendar-day"></i> Sections
+      </span>
+
+      <a [routerLink]="['../edit', 'section']" [queryParams]="{id: doctor()?.id}" class="icon-link">
+        <i class="bi-pencil"></i>
+      </a>
+    </h5>
+
+    @if (sections().length > 0) {
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Section</th>
+            <th class="text-end">Max Token</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (item of sections(); track $index) {
+            <tr>
+              <td>{{item.day}}</td>
+              <td>{{item.section}}</td>
+              <td class="text-end">{{item.maxToken}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <p>There is no section for this doctor.</p>
+    }
+  </div>
+</div>

@@ -40,15 +40,15 @@ public class SignUpService {
 		account.setRole(MemberRole.Patient);
 		account.setFullName(form.name());
 		account.setPassword(passwordEncoder.encode(form.password()));
+		account.setPhone(form.phone());
 		
 		account = accountRepo.save(account);
-		
+
 		var patient = new Patient();
 		patient.setName(form.name());
 		patient.setAccount(account);
 		
 		patient.setRegisterAt(LocalDateTime.now());
-		patient.setPhone(form.phone());
 		patient.setEmail(form.email());
 		
 		patient = patientRepo.save(patient);

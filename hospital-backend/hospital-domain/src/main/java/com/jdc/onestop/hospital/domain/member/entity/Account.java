@@ -18,10 +18,18 @@ public class Account extends AuditableEntity{
 
 	@Id
 	private String username;
+	
 	@Column(nullable = false)
 	private String password;
+	
 	@Column(nullable = false)
 	private MemberRole role;
+	
 	@Column(nullable = false, name = "full_name")
 	private String fullName;
+
+	@Column(nullable = false)
+	private String phone;
+	
+	private String profile;
 }

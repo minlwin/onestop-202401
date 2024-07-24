@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 
+import com.jdc.onestop.hospital.domain.member.entity.Account_;
 import com.jdc.onestop.hospital.domain.member.entity.Patient;
 import com.jdc.onestop.hospital.domain.member.entity.Patient_;
 import com.jdc.onestop.hospital.domain.utils.consts.Gender;
@@ -47,7 +48,7 @@ public record PatientListItem(
 			root.get(Patient_.gender),
 			root.get(Patient_.dob),
 			root.get(Patient_.registerAt),
-			root.get(Patient_.phone),
+			root.get(Patient_.account).get(Account_.phone),
 			root.get(Patient_.email),
 			cb.count(appointments)
 		);
@@ -58,7 +59,7 @@ public record PatientListItem(
 			root.get(Patient_.gender),
 			root.get(Patient_.dob),
 			root.get(Patient_.registerAt),
-			root.get(Patient_.phone),
+			root.get(Patient_.account).get(Account_.phone),
 			root.get(Patient_.email)
 		);
 	}

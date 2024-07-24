@@ -44,9 +44,6 @@ public class Patient extends AuditableEntity {
 	private LocalDateTime registerAt;
 	
 	@Column(nullable = false)
-	private String phone;
-	
-	@Column(nullable = false)
 	private String email;
 
 	private Address address;

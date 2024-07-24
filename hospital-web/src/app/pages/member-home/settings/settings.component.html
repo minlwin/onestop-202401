@@ -1,0 +1,38 @@
+<app-page-title icon="bi-house" title="Member Home"></app-page-title>
+
+<div class="row mt-3">
+  <div class="col-3">
+    <!-- Profile -->
+    <app-profile [profile]="profile()"></app-profile>
+
+    <!-- Member Menus -->
+    @if (activated()) {
+      <div class="mt-4">
+        <div class="list-group">
+          <a [routerLink]="['/member/settings/dash-board']" routerLinkActive="active" class="list-group-item">
+            <i class="bi-person"></i> Member Home
+          </a>
+          @if (security.isDoctor() || security.isPatient()) {
+            <a [routerLink]="['/member/settings/appointments']" routerLinkActive="active" class="list-group-item">
+              <i class="bi-calendar"></i> Appointments
+            </a>
+          }
+          <a [routerLink]="['/member/settings/change-pass']" routerLinkActive="active" class="list-group-item">
+            <i class="bi-shield"></i> Change Password
+          </a>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="col">
+
+    @if (!activated()) {
+      <div class="alert alert-info mb-3">
+        You have to change password to activate your account.
+      </div>
+    }
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

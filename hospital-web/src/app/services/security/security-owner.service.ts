@@ -22,6 +22,11 @@ export class SecurityOwner {
   roles = computed(() => this.loginUser()?.roles)
   loginUserName = computed(() => this.loginUser()?.name)
 
+  isPatient = computed(() => this.roles()?.filter(a => a == 'Patient').pop() != undefined)
+  isOffice = computed(() => this.roles()?.filter(a => a == 'Office').pop() != undefined)
+  isDoctor = computed(() => this.roles()?.filter(a => a == 'Doctor').pop() != undefined)
+  isAdmin = computed(() => this.roles()?.filter(a => a == 'Admin').pop() != undefined)
+
   active = computed(() => this.roles()?.filter(role => role == 'Activated').length == 1)
   memberRole = computed(() => this.roles()?.filter(role => role != 'Activated').pop())
 

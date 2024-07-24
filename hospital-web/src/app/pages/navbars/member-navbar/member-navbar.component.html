@@ -15,7 +15,7 @@
         </li>
 
         <li class="nav-item">
-          <a [routerLink]="['/member', 'appointments']" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="['/member', 'schedules']" routerLinkActive="active" class="nav-link">
             <i class="bi-calendar"></i> Schedules
           </a>
         </li>
@@ -36,10 +36,10 @@
 
           } @else {
             <li class="nav-item dropdown">
-              <a #dropdownToggler class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <i class="bi-people"></i> Members
               </a>
-              <ul #dropdownMenu class="dropdown-menu">
+              <ul #masterMenu class="dropdown-menu">
                 <li>
                   <a [routerLink]="['/member', 'members', 'office-staffs']" routerLinkActive="active" class="dropdown-item">Office Staff</a>
                 </li>
@@ -57,10 +57,24 @@
 
       }
 
-      <li class="nav-item">
-        <a (click)="signOut()" class="nav-link">
-          <i class="bi-lock"></i> Sign Out
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="bi-person-fill"></i> {{loginUser()}}
         </a>
+        <ul #memberMenu class="dropdown-menu">
+          @if (activated()) {
+            <li>
+              <a [routerLink]="['/member', 'settings', 'dash-board']" routerLinkActive="active" class="dropdown-item">Member Home</a>
+            </li>
+          }
+          <li>
+            <a [routerLink]="['/member', 'settings', 'change-pass']" routerLinkActive="active" class="dropdown-item">Change Password</a>
+          </li>
+          <li class="dropdown-divider"></li>
+          <li>
+            <a (click)="signOut()" class="dropdown-item">Sign Out</a>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>

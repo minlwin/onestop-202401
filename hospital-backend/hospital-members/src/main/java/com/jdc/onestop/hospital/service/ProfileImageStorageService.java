@@ -25,7 +25,7 @@ public class ProfileImageStorageService {
 	private static final DateTimeFormatter DF = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
 	
 	
-	public String saveProfile(int id, MultipartFile file) {
+	public String saveProfile(String id, MultipartFile file) {
 		
 		validate(file);
 		
@@ -59,8 +59,8 @@ public class ProfileImageStorageService {
 		return array[array.length - 1];
 	}
 
-	private String getFileName(int id, MultipartFile file) {
+	private String getFileName(String id, MultipartFile file) {
 		var extension = getExtension(file.getOriginalFilename());
-		return "profile-%04d.%s.%s".formatted(id, LocalDateTime.now().format(DF) ,extension);
+		return "profile-%s.%s.%s".formatted(id, LocalDateTime.now().format(DF) ,extension);
 	}
 }

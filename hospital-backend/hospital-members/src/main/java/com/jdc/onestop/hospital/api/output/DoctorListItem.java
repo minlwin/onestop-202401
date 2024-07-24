@@ -35,12 +35,12 @@ public record DoctorListItem(
 		cq.multiselect(
 			root.get(Doctor_.id),
 			root.get(Doctor_.account).get(Account_.fullName),
-			root.get(Doctor_.profile),
+			root.get(Doctor_.account).get(Account_.profile),
 			root.get(Doctor_.status),
 			root.get(Doctor_.department).get(Department_.id),
 			root.get(Doctor_.department).get(Department_.name),
 			root.get(Doctor_.degree),
-			root.get(Doctor_.phone),
+			root.get(Doctor_.account).get(Account_.phone),
 			root.get(Doctor_.email),
 			root.get(Doctor_.assignAt),
 			root.get(Doctor_.star)			
@@ -52,12 +52,12 @@ public record DoctorListItem(
 		return new DoctorListItem(
 				d.getId(), 
 				d.getAccount().getFullName(),
-				d.getProfile(), 
+				d.getAccount().getProfile(), 
 				d.getStatus(), 
 				d.getDepartment().getId(), 
 				d.getDepartment().getName(), 
 				d.getDegree(), 
-				d.getPhone(), 
+				d.getAccount().getPhone(), 
 				d.getEmail(),
 				d.getAssignAt(),
 				d.getStar());

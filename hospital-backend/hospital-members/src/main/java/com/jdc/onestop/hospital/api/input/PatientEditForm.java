@@ -22,7 +22,7 @@ public record PatientEditForm(
 		patient.setName(name);
 		patient.setGender(gender);
 		patient.setDob(dob);
-		patient.setPhone(phone);
+		patient.getAccount().setPhone(phone);
 	}
 
 }

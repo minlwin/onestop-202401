@@ -27,7 +27,7 @@ public record DoctorEditForm(
 	public void update(Doctor entity) {
 		entity.getAccount().setFullName(name);
 		entity.setDegree(degree);
-		entity.setPhone(phone);
+		entity.getAccount().setPhone(phone);
 		entity.setEmail(email);
 		entity.setAssignAt(assignAt);
 		entity.setChangeAt(LocalDateTime.now());

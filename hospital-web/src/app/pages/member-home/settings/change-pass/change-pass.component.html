@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">
+      <i class="bi-shield"></i> Change Password
+    </h5>
+
+    <form [formGroup]="form" class="w-50 mt-4">
+      <app-form-group [valid]="form.get('oldPass')?.valid" label="Old Password" [vertical]="true">
+        <input formControlName="oldPass" type="password" placeholder="Old Password" class="form-control">
+      </app-form-group>
+      <app-form-group [valid]="form.get('newPass')?.valid" label="New Password" [vertical]="true">
+        <input formControlName="newPass" type="password" placeholder="New Password" class="form-control">
+      </app-form-group>
+
+      <div>
+        <button (click)="changePassword()" [class.disabled]="!form.valid" type="button" class="btn btn-outline-primary">
+          <i class="bi-save2"></i> Change Password
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

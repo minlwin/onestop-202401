@@ -19,8 +19,6 @@ import lombok.EqualsAndHashCode;
 @Table(name = "DOCTOR")
 public class Doctor extends Employee {
 
-	private String profile;
-	
 	@Column(nullable = false)
 	private String degree;
 	

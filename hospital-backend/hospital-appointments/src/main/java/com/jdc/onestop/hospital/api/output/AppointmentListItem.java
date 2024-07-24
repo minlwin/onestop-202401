@@ -57,8 +57,7 @@ public record AppointmentListItem(
 			root.get(Appointment_.schedule).get(DoctorSchedule_.doctor).get(Doctor_.account).get(Account_.fullName),
 			root.get(Appointment_.patient).get(Patient_.id),
 			root.get(Appointment_.patient).get(Patient_.name),
-			root.get(Appointment_.patient).get(Patient_.phone)
-			
+			root.get(Appointment_.patient).get(Patient_.account).get(Account_.phone)
 		);
 	}
 }

@@ -1,0 +1,7 @@
+@if (security.isAdmin() || security.isOffice()) {
+  <app-office-dash></app-office-dash>
+} @else if (security.isDoctor()) {
+  <app-doctor-dash></app-doctor-dash>
+} @else if (security.isPatient()) {
+  <app-patient-dash></app-patient-dash>
+}
