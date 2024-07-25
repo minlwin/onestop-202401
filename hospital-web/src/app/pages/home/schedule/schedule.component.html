@@ -1,1 +1,16 @@
-<p>schedule works!</p>
+<app-page-title icon="bi-calendar" title="Schedules for Doctor"></app-page-title>
+
+<div class="row mt-3">
+
+  <div class="col-3">
+    <app-profile [profile]="state.profile()"></app-profile>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

@@ -62,6 +62,7 @@ public class OfficeStaffService {
 		var account = new Account();
 		account.setFullName(form.name());
 		account.setUsername(form.email());
+		account.setPhone(form.phone());
 		account.setRole(MemberRole.Doctor);
 		account.setPassword(passwordEncoder.encode(passwordForNew));
 		

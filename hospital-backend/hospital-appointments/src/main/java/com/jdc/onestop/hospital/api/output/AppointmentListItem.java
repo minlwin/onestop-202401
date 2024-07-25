@@ -1,6 +1,7 @@
 package com.jdc.onestop.hospital.api.output;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.jdc.onestop.hospital.domain.member.entity.Account_;
 import com.jdc.onestop.hospital.domain.member.entity.Doctor_;
@@ -27,7 +28,8 @@ public record AppointmentListItem(
 		String doctorName,
 		int patientId,
 		String patientName,
-		String patientPhone
+		String patientPhone,
+		LocalDateTime createAt
 		) {
 
 	public AppointmentListItem(
@@ -41,8 +43,10 @@ public record AppointmentListItem(
 		String doctorName,
 		int patientId,
 		String patientName,
-		String patientPhone) {
-		this(id.getCode(), date, section, tokenNumber, complain, status, doctorId, doctorName, patientId, patientName, patientPhone);
+		String patientPhone,
+		LocalDateTime createAt
+		) {
+		this(id.getCode(), date, section, tokenNumber, complain, status, doctorId, doctorName, patientId, patientName, patientPhone, createAt);
 	}
 	
 	public static void select(CriteriaQuery<AppointmentListItem> cq, Root<Appointment> root) {
@@ -57,7 +61,8 @@ public record AppointmentListItem(
 			root.get(Appointment_.schedule).get(DoctorSchedule_.doctor).get(Doctor_.account).get(Account_.fullName),
 			root.get(Appointment_.patient).get(Patient_.id),
 			root.get(Appointment_.patient).get(Patient_.name),
-			root.get(Appointment_.patient).get(Patient_.account).get(Account_.phone)
+			root.get(Appointment_.patient).get(Patient_.account).get(Account_.phone),
+			root.get(Appointment_.createAt)
 		);
 	}
 }

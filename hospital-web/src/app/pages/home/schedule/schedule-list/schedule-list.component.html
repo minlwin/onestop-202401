@@ -1,1 +1,41 @@
-<p>schedule-list works!</p>
+<h5 class="card-title">
+  <i class="bi-calendar"></i> Schedules
+</h5>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Day</th>
+      <th>Section</th>
+      <th>Start Time</th>
+      <th>Max Token</th>
+      <th>Available</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (item of state.schedules(); track $index) {
+      <tr>
+        <td>{{item.issueAt}}</td>
+        <td>{{item.day}}</td>
+        <td>{{item.section}}</td>
+        <td>{{item.startTime}}</td>
+        <td>{{item.maxToken}}</td>
+        <th>
+          @if (item.available) {
+            <i class="bi-check"></i>
+          }
+        </th>
+        <th class="text-center">
+          @if (security.isPatientOrAnonymous()) {
+            <a (click)="takeAppointment(item)" class="icon-link">
+              <i class="bi-arrow-right"></i>
+            </a>
+          }
+        </th>
+      </tr>
+    }
+  </tbody>
+</table>

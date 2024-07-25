@@ -1,7 +1,8 @@
 package com.jdc.onestop.hospital.api.output.dto;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 import com.jdc.onestop.hospital.domain.transaction.entity.DoctorSchedule;
 import com.jdc.onestop.hospital.domain.utils.consts.Section;
@@ -13,8 +14,12 @@ public record DoctorScheduleInfo(
 		int currentToken,
 		int maxToken) {
 
-	public DayOfWeek getDay() {
-		return issueAt.getDayOfWeek();
+	public String getDay() {
+		return issueAt.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault());
+	}
+	
+	public String getStartTime() {
+		return section.getAcceptableTime();
 	}
 	
 	public boolean isAvailable() {

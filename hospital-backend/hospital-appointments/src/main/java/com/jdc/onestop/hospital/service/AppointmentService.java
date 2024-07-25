@@ -21,6 +21,7 @@ import com.jdc.onestop.hospital.domain.transaction.entity.Appointment;
 import com.jdc.onestop.hospital.domain.transaction.entity.Appointment_;
 import com.jdc.onestop.hospital.domain.transaction.repo.AppointmentRepo;
 import com.jdc.onestop.hospital.domain.transaction.repo.DoctorScheduleRepo;
+import com.jdc.onestop.hospital.domain.utils.consts.AppointmentStatus;
 import com.jdc.onestop.hospital.domain.utils.embeddables.AppointmentPk;
 import com.jdc.onestop.hospital.domain.utils.embeddables.AppointmentPk_;
 import com.jdc.onestop.hospital.domain.utils.embeddables.DoctorSchedulePk;
@@ -45,7 +46,7 @@ public class AppointmentService {
 	public AppointmentDetails create(AppointmentEditForm form) {
 		
 		var limitTime = LocalDateTime.of(form.date(), LocalTime.parse(form.section().getAcceptableTime()));
-		if(limitTime.isAfter(LocalDateTime.now())) {
+		if(limitTime.isBefore(LocalDateTime.now())) {
 			throw new ApiBusinessException("Appointment can not accept at that time.");
 		}
 		
@@ -72,6 +73,7 @@ public class AppointmentService {
 		appointent.setSchedule(schedule);
 		appointent.setTokenNumber(tokenNumber);
 		appointent.setComplain(form.complain());
+		appointent.setStatus(AppointmentStatus.Applied);
 		
 		appointent = appointmentRepo.saveAndFlush(appointent);
 		

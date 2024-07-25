@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthClientService } from '../../../services/client/auth-client.service';
 import { SecurityOwner } from '../../../services/security/security-owner.service';
+import { AfterLoginNavigationSate } from '../../../services/utils/after-login-navigation.state';
 
 @Component({
   selector: 'app-signin',
@@ -21,7 +22,8 @@ export class SigninComponent {
     builder:FormBuilder,
     private router:Router,
     private client:AuthClientService,
-    private security:SecurityOwner
+    private security:SecurityOwner,
+    private navState:AfterLoginNavigationSate
   ) {
     this.form = builder.group({
       username: ['', Validators.required],
@@ -33,7 +35,12 @@ export class SigninComponent {
     if(this.form.valid) {
       this.client.generateToken(this.form.value).subscribe(result => {
         this.security.login(result)
-        this.router.navigate(['/member'])
+        if(this.navState.navigation() != undefined) {
+          const navigation = this.navState.navigation()!
+          this.router.navigate(navigation.url, {queryParams: navigation.queryParams})
+        } else {
+          this.router.navigate(['/member'])
+        }
       })
     }
   }

@@ -1,1 +1,31 @@
-<p>appointment-edit works!</p>
+<h5 class="card-title">
+  <i class="bi-calendar-check"></i> Take Appointment
+</h5>
+
+<form [formGroup]="form">
+  <div class="row">
+    <!-- Date -->
+    <app-form-group class="col" [vertical]="true" label="Date">
+      <span class="form-control">{{form.get('date')?.value}} ({{state.selectedSchedule()?.day}})</span>
+    </app-form-group>
+
+    <!-- Section -->
+    <app-form-group class="col" label="Section">
+      <span class="form-control">{{form.get('section')?.value}}</span>
+    </app-form-group>
+
+    <!-- Start Time -->
+    <app-form-group class="col" label="Start Time">
+      <span class="form-control">{{state.selectedSchedule()?.startTime}}</span>
+    </app-form-group>
+  </div>
+
+  <!-- Complain -->
+  <app-form-group [vertical]="true" label="Chief Complain">
+    <textarea class="form-control" placeholder="Enter Chief Complain"></textarea>
+  </app-form-group>
+
+  <button (click)="save()" [class.disabled]="!form.valid" type="button" class="btn btn-outline-primary">
+    <i class="bi-save2"></i> Take Appointment
+  </button>
+</form>

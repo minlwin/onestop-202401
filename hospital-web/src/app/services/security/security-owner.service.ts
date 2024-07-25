@@ -26,6 +26,8 @@ export class SecurityOwner {
   isOffice = computed(() => this.roles()?.filter(a => a == 'Office').pop() != undefined)
   isDoctor = computed(() => this.roles()?.filter(a => a == 'Doctor').pop() != undefined)
   isAdmin = computed(() => this.roles()?.filter(a => a == 'Admin').pop() != undefined)
+  isAnonymous = computed(() => this.username() == undefined)
+  isPatientOrAnonymous = computed(() => this.isPatient() || this.username() == undefined)
 
   active = computed(() => this.roles()?.filter(role => role == 'Activated').length == 1)
   memberRole = computed(() => this.roles()?.filter(role => role != 'Activated').pop())

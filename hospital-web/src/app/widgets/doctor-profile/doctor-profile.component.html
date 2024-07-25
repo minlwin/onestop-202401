@@ -4,11 +4,9 @@
     <i class="bi-person"></i> Personal Information
   </span>
 
-  @if (security.isAdmin() || security.isOffice()) {
-    <a action [routerLink]="['../edit/profile']" [queryParams]="{id: doctor()?.id}" class="icon-link">
-      <i class="bi-pencil"></i>
-    </a>
-  }
+  <a action [routerLink]="['../edit/profile']" [queryParams]="{id: doctor()?.id}" class="icon-link">
+    <i class="bi-pencil"></i>
+  </a>
 
 </app-information-card>
 
